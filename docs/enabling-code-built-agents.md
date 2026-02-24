@@ -102,6 +102,59 @@ For code-built agents discovered outside formal channels:
 2. Check **Entra → Agent ID → All agent identities** to find identities and inspect access logs.
 3. Assign unknown agents to the **Quarantined** collection.
 4. Apply **Conditional Access** policies to block high-risk agent behavior.
+5. Use **Microsoft Defender → Advanced Hunting** to inspect trace logs and detect anomalous tool usage.
+6. Use **Microsoft Purview DLP** to block agent interactions with sensitive data based on security labels.
+
+## Extending Agents with MCP Tooling Servers
+
+Once registered, code-built agents can access **Agent 365 tooling servers** — enterprise-grade Model Context Protocol (MCP) servers that provide governed access to Microsoft 365 services.
+
+### Available Default MCP Servers
+
+| Server | Capabilities |
+|---|---|
+| **Outlook Mail** | Create, update, delete messages; reply/reply-all; semantic search |
+| **Outlook Calendar** | Create, list, update, delete events; accept/decline; resolve conflicts |
+| **Teams** | Create/update/delete chats; add members; post messages; channel operations |
+| **SharePoint & OneDrive** | Upload files; get metadata; search; manage lists |
+| **Copilot Search** | Chat with M365 Copilot; multi-turn threads; ground responses with files |
+| **Dataverse & Dynamics 365** | CRUD operations and domain-specific actions |
+| **User Profile** | Manager, direct reports, profile info; user search |
+| **Word** | Create/read documents; add and reply to comments |
+
+### Governance
+
+- Each MCP server is represented as a **permission on the Agent 365 application**.
+- Admin must **grant required permissions** during agent onboarding — only then does the agent gain access.
+- If an MCP server is **blocked**, it is blocked for every user and every agent.
+- Manage in **M365 admin center → Agents and Tools**.
+
+### Custom MCP Servers
+
+Use the **Microsoft MCP Management Server** to build custom servers via API:
+
+- `CreateMCPServer` — Spin up a new server instance
+- `CreateToolWithConnector` — Add connectors, Graph APIs, REST endpoints, or Dataverse custom APIs
+- `PublishMCPServer` — Publish a server (currently tenant admin only)
+
+Supports **1,500+ connectors** (ServiceNow, JIRA, etc.), Microsoft Graph APIs, Dataverse custom APIs, and any REST endpoint.
+
+### Authentication for Tooling
+
+Agents authenticate to MCP servers using **agentic user identity** or **On-Behalf-Of (OBO) delegated user permissions**.
+
+## Security Stack for Code-Built Agents
+
+Agent 365 extends Microsoft's full security suite to registered agents:
+
+| Layer | Product | What It Does |
+|---|---|---|
+| **Identity** | Entra Agent Registry | Complete inventory including shadow agents |
+| **Access Control** | Entra Conditional Access + ID Protection | Risk-based policies; detect risky agent behavior |
+| **Security Posture** | Microsoft Defender + Exposure Management | Attack path analysis; remediate misconfigurations |
+| **Detection & Response** | Microsoft Defender | Threat detection; incident-level investigation |
+| **Runtime Defense** | Defender + Entra SASE + Purview Insider Risk | Block prompt injection, malicious traffic, data exfiltration |
+| **Data Security** | Purview DLP + Information Protection | Block agent access to sensitive data by label/policy |
 
 ## References
 
@@ -110,3 +163,5 @@ For code-built agents discovered outside formal channels:
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/agent-id-creation-channels" target="_blank">How are agent identities created?</a>
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/manage-agents-without-identity" target="_blank">Manage Agents with No Agent Identities</a>
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-registry-collections" target="_blank">Agent Registry collections</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview" target="_blank">Agent 365 Tooling Servers (MCP)</a>
+- <a href="https://learn.microsoft.com/en-us/security/security-for-ai/agent-365-security" target="_blank">Secure AI agents at scale using Microsoft Agent 365</a>

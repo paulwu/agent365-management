@@ -59,9 +59,12 @@ Once approved:
 
 After the agent is visible and activated:
 
-- **Conditional Access** — Create policies in Entra targeting agent identities to control access scope and behavior (requires Entra ID P1).
-- **Identity Governance** — Use access packages for time-bound approvals and renewals (requires Entra ID Governance or Entra Suite).
+- **Conditional Access** — Create policies in Entra targeting agent identities to control access scope and behavior. Policies can trigger based on agent context, risk level, and target resource. Requires Entra ID P1.
+- **Entra ID Protection for agents** — Automatically detect and respond to risky agent behavior such as accessing unfamiliar resources or unusual sign-in patterns.
+- **Identity Governance** — Use access packages for time-bound approvals and renewals. Assign agent sponsors to ensure ongoing oversight. Agent lifecycle workflows prevent agents from retaining resource access longer than needed. Requires Entra ID Governance or Entra Suite.
 - **Collections** — Assign the agent to the appropriate collection (Global, Custom, or Quarantined) to control discoverability.
+- **Security Posture** — Use Microsoft Defender and Security Exposure Management to identify misconfigurations, exposures, and attack paths from agents to critical assets.
+- **Data Security** — Use Microsoft Purview DLP and Information Protection to block agent interactions with sensitive data based on security labels and policies.
 
 ## General Approach for Older Microsoft-Built Agents
 
@@ -72,8 +75,10 @@ After the agent is visible and activated:
 
 ## References
 
-- [Automatically create Entra agent identities (preview)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-use-entra-agent-identities)
-- [Agent Registry in the Microsoft 365 admin center](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide)
-- [View and manage agent identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-lists)
-- [Agent Settings in Microsoft 365 admin center](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-settings?view=o365-worldwide)
-- [Governing Agent Identities (Preview)](https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview)
+- <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-use-entra-agent-identities" target="_blank">Automatically create Entra agent identities (preview)</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide" target="_blank">Agent Registry in the Microsoft 365 admin center</a>
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-lists" target="_blank">View and manage agent identities</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-settings?view=o365-worldwide" target="_blank">Agent Settings in Microsoft 365 admin center</a>
+- <a href="https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview" target="_blank">Governing Agent Identities (Preview)</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/admin/capabilities-entra" target="_blank">Protect agent identities with Microsoft Entra</a>
+- <a href="https://learn.microsoft.com/en-us/security/security-for-ai/agent-365-security" target="_blank">Secure AI agents at scale using Microsoft Agent 365</a>

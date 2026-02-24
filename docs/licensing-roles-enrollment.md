@@ -45,13 +45,44 @@ As of the latest available information, **Agent 365 is in preview** via the Fron
 - The feature is accessible only through the Frontier preview program.
 - Per-agent production licensing is described as a future requirement ("will eventually require separate per-agent licenses for production use — not yet GA").
 - The Agent Registry, Agent ID, and collections features are all documented as **(preview)** in Microsoft Learn.
+- Frontier previews are subject to the existing preview terms of your customer agreements; availability and capabilities may change.
 
-Monitor the [Microsoft Agent 365 overview](https://learn.microsoft.com/en-us/microsoft-agent-365/overview) page and the Microsoft 365 roadmap for GA announcements.
+Monitor the <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/overview" target="_blank">Microsoft Agent 365 overview</a> page and the Microsoft 365 roadmap for GA announcements.
+
+## Agent 365 Overview Dashboard
+
+Once enrolled, the **Agents → Overview** page in the Microsoft 365 admin center provides a centralized control plane with:
+
+### Hero Metrics (Last 30 Days)
+
+| Metric | Description |
+|---|---|
+| **Agent Registry** | Total count of all agents in the catalog (Microsoft-built, partner-built, custom/LOB) |
+| **Active Users** | Unique users who interacted with at least one agent |
+| **Time Saved with Agents** | Estimated cumulative hours saved through agent-assisted tasks (ROI metric) |
+
+### Agent Analytics
+
+- **Agents by Publishers** — Created by your organization vs. created by external partners.
+- **Agents by Platforms** — Copilot Studio (Full/Lite), Azure AI Foundry, external partner platforms.
+- **Active Users Over Time** — Daily active user trend chart over 30 days.
+
+### Top Actions for Admins
+
+- **Pending Requests for Agents** — Approval queue prioritized oldest-first. Navigate via **Manage requests → Agent Registry → Requests tab**.
+- **Ownerless Agents** — Agents without an assigned owner. Navigate via **Assign Owner → Agent Registry → Ownerless Agents filter**.
+
+### Agent Map
+
+The **Agent Map** tab (under **Agents → All Agents**) provides an interactive spatial visualization of agents, clustered by platform (Copilot Studio lite/full, M365 Agents Toolkit, Microsoft Corporation, Others). Supports filtering by platform, publisher, and blocked status. Currently supports up to **800 agents**. Available exclusively to Frontier customers.
 
 ## References
 
-- [Agent Registry in the Microsoft 365 admin center](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide)
-- [Manage Microsoft 365 Copilot Agents](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-copilot-agents-integrated-apps?view=o365-worldwide)
-- [Microsoft Agent 365 overview](https://learn.microsoft.com/en-us/microsoft-agent-365/overview)
-- [Microsoft Entra Conditional Access](https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview)
-- [Microsoft Entra ID Governance](https://learn.microsoft.com/en-us/entra/id-governance/identity-governance-overview)
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide" target="_blank">Agent Registry in the Microsoft 365 admin center</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-copilot-agents-integrated-apps?view=o365-worldwide" target="_blank">Manage Microsoft 365 Copilot Agents</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/overview" target="_blank">Microsoft Agent 365 overview</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-365-overview?view=o365-worldwide" target="_blank">Agent 365 Overview page in the admin center</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-map?view=o365-worldwide" target="_blank">Agent Map</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/admin/capabilities-entra" target="_blank">Protect agent identities with Microsoft Entra</a>
+- <a href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview" target="_blank">Microsoft Entra Conditional Access</a>
+- <a href="https://learn.microsoft.com/en-us/entra/id-governance/identity-governance-overview" target="_blank">Microsoft Entra ID Governance</a>
