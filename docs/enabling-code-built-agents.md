@@ -60,7 +60,7 @@ Use this when you want **Entra-issued tokens, Conditional Access enforcement, an
 1. **Create an agent identity blueprint** (the template for agent identities):
    - Use Microsoft Graph API, CLI, or the Entra admin center.
    - Define the sponsor, owner, and required permissions.
-   - Requires Agent ID Developer or Agent ID Administrator role plus the Graph permissions described in the [blueprint creation guide](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint).
+   - Requires Agent ID Developer or Agent ID Administrator role plus the Graph permissions described in the <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">blueprint creation guide</a>.
 
 2. **Create agent identities from the blueprint:**
    - Agent ID Administrator for user-driven creation in Entra/CLI.
@@ -105,8 +105,8 @@ For code-built agents discovered outside formal channels:
 
 ## References
 
-- [Register Agents to the Agent Registry](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/publish-agents-to-registry)
-- [Create an agent identity blueprint](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint)
-- [How are agent identities created?](https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/agent-id-creation-channels)
-- [Manage Agents with No Agent Identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/manage-agents-without-identity)
-- [Agent Registry collections](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-registry-collections)
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/publish-agents-to-registry" target="_blank">Register Agents to the Agent Registry</a>
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">Create an agent identity blueprint</a>
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/agent-id-creation-channels" target="_blank">How are agent identities created?</a>
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/manage-agents-without-identity" target="_blank">Manage Agents with No Agent Identities</a>
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-registry-collections" target="_blank">Agent Registry collections</a>

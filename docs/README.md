@@ -17,6 +17,10 @@ Agent365-Management/
 │   ├── enabling-legacy-agents.md        Enabling agents from Copilot Studio and Foundry
 │   ├── enabling-code-built-agents.md    Registering agents built with non-Microsoft tools
 │   └── README.md                        This file
+├── scripts/          ← Automation scripts and tooling
+│   ├── Register-Agent.ps1               PowerShell script to register agents via Graph API
+│   ├── agent-metadata.json.example      Sample metadata file (copy to agent-metadata.json)
+│   └── README.md                        Field-by-field guide, roles, and app registration setup
 └── .github/
     └── copilot-instructions.md          Instructions for GitHub Copilot sessions
 ```

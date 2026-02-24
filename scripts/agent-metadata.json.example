@@ -1,0 +1,42 @@
+{
+  "displayName": "Contoso HR Benefits Bot",
+  "description": "Answers employee questions about health, dental, and retirement benefits using the company benefits handbook.",
+  "ownerIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "url": "https://hr-benefits-bot.contoso.com/api/agent",
+  "originatingStore": "custom",
+  "preferredTransport": "restApi",
+  "agentCardManifest": {
+    "displayName": "Contoso HR Benefits Bot",
+    "description": "Answers employee questions about health, dental, and retirement benefits using the company benefits handbook.",
+    "iconUrl": "https://hr-benefits-bot.contoso.com/icon.png",
+    "documentationUrl": "https://contoso.sharepoint.com/sites/IT/agents/hr-benefits-bot",
+    "provider": {
+      "name": "Contoso IT Department",
+      "url": "https://contoso.com"
+    },
+    "skills": [
+      {
+        "name": "BenefitsLookup",
+        "description": "Looks up benefit plan details for a given employee"
+      },
+      {
+        "name": "EnrollmentStatus",
+        "description": "Checks open enrollment status and deadlines"
+      }
+    ],
+    "capabilities": [
+      "chat",
+      "searchAnswers"
+    ],
+    "security": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/contoso.com/oauth2/v2.0/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/contoso.com/oauth2/v2.0/token",
+      "scopes": "api://hr-benefits-bot/.default"
+    },
+    "protocolVersion": "1.0",
+    "version": "1.0.0"
+  }
+}
