@@ -38,6 +38,119 @@ Legacy Copilot Studio agents won't appear if:
 
 See [enabling-legacy-agents.md](enabling-legacy-agents.md) for the full remediation process.
 
+### Step 5: Trace Agent Identities via Service Principal Tags
+
+Steps 1–4 rely on agents being visible in the Agent Registry or Entra Agent ID portal. However, **agents that were never registered or integrated with Agent 365 won't appear in either view**. These truly hidden agents still leave identity traces as service principals in Entra ID.
+
+Agent-related service principals carry specific **tags** that identify them even when they aren't in the Agent Registry:
+
+| Tag Pattern | Agent Type |
+|---|---|
+| `AgenticInstance` | Agent 365 managed agent instance |
+| `AgenticApp` | Agent application registered via Agent 365 |
+| `power-virtual-agents-*` | Copilot Studio (formerly Power Virtual Agents) bot |
+
+**Query via Microsoft Graph PowerShell:**
+
+```powershell
+Import-Module Microsoft.Graph.Authentication
+Connect-MgGraph -Scopes "Application.Read.All"
+
+# Find service principals with agent-related tags
+$url = "https://graph.microsoft.com/v1.0/servicePrincipals?`$filter=" +
+    "(tags/Any(p: startswith(p, 'power-virtual-agents-'))" +
+    " or tags/Any(p: p eq 'AgenticInstance')" +
+    " or tags/Any(p: p eq 'AgenticApp'))"
+$results = Invoke-MgGraphRequest -Method Get -Uri $url
+$results.value | Select-Object displayName, appId, tags, createdDateTime
+```
+
+Cross-reference the results against your Agent Registry inventory. Any service principal found here but **not** in the Registry is a shadow agent that needs onboarding or removal.
+
+### Step 6: Analyze Agent Sign-In Logs
+
+Entra ID now includes an `agentSignIn` resource type in sign-in logs, enabling you to filter for agent-specific authentication activity — even for agents not in the formal registry.
+
+1. Go to **Entra admin center → Monitoring → Sign-in logs**.
+2. Filter by **Sign-in type: Service principal** and look for entries with agent-specific attributes.
+3. Review key log fields:
+   - `AppOwnerTenantId` — identifies the tenant that owns the agent.
+   - `ResourceOwnerTenantId` — identifies which resources the agent accessed.
+   - `SourceAppClientID` — the client ID performing the sign-in.
+   - `SessionID` — for correlating multi-step agent workflows.
+4. Flag sign-ins from **unknown app IDs**, **external tenants**, or with **abnormal frequency**.
+
+**Via Graph API:**
+
+```powershell
+Connect-MgGraph -Scopes "AuditLog.Read.All"
+
+# Get recent service principal sign-ins (last 7 days)
+$date = (Get-Date).AddDays(-7).ToString("yyyy-MM-ddTHH:mm:ssZ")
+$url = "https://graph.microsoft.com/v1.0/auditLogs/signIns?`$filter=" +
+    "signInEventTypes/any(t: t eq 'servicePrincipal') and createdDateTime ge $date" +
+    "&`$top=100&`$orderby=createdDateTime desc"
+$signIns = Invoke-MgGraphRequest -Method Get -Uri $url
+$signIns.value | Select-Object appDisplayName, appId, resourceDisplayName,
+    ipAddress, createdDateTime, status
+```
+
+### Step 7: Discover Shadow AI Agents via Microsoft Defender
+
+Microsoft Defender for Cloud Apps provides an **AI agent inventory** that discovers agents across your environment — including shadow agents that bypass the Agent Registry entirely.
+
+1. Go to **Microsoft Defender portal → Investigation & response → Cloud apps → AI agent inventory**.
+2. Review discovered agents, including those from:
+   - Copilot Studio (low-code/no-code)
+   - Azure AI Foundry (pro-code)
+   - Third-party AI platforms detected via endpoint traffic analysis
+3. For each agent, Defender surfaces:
+   - Agent instructions/prompts
+   - Connected tools and data sources
+   - User identity context
+   - Risk indicators
+
+**Advanced Hunting with AIAgentsInfo:**
+
+Use the `AIAgentsInfo` table in Defender Advanced Hunting to query for shadow agents:
+
+```kusto
+AIAgentsInfo
+| where Timestamp > ago(30d)
+| summarize AgentCount = dcount(AgentName) by AgentPlatform, IsManaged
+| order by AgentCount desc
+```
+
+Filter for `IsManaged == false` to surface unmanaged/shadow agents.
+
+**Cloud Discovery for Generative AI apps:**
+
+1. Go to **Defender for Cloud Apps → Cloud Discovery**.
+2. Filter the app catalog by category: **Generative AI**.
+3. Review usage data, risk scores, and which users are accessing unsanctioned AI tools from corporate devices.
+
+### Step 8: Audit App Registrations for Over-Privileged or Orphaned Agents
+
+Hidden agents often exist as standard **app registrations** with high-privilege API permissions but no formal agent identity.
+
+1. Go to **Entra admin center → Applications → App registrations → All applications**.
+2. Audit for red flags:
+   - **No owner assigned** — orphaned apps with no human accountability.
+   - **Excessive permissions** — apps with `Directory.ReadWrite.All`, `Application.ReadWrite.All`, `Mail.ReadWrite`, or other high-privilege Graph permissions.
+   - **Expired or unused credentials** — stale secrets/certificates that could be exploited.
+   - **External ownership** — apps registered by guest or external users.
+   - **Generic or suspicious names** — apps with names like "test-bot", "agent-1", or no description.
+
+Use the **Discover-ShadowAgents.ps1** script in the [scripts/](../scripts/) folder to automate this audit.
+
+### Step 9: Use Third-Party Tools for Comprehensive Enumeration
+
+| Tool | What It Does | Link |
+|---|---|---|
+| **EntraFalcon** | Enumerates all Entra objects (users, apps, service principals) and scores them for risk, privilege, and anomalous configuration | <a href="https://blog.compass-security.com/2025/04/introducing-entrafalcon-a-tool-to-enumerate-entra-id-objects-and-assignments/" target="_blank">EntraFalcon</a> |
+| **Defender for Cloud Apps** | Endpoint-based discovery of shadow AI tools accessed from corporate devices | Built into Microsoft Defender |
+| **Security Dashboard for AI** | Single-pane view aggregating posture, inventory, and risk signals from Defender, Entra, and Purview | Built into Microsoft Defender (Preview) |
+
 ---
 
 ## Phase 2: Onboard Discovered Agents

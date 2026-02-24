@@ -1,4 +1,15 @@
-# Agent Registration Script Documentation
+# Agent 365 Scripts Documentation
+
+## Scripts in This Folder
+
+| Script | Purpose |
+|---|---|
+| **Register-Agent.ps1** | Register a code-built agent in the Entra Agent Registry via Graph API |
+| **Discover-ShadowAgents.ps1** | Discover shadow/rogue agents by scanning service principals, app registrations, permissions, and sign-in logs |
+
+---
+
+# Register-Agent.ps1
 
 ## Overview
 
@@ -149,3 +160,110 @@ If you are using Pattern B (full identity integration), add these top-level fiel
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/publish-agents-to-registry" target="_blank">Register Agents to the Agent Registry</a>
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">Create an agent identity blueprint</a>
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-registry-collections" target="_blank">Agent Registry collections</a>
+
+---
+
+# Discover-ShadowAgents.ps1
+
+## Overview
+
+Scans your Entra ID tenant for shadow and rogue AI agents that may not appear in the Agent 365 Registry. Outputs a CSV report with risk indicators.
+
+## What It Discovers
+
+| Check | What It Finds |
+|---|---|
+| **Agent-tagged service principals** | Service principals with `AgenticInstance`, `AgenticApp`, or `power-virtual-agents-*` tags |
+| **Ownerless app registrations** | Apps with no assigned owner (governance gap) |
+| **High-privilege permissions** | Apps with dangerous Graph API permissions (`Directory.ReadWrite.All`, `Mail.Send`, etc.) |
+| **Stale credentials** | Apps with expired secrets or certificates |
+| **Sign-in activity** (optional) | Recent service principal sign-ins to identify active but unregistered agents |
+
+## Prerequisites
+
+**PowerShell module:**
+
+```powershell
+Install-Module Microsoft.Graph.Authentication -Scope CurrentUser
+```
+
+**Entra role (least-privilege):**
+
+| Role | Purpose |
+|---|---|
+| **Global Reader** | Read-only access to app registrations, service principals, and sign-in logs |
+
+> Global Reader is sufficient for discovery. No write permissions are needed.
+
+**Microsoft Graph permissions** (delegated):
+
+| Permission | Required For |
+|---|---|
+| `Application.Read.All` | Read app registrations and service principals |
+| `Directory.Read.All` | Read directory objects and ownership |
+| `AuditLog.Read.All` | Read sign-in logs (only needed with `-IncludeSignIns`) |
+
+## Quick Start
+
+```powershell
+# Basic discovery
+.\Discover-ShadowAgents.ps1
+
+# Include sign-in log analysis
+.\Discover-ShadowAgents.ps1 -IncludeSignIns
+
+# Custom output path and stale threshold
+.\Discover-ShadowAgents.ps1 -OutputPath "C:\Reports\agents.csv" -DaysInactive 60 -IncludeSignIns
+```
+
+## Parameters
+
+| Parameter | Required | Default | Description |
+|---|---|---|---|
+| `-OutputPath` | No | `shadow-agents-report.csv` (in script directory) | Path for the output CSV report |
+| `-DaysInactive` | No | 90 | Number of days to consider an agent "stale" |
+| `-IncludeSignIns` | No | Off | Also query sign-in logs for agent activity (requires `AuditLog.Read.All`) |
+
+## Output
+
+The script generates a CSV with the following columns:
+
+| Column | Description |
+|---|---|
+| `DisplayName` | App or service principal name |
+| `AppId` | Application (client) ID |
+| `ObjectId` | Entra object ID |
+| `Type` | How it was discovered (Tagged Agent SP, Ownerless App, High-Privilege App, etc.) |
+| `Tags` | Service principal tags (if any) |
+| `CreatedDate` | When the object was created |
+| `OwnerTenantId` | Tenant ID of the app owner |
+| `RiskIndicators` | Comma-separated risk flags |
+| `Permissions` | Flagged high-privilege permissions |
+| `LastSignIn` | Most recent sign-in (if `-IncludeSignIns` used) |
+| `HasOwner` | Whether the app has an assigned owner |
+
+## Interpreting Results
+
+| Risk Indicator | Severity | Action |
+|---|---|---|
+| **Agent tag detected** | Info | Cross-reference against Agent Registry; onboard if legitimate |
+| **No owner** | High | Assign an owner or remove the app |
+| **High-privilege permissions** | High | Review and reduce to least-privilege |
+| **All credentials expired** | Medium | Remove the app if unused, or rotate credentials |
+| **Some credentials expired** | Low | Clean up expired credentials |
+
+## Scheduling
+
+For continuous monitoring, schedule the script via Azure Automation or Task Scheduler:
+
+```powershell
+# Example: Azure Automation runbook (use managed identity instead of interactive login)
+# The script will need adaptation for non-interactive auth in automation scenarios
+```
+
+## References
+
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-lists" target="_blank">View and manage agent identities</a>
+- <a href="https://learn.microsoft.com/en-us/entra/id-protection/concept-risky-agents" target="_blank">Entra ID Protection for agents</a>
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/sign-in-audit-logs-agents" target="_blank">Sign-in and audit logs for agents</a>
+- <a href="https://learn.microsoft.com/en-us/defender-cloud-apps/ai-agent-inventory" target="_blank">Discover and protect your AI agents (Preview)</a>
