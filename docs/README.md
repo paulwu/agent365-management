@@ -9,27 +9,43 @@ This repository is a knowledge base for managing and governing AI agents in Micr
 ```
 Agent365-Management/
 ├── sources/          ← Raw research documents (primary knowledge sources)
-│   ├── ChatGPT.md        Source-cited reference with Microsoft Learn links
-│   ├── Gemini.md         Prescriptive FAQ-style operational guide
-│   └── Researcher.md    Implementation guide with summary tables
+│   ├── ChatGPT.md            Source-cited reference with Microsoft Learn links
+│   ├── Gemini.md             Prescriptive FAQ-style operational guide
+│   ├── Researcher.md         Implementation guide with summary tables
+│   └── Microsoft-Learn.md    Official Microsoft Learn pages (5 articles)
 ├── docs/             ← Synthesized topic guides (generated from sources)
-│   ├── licensing-roles-enrollment.md    Licenses, Entra roles, Frontier enrollment, GA status
-│   ├── enabling-legacy-agents.md        Enabling agents from Copilot Studio and Foundry
-│   ├── enabling-code-built-agents.md    Registering agents built with non-Microsoft tools
-│   └── README.md                        This file
+│   ├── pillar-registry.md             Pillar 1: Registry — discover, onboard, prevent rogue agents
+│   ├── pillar-access-control.md       Pillar 2: Access Control — Conditional Access, governance, least-privilege
+│   ├── pillar-visualization.md        Pillar 3: Visualization — dashboard, Agent Map, monitoring
+│   ├── pillar-interoperability.md     Pillar 4: Interoperability — MCP servers, tooling gateway
+│   ├── pillar-security.md             Pillar 5: Security — posture, detection, runtime defense, data protection
+│   ├── licensing-roles-enrollment.md  Licenses, Entra roles, Frontier enrollment, GA status
+│   ├── enabling-legacy-agents.md      Enabling agents from Copilot Studio and Foundry
+│   ├── enabling-code-built-agents.md  Registering agents built with non-Microsoft tools
+│   └── README.md                      This file
 ├── scripts/          ← Automation scripts and tooling
-│   ├── Register-Agent.ps1               PowerShell script to register agents via Graph API
-│   ├── agent-metadata.json.example      Sample metadata file (copy to agent-metadata.json)
-│   └── README.md                        Field-by-field guide, roles, and app registration setup
+│   ├── Register-Agent.ps1             PowerShell script to register agents via Graph API
+│   ├── agent-metadata.json.example    Sample metadata file (copy to agent-metadata.json)
+│   └── README.md                      Field-by-field guide, roles, and app registration setup
 └── .github/
-    └── copilot-instructions.md          Instructions for GitHub Copilot sessions
+    └── copilot-instructions.md        Instructions for GitHub Copilot sessions
 ```
 
 ## How to Use This Repository
 
 ### Looking for guidance on a specific topic?
 
-Start with the **docs/** folder. Each document covers one topic end-to-end:
+Start with the **docs/** folder. The **five pillar documents** provide comprehensive operational guidance:
+
+| Document | Covers |
+|---|---|
+| [pillar-registry.md](pillar-registry.md) | **Registry** — How to identify rogue agents, onboard them, and prevent future rogue agents |
+| [pillar-access-control.md](pillar-access-control.md) | **Access Control** — Conditional Access, ID Protection, lifecycle governance, least-privilege |
+| [pillar-visualization.md](pillar-visualization.md) | **Visualization** — Overview dashboard, Agent Map, metrics, and monitoring routines |
+| [pillar-interoperability.md](pillar-interoperability.md) | **Interoperability** — MCP tooling servers, custom servers, governed tool access |
+| [pillar-security.md](pillar-security.md) | **Security** — Posture, detection, runtime defense, data protection, Purview/Defender |
+
+Additional topic guides:
 
 | Document | Covers |
 |---|---|

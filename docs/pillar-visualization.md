@@ -1,0 +1,133 @@
+# Pillar 3: Visualization
+
+Visualization gives IT administrators an intuitive way to understand the agent landscape across the tenant — tracking adoption, spotting governance gaps, and monitoring agent health at a glance. Agent 365 provides two primary visualization surfaces: the **Overview dashboard** and the **Agent Map**.
+
+---
+
+## Phase 1: Set Up Visibility
+
+### Step 1: Access the Agent 365 Overview Dashboard
+
+1. Go to **Microsoft 365 admin center → Agents → Overview**.
+2. Alternatively: **AI home page → View in Agent 365 overview**.
+
+**Required role:** AI Administrator (manage) or Global Reader (view-only).
+
+The Overview page provides a 30-day snapshot of agent health and actionable insights.
+
+### Step 2: Access the Agent Map
+
+1. Go to **Microsoft 365 admin center → Agents → All Agents → Agent Map** tab.
+2. The Agent Map tab appears before the Registry tab for eligible users.
+
+**Access requirements:**
+- Available exclusively to **Frontier customers**.
+- No special license beyond Frontier group membership.
+- If the tab doesn't appear, confirm the user has been added to the Frontier group.
+- Currently supports a maximum of **800 agents**.
+
+---
+
+## Phase 2: Understand What the Dashboard Tells You
+
+### Hero Metrics
+
+| Metric | What It Measures | Why It Matters |
+|---|---|---|
+| **Agent Registry** | Total agents in the catalog (Microsoft, partner, custom/LOB) | Shows the breadth of automation deployed |
+| **Active Users** | Unique users who interacted with ≥1 agent in 30 days | Measures adoption and engagement |
+| **Time Saved with Agents** | Estimated cumulative hours saved via agent-assisted tasks | Demonstrates ROI and business impact |
+
+### Agent Analytics
+
+| Chart | What It Shows | How to Use It |
+|---|---|---|
+| **Agents by Publishers** | Agents created by your org vs. external partners | Identify the ratio of internal vs. third-party agents; prioritize governance for third-party |
+| **Agents by Platforms** | Breakdown by creation platform (Copilot Studio lite/full, Foundry, external) | Understand which tools are producing the most agents; target governance efforts accordingly |
+| **Active Users Over Time** | Daily active user trend over 30 days | Spot adoption spikes, declines, or anomalies (sudden drops may indicate issues) |
+
+### Top Admin Actions
+
+| Card | What It Surfaces | Action |
+|---|---|---|
+| **Pending Requests** | Agent requests awaiting admin approval (oldest-first) | Click **Manage requests** → Agent Registry → Requests tab to approve/reject |
+| **Ownerless Agents** | Agents with no assigned owner | Click **Assign Owner** → Agent Registry → Ownerless Agents filter |
+
+---
+
+## Phase 3: Use the Agent Map for Spatial Analysis
+
+### What the Agent Map Shows
+
+The Agent Map is an interactive spatial visualization that clusters agents by platform. It shows the same data as the Registry tab but in a visual layout suited for large environments.
+
+### Default Clusters
+
+| Cluster | What It Contains |
+|---|---|
+| **Copilot Studio (lite)** | Lightweight agents built with the simplified Copilot Studio experience |
+| **Copilot Studio (full)** | Full-featured Copilot Studio agents |
+| **Microsoft 365 Agents Toolkit** | Agents built with the M365 Agents Toolkit |
+| **Microsoft Corporation** | Microsoft-built first-party agents |
+| **Others** | External partner or custom-coded agents |
+
+### Filtering
+
+Apply filters to narrow the view:
+- **By platform** — focus on a specific creation tool (e.g., only Copilot Studio lite).
+- **By publisher** — isolate agents from a specific team or partner.
+- **By status** — show only blocked agents to triage restricted agents.
+
+### Agent Details (Click-Through)
+
+Select any agent icon to see:
+- **Details** — description, publisher, agent type, platform, last updated, version.
+- **Users** — who is using this agent.
+- **Data and tools** — what data sources and tools the agent accesses.
+- **Security and compliance** — governance status and policy compliance.
+- **Agent activity** — usage patterns and interaction history.
+
+### Known Issues
+
+| Issue | Status |
+|---|---|
+| Filters applied in Registry may not synchronize with the map | Fix coming soon |
+| Agent count may differ between Registry and Map | Fix coming soon |
+
+---
+
+## Phase 4: Build a Monitoring Routine
+
+### Weekly Review Checklist
+
+| What to Check | Where | What to Look For |
+|---|---|---|
+| **Pending approvals** | Overview → Pending Requests card | Growing backlog = approval process bottleneck |
+| **Ownerless agents** | Overview → Ownerless Agents card | Any ownerless agent is a governance gap |
+| **Active Users trend** | Overview → Active Users Over Time chart | Sudden drops (agent outage?) or spikes (unauthorized agent?) |
+| **Platform distribution** | Overview → Agents by Platforms | Unexpected growth in "Others" = possible shadow agents |
+| **Blocked agents** | Agent Map → Filter: blocked | Agents that were blocked but may need re-evaluation |
+
+### Monthly Review Checklist
+
+| What to Check | Where | What to Look For |
+|---|---|---|
+| **Total agent count growth** | Overview → Agent Registry metric | Rapid growth may outpace governance capacity |
+| **Publisher ratio** | Overview → Agents by Publishers | Increasing external-partner ratio may need additional review |
+| **Cluster distribution** | Agent Map → visual clusters | New clusters or unexpected cluster sizes |
+| **Time Saved metric** | Overview → Time Saved with Agents | Trending down could indicate agent quality/adoption issues |
+
+### Establish Alerting
+
+While Agent 365 surfaces governance signals on the dashboard, complement with:
+1. **Entra sign-in logs** — set up alerts for agent identity sign-in failures or risky sign-ins.
+2. **Microsoft Defender → Advanced Hunting** — create detection rules for anomalous agent tool calls.
+3. **Purview alerts** — trigger on agents interacting with sensitive data classifications.
+
+---
+
+## References
+
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-365-overview?view=o365-worldwide" target="_blank">Agent 365 Overview page in the admin center</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-map?view=o365-worldwide" target="_blank">Agent Map</a>
+- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide" target="_blank">Agent Registry in the Microsoft 365 admin center</a>
