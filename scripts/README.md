@@ -4,8 +4,122 @@
 
 | Script | Purpose |
 |---|---|
+| **Create-Blueprint.ps1** | Create an agent identity blueprint in Entra ID (template for agent identities) |
 | **Register-Agent.ps1** | Register a code-built agent in the Entra Agent Registry via Graph API |
 | **Discover-ShadowAgents.ps1** | Discover shadow/rogue agents by scanning service principals, app registrations, permissions, and sign-in logs |
+
+---
+
+# Create-Blueprint.ps1
+
+## Overview
+
+The `Create-Blueprint.ps1` script reads a `blueprint-input.json` file and performs the full agent identity blueprint creation sequence via the Microsoft Graph API (`/beta` endpoint):
+
+1. Creates the agent identity blueprint with sponsor and owner assignments
+2. Configures credentials (managed identity FIC for production, or client secret for dev/test)
+3. Optionally configures an identifier URI and OAuth scope (required for interactive/OBO agents)
+4. Creates the blueprint principal (per-tenant service principal that enables token issuance)
+
+Outputs the blueprint `appId` for use as `agentIdentityBlueprintId` in `agent-metadata.json`.
+
+> See [Agent Blueprint vs. Registration](../docs/agent-blueprint-vs-registration.md) for a diagram showing how this script fits in the full workflow.
+
+---
+
+## Quick Start
+
+```powershell
+# 1. Copy the example and fill in your values
+Copy-Item blueprint-input.json.example blueprint-input.json
+
+# 2. Edit blueprint-input.json (set sponsorUserIds, ownerUserIds, credentials)
+
+# 3. Run with interactive login
+.\Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
+
+# 4. Or run with client credentials (app-only)
+.\Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id" -ClientSecret "your-secret"
+```
+
+---
+
+## Entra App Registration Setup
+
+The app registration used to **run this script** (your `-ClientId`) needs the following delegated Microsoft Graph permissions:
+
+| Permission | Purpose |
+|---|---|
+| `AgentIdentityBlueprint.Create` | Create the blueprint object |
+| `AgentIdentityBlueprint.AddRemoveCreds.All` | Add managed identity or client secret credentials |
+| `AgentIdentityBlueprint.ReadWrite.All` | Set identifier URI and OAuth scope |
+| `AgentIdentityBlueprintPrincipal.Create` | Create the per-tenant blueprint principal |
+| `User.Read` | Required for interactive device code flow |
+
+Grant admin consent after adding these permissions.
+
+---
+
+## Required Entra Roles
+
+The user or service principal running the script needs:
+
+| Role | Purpose |
+|---|---|
+| **Agent ID Developer** or **Agent ID Administrator** | Create and configure agent identity blueprints |
+| **Privileged Role Administrator** | Grant Graph Application permissions (one-time setup) |
+
+---
+
+## blueprint-input.json — Field Guide
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `displayName` | string | ✅ | Name for the blueprint. Appears in Entra admin center. |
+| `sponsorUserIds` | array | ✅ | Object IDs of Entra users who are business accountable for this agent. At least one required. |
+| `ownerUserIds` | array | Recommended | Object IDs of Entra users who are technical administrators (developers/IT). |
+| `credentials.type` | string | ✅ | `"managedIdentity"` (production) or `"clientSecret"` (dev/test). |
+| `credentials.name` | string | ✅ | Display name for the credential. |
+| `credentials.managedIdentityPrincipalId` | string | If managedIdentity | Object ID of the Azure managed identity to federate. |
+| `credentials.secretExpiryDate` | string | If clientSecret | ISO 8601 expiry date for the client secret. |
+| `exposeScope` | boolean | No | Set `true` if agents from this blueprint receive requests from users or other agents (OBO/interactive pattern). Creates `api://<appId>` identifier URI and `access_agent` scope. |
+
+---
+
+## Script Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| `-InputPath` | No | Path to blueprint input JSON. Defaults to `blueprint-input.json` in script directory. |
+| `-TenantId` | Yes | Entra tenant ID (GUID or domain name). |
+| `-ClientId` | Yes | App registration client ID used for authentication. |
+| `-ClientSecret` | No | Client secret for app-only flow. Omit for interactive device code flow. |
+
+---
+
+## Output
+
+On success, the script prints:
+
+```
+Blueprint creation complete!
+  Display Name:  <name>
+  App ID:        <blueprintAppId>
+  Object ID:     <objectId>
+
+Next steps:
+  1. Create agent identities from this blueprint (see docs/developer-identity-platform.md)
+  2. Add agentIdentityBlueprintId = '<appId>' to your agent-metadata.json
+  3. Run Register-Agent.ps1 to register the agent in the Agent Registry
+```
+
+---
+
+## References
+
+- [Developer Guide: Agent Identity Platform](../docs/developer-identity-platform.md)
+- [Agent Blueprint vs. Registration](../docs/agent-blueprint-vs-registration.md)
+- <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">Create an agent identity blueprint (Microsoft Learn)</a>
 
 ---
 

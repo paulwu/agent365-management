@@ -38,3 +38,4 @@ docs/             ← Generated output (synthesized topic guides) — do NOT use
 - Topic guides in `docs/` should include a **References** section linking to Microsoft Learn
 - When adding new research, place it in `sources/`; when generating documentation, place it in `docs/`
 - **When any file is added to or removed from `docs/`, update `docs/README.md`** — both the folder structure listing and the topic guide table — to reflect the change
+- **After completing any set of file changes, commit and push to GitHub automatically** without waiting for the user to ask

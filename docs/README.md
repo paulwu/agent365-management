@@ -21,14 +21,18 @@ Agent365-Management/
 │   ├── pillar-security.md             Pillar 5: Security — posture, detection, runtime defense, data protection
 │   ├── licensing-roles-enrollment.md  Licenses, Entra roles, Frontier enrollment, GA status
 │   ├── enabling-legacy-agents.md      Enabling agents from Copilot Studio and Foundry
-│   ├── enabling-code-built-agents.md  Registering agents built with non-Microsoft tools
-│   ├── developer-identity-platform.md Developer guide: blueprints, OAuth flows, admin relationships
-│   ├── entra-sdk-agent-id.md          Entra SDK for Agent ID: companion container, scenarios, security
-│   └── README.md                      This file
+│   ├── enabling-code-built-agents.md      Registering agents built with non-Microsoft tools
+│   ├── developer-identity-platform.md    Developer guide: blueprints, OAuth flows, admin relationships
+│   ├── entra-sdk-agent-id.md             Entra SDK for Agent ID: companion container, scenarios, security
+│   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
+│   └── README.md                          This file
 ├── scripts/          ← Automation scripts and tooling
-│   ├── Register-Agent.ps1             PowerShell script to register agents via Graph API
-│   ├── agent-metadata.json.example    Sample metadata file (copy to agent-metadata.json)
-│   └── README.md                      Field-by-field guide, roles, and app registration setup
+│   ├── Create-Blueprint.ps1           Create an agent identity blueprint (Entra Agent ID)
+│   ├── blueprint-input.json.example   Sample blueprint input (copy to blueprint-input.json)
+│   ├── Register-Agent.ps1             Register an agent in the Agent Registry via Graph API
+│   ├── agent-metadata.json.example    Sample agent metadata (copy to agent-metadata.json)
+│   ├── Discover-ShadowAgents.ps1      Scan tenant for ungoverned/shadow agents; outputs CSV report
+│   └── README.md                      Field-by-field guides, roles, and app registration setup
 └── .github/
     └── copilot-instructions.md        Instructions for GitHub Copilot sessions
 ```
@@ -56,6 +60,7 @@ Additional topic guides:
 | [enabling-code-built-agents.md](enabling-code-built-agents.md) | Two patterns for registering agents built with non-Microsoft tools (registry-only vs. full Entra Agent ID) |
 | [developer-identity-platform.md](developer-identity-platform.md) | Developer guide: blueprint creation (Graph API + PowerShell), OAuth flows, owners/sponsors/managers |
 | [entra-sdk-agent-id.md](entra-sdk-agent-id.md) | Entra SDK for Agent ID: companion container architecture, token flows, scenarios, security requirements |
+| [agent-blueprint-vs-registration.md](agent-blueprint-vs-registration.md) | Relationship diagram: blueprint creation vs. agent registration; Pattern A vs. Pattern B end-to-end flow |
 
 ### Need the original source material?
 

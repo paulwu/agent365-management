@@ -42,6 +42,10 @@ Agent Identity Blueprint  (template + credential store)
 
 ## Creating an agent identity blueprint
 
+> **Script available:** [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1) automates all four steps below. Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in your values, and run the script. The manual Graph API steps are documented here for reference.
+>
+> See also: [Agent Blueprint vs. Registration](./agent-blueprint-vs-registration.md) for a diagram of how blueprints relate to agent registration.
+
 ### 1. Connect with required scopes (PowerShell)
 
 ```powershell
@@ -228,3 +232,7 @@ Requires `AgentIdentityBlueprint.DeleteRestore.All`.
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-owners-sponsors-managers" target="_blank">Administrative relationships (owners, sponsors, managers)</a>
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-delete-agent-identities" target="_blank">Create and delete agent identities</a>
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-users" target="_blank">Agent users</a>
+- [Agent Blueprint vs. Registration diagram](./agent-blueprint-vs-registration.md)
+- [Enabling Code-Built Agents](./enabling-code-built-agents.md) — how to use these identities in Pattern B
+- [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1) — script that automates blueprint creation
+- [`Register-Agent.ps1`](../scripts/Register-Agent.ps1) — script that registers the agent in the registry

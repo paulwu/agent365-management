@@ -15,10 +15,15 @@ Use this when the agent uses its own identity provider or you want **visibility 
 
 ### Steps
 
-1. **Register an agent instance** via Microsoft Graph:
+1. **Register an agent instance** via Microsoft Graph using [`Register-Agent.ps1`](../scripts/Register-Agent.ps1):
 
    ```
    POST /beta/agentRegistry/agentInstances
+   ```
+
+   Copy `scripts/agent-metadata.json.example` → `agent-metadata.json`, fill in your values, then run:
+   ```powershell
+   .\Register-Agent.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
    ```
 
    Include the following metadata:
@@ -57,16 +62,25 @@ Use this when you want **Entra-issued tokens, Conditional Access enforcement, an
 
 ### Steps
 
-1. **Create an agent identity blueprint** (the template for agent identities):
-   - Use Microsoft Graph API, CLI, or the Entra admin center.
-   - Define the sponsor, owner, and required permissions.
+1. **Create an agent identity blueprint** using [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1):
+   - Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in sponsor/owner IDs and credentials, then run:
+     ```powershell
+     .\Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
+     ```
+   - Or use Microsoft Graph API directly — see [Developer Guide: Agent Identity Platform](./developer-identity-platform.md).
    - Requires Agent ID Developer or Agent ID Administrator role plus the Graph permissions described in the <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">blueprint creation guide</a>.
+   - For a visual overview of how blueprint creation relates to agent registration, see [Agent Blueprint vs. Registration](./agent-blueprint-vs-registration.md).
 
 2. **Create agent identities from the blueprint:**
    - Agent ID Administrator for user-driven creation in Entra/CLI.
    - Graph permissions for automated/programmatic creation.
 
-3. **Register the agent instance in the Agent Registry:**
+3. **Register the agent instance in the Agent Registry** using [`Register-Agent.ps1`](../scripts/Register-Agent.ps1):
+
+   Add the identity IDs to `agent-metadata.json`, then run:
+   ```powershell
+   .\Register-Agent.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
+   ```
 
    ```
    POST /beta/agentRegistry/agentInstances

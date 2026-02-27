@@ -1,0 +1,26 @@
+{
+  "_comment": "Copy this file to blueprint-input.json and fill in your values. Then run Create-Blueprint.ps1.",
+
+  "displayName": "Contoso HR Benefits Agent Blueprint",
+
+  "sponsorUserIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+
+  "ownerUserIds": [
+    "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+  ],
+
+  "credentials": {
+    "_comment_type": "Use 'managedIdentity' for production (recommended), 'clientSecret' for dev/test.",
+    "type": "managedIdentity",
+    "name": "my-managed-identity",
+    "managedIdentityPrincipalId": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+
+    "_comment_secret": "Only used when type is 'clientSecret'. Remove managedIdentityPrincipalId when using this.",
+    "secretExpiryDate": "2026-08-05T23:59:59Z"
+  },
+
+  "exposeScope": false,
+  "_comment_exposeScope": "Set to true if agents from this blueprint will receive incoming requests from users or other agents (interactive/OBO pattern). Creates an identifier URI and access_agent OAuth scope."
+}
