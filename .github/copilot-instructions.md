@@ -37,3 +37,4 @@ docs/             ← Generated output (synthesized topic guides) — do NOT use
 - `sources/ChatGPT.md` uses numbered reference-style links (`[1]`, `[2]`) pointing to Microsoft Learn docs; preserve this citation format when editing
 - Topic guides in `docs/` should include a **References** section linking to Microsoft Learn
 - When adding new research, place it in `sources/`; when generating documentation, place it in `docs/`
+- **When any file is added to or removed from `docs/`, update `docs/README.md`** — both the folder structure listing and the topic guide table — to reflect the change

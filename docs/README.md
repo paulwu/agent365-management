@@ -22,6 +22,8 @@ Agent365-Management/
 │   ├── licensing-roles-enrollment.md  Licenses, Entra roles, Frontier enrollment, GA status
 │   ├── enabling-legacy-agents.md      Enabling agents from Copilot Studio and Foundry
 │   ├── enabling-code-built-agents.md  Registering agents built with non-Microsoft tools
+│   ├── developer-identity-platform.md Developer guide: blueprints, OAuth flows, admin relationships
+│   ├── entra-sdk-agent-id.md          Entra SDK for Agent ID: companion container, scenarios, security
 │   └── README.md                      This file
 ├── scripts/          ← Automation scripts and tooling
 │   ├── Register-Agent.ps1             PowerShell script to register agents via Graph API
@@ -52,6 +54,8 @@ Additional topic guides:
 | [licensing-roles-enrollment.md](licensing-roles-enrollment.md) | What licenses you need, which Entra roles to assign, how to enroll in the Frontier preview, and the current GA status |
 | [enabling-legacy-agents.md](enabling-legacy-agents.md) | Step-by-step process to make existing Copilot Studio and Foundry agents visible in Agent 365 |
 | [enabling-code-built-agents.md](enabling-code-built-agents.md) | Two patterns for registering agents built with non-Microsoft tools (registry-only vs. full Entra Agent ID) |
+| [developer-identity-platform.md](developer-identity-platform.md) | Developer guide: blueprint creation (Graph API + PowerShell), OAuth flows, owners/sponsors/managers |
+| [entra-sdk-agent-id.md](entra-sdk-agent-id.md) | Entra SDK for Agent ID: companion container architecture, token flows, scenarios, security requirements |
 
 ### Need the original source material?
 
