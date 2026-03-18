@@ -2,7 +2,9 @@
 
 ## Purpose
 
-This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It consolidates research from multiple sources into actionable guidance for IT administrators.
+This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources.
+
+The repository includes an **Entra Researcher** custom Copilot agent (`@entra-researcher`) that provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. The agent cross-references live Microsoft Learn content with the curated sources in this repo and flags any contradictions it finds.
 
 ## Folder Structure
 
@@ -38,7 +40,7 @@ Agent365-Management/
 └── .github/
     ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
     └── agents/
-        └── entra-researcher.agent.md  @entra-researcher custom agent for Microsoft Learn grounding
+        └── Entra-Researcher.agent.md  @entra-researcher custom Copilot agent for Microsoft Learn grounding
 ```
 
 ## How to Use This Repository
@@ -74,3 +76,14 @@ The **sources/** folder contains the unedited research from different AI assista
 ### Updating documentation
 
 When new information becomes available, add or update files in **sources/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
+
+### Using the Entra Researcher agent
+
+The `@entra-researcher` custom Copilot agent is available in VS Code Copilot Chat when this repository is open. It provides authoritative answers about Microsoft Entra Agent ID by:
+
+1. **Fetching live content** from Microsoft Learn Entra Agent ID documentation
+2. **Cross-referencing** with the cached baseline in `sources/Microsoft-Learn-Entra-AgentID.md`
+3. **Checking curated sources** in `sources/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
+4. **Flagging contradictions** between sources with ⚠️ warnings and links for manual verification
+
+To use it, type `@entra-researcher` followed by your question in VS Code Copilot Chat.
