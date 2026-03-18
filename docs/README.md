@@ -36,8 +36,8 @@ Agent365-Management/
 │   └── README.md                      Field-by-field guides, roles, and app registration setup
 └── .github/
     ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
-    └── copilot/agents/
-        └── entra-researcher.md        @entra-researcher custom agent for Microsoft Learn grounding
+    └── agents/
+        └── entra-researcher.agent.md  @entra-researcher custom agent for Microsoft Learn grounding
 ```
 
 ## How to Use This Repository
