@@ -2,6 +2,8 @@
 
 This diagram clarifies the relationship between **creating an agent identity blueprint** and **registering an agent** in the Agent Registry — two distinct steps that work together to bring a code-built agent under full governance.
 
+If you want the supporting narrative behind this diagram, start with the [Identity Blueprint Guide](./identity-blueprint/README.md). The best companion pages here are [How blueprints are used](./identity-blueprint/how-blueprints-are-used.md) and [When to use identity blueprints](./identity-blueprint/when-to-use-identity-blueprints.md).
+
 ---
 
 ## Relationship Diagram
@@ -105,3 +107,4 @@ flowchart LR
 - [Developer Guide: Agent Identity Platform](./developer-identity-platform.md) — Step-by-step blueprint creation via Graph API
 - [Enabling Code-Built Agents](./enabling-code-built-agents.md) — Pattern A and Pattern B comparison
 - [Entra SDK for Agent ID](./entra-sdk-agent-id.md) — Using the blueprint's credentials for token acquisition
+- [Identity Blueprint Guide](./identity-blueprint/README.md) — Definition, contents, usage patterns, and migration paths

@@ -2,6 +2,8 @@
 
 This guide covers the core identity constructs, OAuth flows, and Graph API operations that developers need to build agents that integrate with Microsoft Entra Agent ID.
 
+If you want the conceptual version before diving into the Graph steps, start with the [Identity Blueprint Guide](./identity-blueprint/README.md). The most useful companion pages for this document are [What is an identity blueprint?](./identity-blueprint/what-is-an-identity-blueprint.md), [Blueprint contents explainer](./identity-blueprint/blueprint-contents-explainer.md), and [How blueprints are used](./identity-blueprint/how-blueprints-are-used.md).
+
 ---
 
 ## Identity hierarchy
@@ -45,6 +47,8 @@ Agent Identity Blueprint  (template + credential store)
 > **Script available:** [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1) automates all four steps below. Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in your values, and run the script. The manual Graph API steps are documented here for reference.
 >
 > See also: [Agent Blueprint vs. Registration](./agent-blueprint-vs-registration.md) for a diagram of how blueprints relate to agent registration.
+>
+> Need a scenario guide? See [When to use identity blueprints](./identity-blueprint/when-to-use-identity-blueprints.md). Migrating older implementations? See [Migrating legacy agents](./identity-blueprint/migrating-legacy-agents.md).
 
 ### 1. Connect with required scopes (PowerShell)
 

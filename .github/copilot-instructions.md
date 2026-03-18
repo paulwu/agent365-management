@@ -1,66 +1,78 @@
 # Copilot Instructions
 
-## Grounding Rule
+## Canonical sources and grounding
 
-**Official Microsoft Learn documentation is the highest authority.** When answering any question about Agent 365, Entra Agent ID, licensing, roles, or agent governance:
+This repository is a documentation knowledge base for Microsoft Agent 365 management, Entra Agent ID, and the Agent Registry.
 
-1. **If web tools are available** (`web_fetch`, `web_search`), fetch the relevant page(s) from `https://learn.microsoft.com/en-us/entra/agent-id/` first. The site index in `sources/Microsoft-Learn-Entra-AgentID.md` lists all page URLs — use it to identify which page to fetch.
-2. **Then read the cached sources** in `sources/` to supplement. The cached copy in `sources/Microsoft-Learn-Entra-AgentID.md` is the offline baseline when web tools are unavailable.
-3. **Then consult other source files** in `sources/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
-4. **Use external knowledge only as a last resort** when neither live nor cached sources cover the topic.
+- Treat live Microsoft Learn content under `https://learn.microsoft.com/en-us/entra/agent-id/` as the highest-authority source.
+- Use `sources/Microsoft-Learn-Entra-AgentID.md` as the cached baseline when live fetches are unavailable or to find the right page URL first.
+- Use the other files in `sources/` (`ChatGPT.md`, `Gemini.md`, `Researcher.md`, `Microsoft-Learn.md`) as secondary research only.
+- Treat `docs/` as generated output, not as the factual source of truth, except when you are explicitly updating documentation in `docs/`.
+- If a source file disagrees with Microsoft Learn, call out the contradiction explicitly, prefer Microsoft Learn, and include the Learn URL for manual verification.
+- The custom agent in `.github/agents/Entra-Researcher.agent.md` follows the same grounding policy; use `@Entra-Researcher` for Entra Agent ID questions that need source-cited synthesis.
 
-## Contradiction Handling
+## Repository architecture
 
-When information in `sources/` files contradicts the official Microsoft Learn documentation:
+The repository has three working layers that matter together:
 
-- **Always flag the contradiction explicitly.** State what each source says and where the discrepancy is.
-- **Prefer the Microsoft Learn version** as the authoritative answer, but note that the cached copy may be stale.
-- **Recommend the user verify manually** by checking the live Microsoft Learn page. Include the URL.
-- Example: _"⚠️ Contradiction: `sources/ChatGPT.md` states X, but the official Microsoft Learn page ([link]) states Y. The Microsoft Learn version is more authoritative — please verify at the link above."_
+1. `sources/` stores raw research and cached documentation.
+2. `docs/` stores synthesized topic guides generated from those sources.
+3. `scripts/` stores PowerShell automation that operationalizes the documentation against Microsoft Graph beta endpoints.
 
-## Knowledge Source Policy
+The main cross-file workflow is:
 
-- **Microsoft Learn** (`https://learn.microsoft.com/en-us/entra/agent-id/`) — The **highest-authority** source. Always check live content when web tools are available.
-- **`sources/Microsoft-Learn-Entra-AgentID.md`** — Cached baseline of the Entra Agent ID docs. Use when web tools are unavailable or as a starting point before live fetching.
-- **`sources/`** (other files) — Research compiled from multiple AI assistants. Valuable context, but subordinate to Microsoft Learn.
-- **`docs/`** — These files are **generated output** and should **not** be used as knowledge sources, except when evaluating whether a document in `docs/` needs to be updated. When asked to create or update documentation, write output to `docs/`.
+1. `scripts/Create-Blueprint.ps1` creates an Entra Agent ID blueprint from `blueprint-input.json`.
+2. An agent identity is then created outside this repo (Graph API / CLI), using the blueprint output.
+3. The resulting `agentIdentityBlueprintId` and `agentIdentityId` are added to `agent-metadata.json`.
+4. `scripts/Register-Agent.ps1` registers the agent in the Agent Registry.
+5. `scripts/Discover-ShadowAgents.ps1` is the separate discovery/audit path and outputs a CSV report rather than registry metadata.
 
-## Repository Purpose
+Pattern A is registry-only registration with `Register-Agent.ps1`. Pattern B is full Entra Agent ID integration and spans blueprint creation, identity creation, metadata wiring, and registry registration. That relationship is documented across `docs/agent-blueprint-vs-registration.md`, `docs/developer-identity-platform.md`, and `scripts/README.md`.
 
-This is a **documentation knowledge base** about Microsoft Agent 365 management and governance. The `sources/` folder contains research compiled from multiple AI assistants. The `docs/` folder contains synthesized topic guides generated from those sources.
+## Build, test, lint, and validation commands
 
-## Folder Structure
+There is currently no repo-wide build system, linter, unit test suite, `package.json`, Python project file, or CI workflow in this repository.
 
+For PowerShell script changes, use PowerShell parse validation:
+
+```powershell
+# Validate all scripts
+pwsh -NoLogo -NoProfile -Command '$errors=@(); Get-ChildItem ./scripts/*.ps1 | ForEach-Object { [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$null,[ref]$errors) }; if ($errors.Count) { $errors | Format-List; exit 1 }'
 ```
-sources/          ← Primary knowledge (raw research documents)
-docs/             ← Generated output (synthesized topic guides) — do NOT use as knowledge source
-scripts/          ← PowerShell automation scripts with JSON input templates
-.github/          ← Repository configuration
+
+```powershell
+# Validate one script only
+pwsh -NoLogo -NoProfile -Command '$errors=@(); [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path ./scripts/Register-Agent.ps1),[ref]$null,[ref]$errors); if ($errors.Count) { $errors | Format-List; exit 1 }'
 ```
 
-## Key Domain Concepts
+Operational script entry points from the repository docs are:
 
-- **Agent 365** — Microsoft's unified control plane for agent governance (currently in Frontier preview)
-- **Entra Agent ID** — The identity layer for agents in Microsoft Entra ID (blueprints → identities → agent users)
-- **Agent Registry** — The Microsoft 365 admin center inventory of agents integrated with M365 Copilot
-- **Frontier** — Microsoft's preview program required to enable Agent 365 features
-- **Collections** — Governance boundaries in Agent Registry (Global/Custom/Quarantined) controlling agent discoverability
+```powershell
+pwsh -File ./scripts/Create-Blueprint.ps1 -TenantId "<tenant>" -ClientId "<client-id>"
+pwsh -File ./scripts/Register-Agent.ps1 -TenantId "<tenant>" -ClientId "<client-id>"
+pwsh -File ./scripts/Discover-ShadowAgents.ps1 -IncludeSignIns
+```
 
-## Conventions
+There is no single-test command because there is no automated test harness. When validating a targeted change, validate the edited script directly with the single-file parse command above, or run that one script with real tenant inputs if you are intentionally doing live validation.
 
-- All content is Markdown with no build system, linting, or tests
-- Documents use `###` headers for step-by-step sections and Markdown tables for role/license mappings
-- Source files in `sources/` are named after the AI assistant that produced them (e.g., `ChatGPT.md`, `Gemini.md`)
-- `sources/ChatGPT.md` uses numbered reference-style links (`[1]`, `[2]`) pointing to Microsoft Learn docs; preserve this citation format when editing
-- Topic guides in `docs/` should include a **References** section linking to Microsoft Learn
-- When adding new research, place it in `sources/`; when generating documentation, place it in `docs/`
-- **When any file is added to or removed from `docs/`, update `docs/README.md`** — both the folder structure listing and the topic guide table — to reflect the change
-- **After completing any set of file changes, commit and push to GitHub automatically** without waiting for the user to ask
+## Codebase conventions
 
-## Scripts
+- Keep factual answers grounded in Microsoft Learn first, then `sources/`; do not answer from `docs/` alone.
+- Add new research to `sources/`; add or update end-user guides in `docs/`.
+- If you add or remove any file in `docs/`, update `docs/README.md` in both the structure listing and the topic-guide table.
+- Documentation in `docs/` consistently uses `###` step-oriented headings, Markdown tables for role/license mappings, and `References` sections with Microsoft Learn links. Mermaid diagrams are already used for multi-step relationships.
+- `sources/ChatGPT.md` uses numbered reference-style citations like `[1]`, `[2]`; preserve that citation style when editing it.
+- The scripts are independent entry points, each with `[CmdletBinding()]`, `$ErrorActionPreference = "Stop"`, and default input paths rooted at `$PSScriptRoot`. Preserve those patterns when extending scripts.
+- `Create-Blueprint.ps1` and `Register-Agent.ps1` both switch auth mode based on `-ClientSecret`: omit it for interactive device-code flow, provide it for app-only client-credentials flow.
+- The scripts expect companion working JSON files named `blueprint-input.json` and `agent-metadata.json`, created by copying the committed `.json.example` templates. Keep those filenames and field names stable.
+- The repository does not currently contain a `.gitignore`, so be extra careful not to commit tenant-specific JSON files, client secrets, or generated CSV outputs.
+- All automation targets Microsoft Graph `/beta` endpoints today. Do not silently convert calls to `v1.0` unless the repository docs and Microsoft Learn both support that change.
+- Preserve the metadata field names that connect the identity and registry workflow: `agentIdentityBlueprintId`, `agentIdentityId`, and `agentUserId`.
 
-- Scripts are PowerShell (`.ps1`) and call Microsoft Graph API **beta** endpoints
-- Each script reads its configuration from a companion JSON file (e.g., `blueprint-input.json`, `agent-metadata.json`)
-- `.json.example` files are committed templates; actual `.json` input files are gitignored — never commit credentials or tenant-specific values
-- Scripts support both interactive device-code flow (omit `-ClientSecret`) and app-only client-credentials flow
-- `scripts/README.md` contains the authoritative field-by-field guides, required Entra roles, and app registration setup for all scripts
+## Key files to consult before editing
+
+- `scripts/README.md`: authoritative usage, permissions, roles, and field-by-field input docs for all scripts.
+- `docs/README.md`: index of generated guides and the repo's synthesized information architecture.
+- `docs/agent-blueprint-vs-registration.md`: the clearest big-picture map of Pattern A vs. Pattern B.
+- `docs/developer-identity-platform.md`: identity hierarchy, required permissions, and the manual Graph flow that the scripts automate.
+- `.github/agents/Entra-Researcher.agent.md`: source-grounding behavior for the custom Copilot agent.

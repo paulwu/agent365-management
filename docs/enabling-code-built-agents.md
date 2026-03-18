@@ -4,6 +4,8 @@
 
 Agents built with non-Microsoft tools — open-source frameworks, third-party platforms (ServiceNow, SAP), or custom code (Python, Node.js, .NET) — can be registered into the Agent 365 ecosystem. There are two patterns depending on the level of integration you need.
 
+If you want a deeper explainer for the blueprint side of this decision, see the [Identity Blueprint Guide](./identity-blueprint/README.md), especially [When to use identity blueprints](./identity-blueprint/when-to-use-identity-blueprints.md) and [Migrating legacy agents](./identity-blueprint/migrating-legacy-agents.md).
+
 ## Pattern A: Registry-Only (Inventory + Metadata)
 
 Use this when the agent uses its own identity provider or you want **visibility and governance without issuing Entra tokens** to the agent.
@@ -63,13 +65,14 @@ Use this when you want **Entra-issued tokens, Conditional Access enforcement, an
 ### Steps
 
 1. **Create an agent identity blueprint** using [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1):
-   - Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in sponsor/owner IDs and credentials, then run:
-     ```powershell
-     .\Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
-     ```
-   - Or use Microsoft Graph API directly — see [Developer Guide: Agent Identity Platform](./developer-identity-platform.md).
-   - Requires Agent ID Developer or Agent ID Administrator role plus the Graph permissions described in the <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">blueprint creation guide</a>.
-   - For a visual overview of how blueprint creation relates to agent registration, see [Agent Blueprint vs. Registration](./agent-blueprint-vs-registration.md).
+    - Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in sponsor/owner IDs and credentials, then run:
+      ```powershell
+      .\Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
+      ```
+    - Or use Microsoft Graph API directly — see [Developer Guide: Agent Identity Platform](./developer-identity-platform.md).
+    - For a focused explanation of what lives on the blueprint and why the credential model works this way, see [Blueprint contents explainer](./identity-blueprint/blueprint-contents-explainer.md).
+    - Requires Agent ID Developer or Agent ID Administrator role plus the Graph permissions described in the <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">blueprint creation guide</a>.
+    - For a visual overview of how blueprint creation relates to agent registration, see [Agent Blueprint vs. Registration](./agent-blueprint-vs-registration.md).
 
 2. **Create agent identities from the blueprint:**
    - Agent ID Administrator for user-driven creation in Entra/CLI.
