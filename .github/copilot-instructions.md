@@ -18,6 +18,7 @@ This is a **documentation knowledge base** about Microsoft Agent 365 management 
 ```
 sources/          ← Primary knowledge (raw research documents)
 docs/             ← Generated output (synthesized topic guides) — do NOT use as knowledge source
+scripts/          ← PowerShell automation scripts with JSON input templates
 .github/          ← Repository configuration
 ```
 
@@ -39,3 +40,11 @@ docs/             ← Generated output (synthesized topic guides) — do NOT use
 - When adding new research, place it in `sources/`; when generating documentation, place it in `docs/`
 - **When any file is added to or removed from `docs/`, update `docs/README.md`** — both the folder structure listing and the topic guide table — to reflect the change
 - **After completing any set of file changes, commit and push to GitHub automatically** without waiting for the user to ask
+
+## Scripts
+
+- Scripts are PowerShell (`.ps1`) and call Microsoft Graph API **beta** endpoints
+- Each script reads its configuration from a companion JSON file (e.g., `blueprint-input.json`, `agent-metadata.json`)
+- `.json.example` files are committed templates; actual `.json` input files are gitignored — never commit credentials or tenant-specific values
+- Scripts support both interactive device-code flow (omit `-ClientSecret`) and app-only client-credentials flow
+- `scripts/README.md` contains the authoritative field-by-field guides, required Entra roles, and app registration setup for all scripts
