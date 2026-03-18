@@ -40,6 +40,8 @@ For pro-code solutions, developers should create their own blueprint using the M
 
 See [developer-identity-platform.md](developer-identity-platform.md) for step-by-step blueprint creation guidance using Graph API and PowerShell.
 
+For the blueprint input JSON format used by the automation script, see the [blueprint-input.json field guide](../scripts/README.md#blueprint-inputjson--field-guide) in the scripts documentation.
+
 ---
 
 ## How Blueprint Credentials Work and the One-to-Many Pattern
@@ -118,3 +120,4 @@ Create a new blueprint when you have a fundamentally different type of agent tha
 - [Create a blueprint](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint) — Step-by-step blueprint creation via Graph API and Entra admin center
 - [Create and delete agent identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-delete-agent-identities) — Provisioning agent identities from a blueprint
 - [Agent ID creation channels](https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/agent-id-creation-channels) — Creation workflow comparison: Copilot Studio, pro-code, and third-party
+- [Blueprint input JSON field guide](../scripts/README.md#blueprint-inputjson--field-guide) — Field-by-field documentation for the `blueprint-input.json` automation input file
