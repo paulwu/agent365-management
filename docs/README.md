@@ -12,7 +12,8 @@ Agent365-Management/
 │   ├── ChatGPT.md            Source-cited reference with Microsoft Learn links
 │   ├── Gemini.md             Prescriptive FAQ-style operational guide
 │   ├── Researcher.md         Implementation guide with summary tables
-│   └── Microsoft-Learn.md    Official Microsoft Learn pages (5 articles)
+│   ├── Microsoft-Learn.md    Official Microsoft Learn pages (5 articles on Agent 365 admin)
+│   └── Microsoft-Learn-Entra-AgentID.md  Cached Entra Agent ID docs (73 pages indexed)
 ├── docs/             ← Synthesized topic guides (generated from sources)
 │   ├── pillar-registry.md             Pillar 1: Registry — discover, onboard, prevent rogue agents
 │   ├── pillar-access-control.md       Pillar 2: Access Control — Conditional Access, governance, least-privilege
@@ -34,7 +35,9 @@ Agent365-Management/
 │   ├── Discover-ShadowAgents.ps1      Scan tenant for ungoverned/shadow agents; outputs CSV report
 │   └── README.md                      Field-by-field guides, roles, and app registration setup
 └── .github/
-    └── copilot-instructions.md        Instructions for GitHub Copilot sessions
+    ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
+    └── copilot/agents/
+        └── entra-researcher.md        @entra-researcher custom agent for Microsoft Learn grounding
 ```
 
 ## How to Use This Repository

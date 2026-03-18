@@ -2,11 +2,27 @@
 
 ## Grounding Rule
 
-**Always read files in the `sources/` folder first before answering any question about Agent 365, Entra Agent ID, licensing, roles, or agent governance.** The sources contain the primary research and are the authoritative knowledge base for this repository. Ground all answers in these source documents before adding any external knowledge.
+**Official Microsoft Learn documentation is the highest authority.** When answering any question about Agent 365, Entra Agent ID, licensing, roles, or agent governance:
+
+1. **If web tools are available** (`web_fetch`, `web_search`), fetch the relevant page(s) from `https://learn.microsoft.com/en-us/entra/agent-id/` first. The site index in `sources/Microsoft-Learn-Entra-AgentID.md` lists all page URLs — use it to identify which page to fetch.
+2. **Then read the cached sources** in `sources/` to supplement. The cached copy in `sources/Microsoft-Learn-Entra-AgentID.md` is the offline baseline when web tools are unavailable.
+3. **Then consult other source files** in `sources/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
+4. **Use external knowledge only as a last resort** when neither live nor cached sources cover the topic.
+
+## Contradiction Handling
+
+When information in `sources/` files contradicts the official Microsoft Learn documentation:
+
+- **Always flag the contradiction explicitly.** State what each source says and where the discrepancy is.
+- **Prefer the Microsoft Learn version** as the authoritative answer, but note that the cached copy may be stale.
+- **Recommend the user verify manually** by checking the live Microsoft Learn page. Include the URL.
+- Example: _"⚠️ Contradiction: `sources/ChatGPT.md` states X, but the official Microsoft Learn page ([link]) states Y. The Microsoft Learn version is more authoritative — please verify at the link above."_
 
 ## Knowledge Source Policy
 
-- **`sources/`** — These files are the primary knowledge sources. Always consult them to ground your answers.
+- **Microsoft Learn** (`https://learn.microsoft.com/en-us/entra/agent-id/`) — The **highest-authority** source. Always check live content when web tools are available.
+- **`sources/Microsoft-Learn-Entra-AgentID.md`** — Cached baseline of the Entra Agent ID docs. Use when web tools are unavailable or as a starting point before live fetching.
+- **`sources/`** (other files) — Research compiled from multiple AI assistants. Valuable context, but subordinate to Microsoft Learn.
 - **`docs/`** — These files are **generated output** and should **not** be used as knowledge sources, except when evaluating whether a document in `docs/` needs to be updated. When asked to create or update documentation, write output to `docs/`.
 
 ## Repository Purpose
