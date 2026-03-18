@@ -26,6 +26,7 @@ Agent365-Management/
 │   ├── developer-identity-platform.md    Developer guide: blueprints, OAuth flows, admin relationships
 │   ├── entra-sdk-agent-id.md             Entra SDK for Agent ID: companion container, scenarios, security
 │   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
+│   ├── agent-identity-blueprint-explainer.md  Pro-code blueprint usage and credential model explainer
 │   └── README.md                          This file
 ├── scripts/          ← Automation scripts and tooling
 │   ├── Create-Blueprint.ps1           Create an agent identity blueprint (Entra Agent ID)
@@ -64,6 +65,7 @@ Additional topic guides:
 | [developer-identity-platform.md](developer-identity-platform.md) | Developer guide: blueprint creation (Graph API + PowerShell), OAuth flows, owners/sponsors/managers |
 | [entra-sdk-agent-id.md](entra-sdk-agent-id.md) | Entra SDK for Agent ID: companion container architecture, token flows, scenarios, security requirements |
 | [agent-blueprint-vs-registration.md](agent-blueprint-vs-registration.md) | Relationship diagram: blueprint creation vs. agent registration; Pattern A vs. Pattern B end-to-end flow |
+| [agent-identity-blueprint-explainer.md](agent-identity-blueprint-explainer.md) | Why pro-code agents can't use the Copilot Studio blueprint; how blueprint credentials work; one-to-many pattern |
 
 ### Need the original source material?
 
