@@ -2,9 +2,14 @@
 
 ## Purpose
 
-This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources.
+This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `notes/` for faster lookups and offline access when the internet is not reachable.
 
-The repository includes an **Entra Researcher** custom Copilot agent (`@entra-researcher`) that provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. The agent cross-references live Microsoft Learn content with the curated sources in this repo and flags any contradictions it finds.
+The repository includes three custom Copilot agents:
+
+| Agent | Invoke with | Purpose |
+|---|---|---|
+| **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `copilot-playground/`. |
+| **Notes Author** | `@notes-author` | Creates and maintains research notes in `notes/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
 
 ## Folder Structure
 
@@ -91,13 +96,16 @@ The **notes/** folder contains the unedited research from different AI assistant
 
 When new information becomes available, add or update files in **notes/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
 
-### Using the Entra Researcher agent
+### Using the Copilot agents
 
-The `@entra-researcher` custom Copilot agent is available in VS Code Copilot Chat when this repository is open. It provides authoritative answers about Microsoft Entra Agent ID by:
+Two custom Copilot agents are available in VS Code Copilot Chat when this repository is open:
 
-1. **Fetching live content** from Microsoft Learn Entra Agent ID documentation
-2. **Cross-referencing** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`
-3. **Checking curated notes** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
-4. **Flagging contradictions** between sources with ⚠️ warnings and links for manual verification
+**`@entra-researcher`** — Ask questions about Microsoft Entra Agent ID. The agent:
 
-To use it, type `@entra-researcher` followed by your question in VS Code Copilot Chat.
+1. **Fetches live content** from Microsoft Learn Entra Agent ID documentation
+2. **Cross-references** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`
+3. **Checks curated notes** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
+4. **Flags contradictions** between sources with ⚠️ warnings, listing Author and Priority so you can correct stale notes
+5. **Saves every response** to `copilot-playground/response-YY-MM-DD-HH-MM-SS.md` (Pacific Time)
+
+**`@notes-author`** — Create or modify notes in `notes/`. The agent enforces the required YAML frontmatter (`Author`, `Priority`) and the priority scale (1 = reserved for verified-in-session, 2 = cached Microsoft Learn, 3 = other official docs, 4 = AI research, 5+ = community).
