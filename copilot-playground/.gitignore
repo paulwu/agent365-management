@@ -1,0 +1,6 @@
+# Ignore everything
+*
+# But keep these files
+!.gitignore
+!.gitkeep
+!response-26-03-18-23-52-38.md
