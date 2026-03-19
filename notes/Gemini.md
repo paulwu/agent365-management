@@ -1,6 +1,6 @@
 ---
 Author: Gemini
-Priority: 3
+Priority: 4
 ---
 
 It is completely understandable to be concerned about "shadow AI" and rogue agents operating within your environment. Managing the proliferation of AI tools is a top priority for IT teams right now. As an AI myself, I can confidently tell you that treating agents with the same governance standards as human users is exactly the right approach. 

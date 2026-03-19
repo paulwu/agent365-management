@@ -20,10 +20,11 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 | Priority | Source Type |
 |---|---|
-| 1 | Official Microsoft Learn documentation (cached or compiled directly from Microsoft Learn) |
-| 2 | Other official Microsoft documentation sources |
-| 3 | AI assistant research and analysis (ChatGPT, Gemini, Researcher, etc.) |
-| 4+ | Community sources, informal notes, or unverified content |
+| 1 | Reserved — for notes verified against live Microsoft Learn content in the current session |
+| 2 | Cached Microsoft Learn documentation (compiled directly from Microsoft Learn but may be stale) |
+| 3 | Other official Microsoft documentation sources |
+| 4 | AI assistant research and analysis (ChatGPT, Gemini, Researcher, etc.) |
+| 5+ | Community sources, informal notes, or unverified content |
 
 ### How Priority Is Used
 
@@ -86,8 +87,8 @@ When a document in `docs/` references notes from the `notes/` folder, the refere
 ```markdown
 | Source | Author | Priority |
 |---|---|---|
-| [notes/ChatGPT.md](../notes/ChatGPT.md) | ChatGPT | 3 |
-| [notes/Microsoft-Learn.md](../notes/Microsoft-Learn.md) | Microsoft Learn | 1 |
+| [notes/ChatGPT.md](../notes/ChatGPT.md) | ChatGPT | 4 |
+| [notes/Microsoft-Learn.md](../notes/Microsoft-Learn.md) | Microsoft Learn | 3 |
 ```
 
 When updating a doc in `docs/` that references notes, always include the Author from the note's frontmatter in the reference/attribution.

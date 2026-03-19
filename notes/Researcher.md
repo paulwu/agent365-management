@@ -1,6 +1,6 @@
 ---
 Author: Researcher
-Priority: 3
+Priority: 4
 ---
 
 # Agent 365 Registration & Management: Complete Implementation Guide

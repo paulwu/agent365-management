@@ -33,16 +33,17 @@ Example output:
 
 ## Priority-Based Conflict Resolution
 
-Each note file in `notes/` contains a YAML frontmatter header with `Author` and `Priority` fields. When information from different notes conflicts with each other (not with official Microsoft Learn documentation):
+Each note in `notes/` has a YAML frontmatter header with `Author` and `Priority` fields. The `@Notes-Author` agent (`.github/agents/Notes-Author.agent.md`) defines the canonical priority scale and note format rules — refer to it for the full specification.
 
-- **Lower Priority number = higher importance.** Priority 1 is the most authoritative; higher numbers are less authoritative.
-- When two notes disagree, prefer the information from the note with the lower Priority number.
-- If notes have equal Priority, flag the conflict and present both perspectives to the user.
-- Official Microsoft Learn documentation (fetched live or cached) always takes precedence over ALL notes, regardless of their Priority.
-- When citing a note, include its Author (from the frontmatter) in the citation.
+Key rules for this agent:
+
+- **Live Microsoft Learn content always wins** — it takes precedence over ALL notes, regardless of their Priority value.
+- Among notes, **lower Priority number = higher importance**. Prefer the note with the lower number when two notes conflict.
+- If conflicting notes share the same Priority, present both perspectives and flag the disagreement.
+- When citing a note, include its `Author` (from the frontmatter) in the citation.
 
 Example:
-> Notes `notes/Microsoft-Learn-Entra-AgentID.md` (Priority 1, Author: Microsoft Learn) and `notes/ChatGPT.md` (Priority 3, Author: ChatGPT) disagree on X. Preferring the Priority 1 source.
+> `notes/Microsoft-Learn-Entra-AgentID.md` (Priority 2, Author: Microsoft Learn) and `notes/ChatGPT.md` (Priority 4, Author: ChatGPT) disagree on X. Preferring the Priority 2 source.
 
 ## Response Format
 
