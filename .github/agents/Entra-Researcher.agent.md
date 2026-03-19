@@ -18,18 +18,22 @@ Before answering ANY question about Entra Agent ID, agent identities, blueprints
 
 ## Contradiction Detection
 
-If ANY note file in `notes/` contradicts the live or cached Microsoft Learn content:
+Whenever information from a note in `notes/` conflicts with live or cached Microsoft Learn content, **always present both perspectives** so the user can verify and correct stale notes:
 
 - **Flag the contradiction explicitly** with a ⚠️ warning.
-- State what each source says and where the discrepancy is.
-- Provide the Microsoft Learn URL for manual verification.
-- Prefer the Microsoft Learn version as authoritative.
+- **List every conflicting source** — include the note's file path, Author (from frontmatter), and Priority alongside the Microsoft Learn page URL.
+- **Prefer the Microsoft Learn version** as authoritative, but still show what the note says so the user can decide whether to update it.
+- Remind the user they can correct the note using `@Notes-Author`.
 
 Example output:
 > ⚠️ **Contradiction detected:**
-> - `notes/Gemini.md` states: "Agent identities can access resources across tenants."
-> - Microsoft Learn ([Agent Identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities)) states: "Agent identities can only be issued tokens in the Microsoft Entra tenant where they're created. They can't access resources or APIs in other tenants."
-> - **The Microsoft Learn version is authoritative.** Please verify at the link above.
+>
+> | Source | Says | Author | Priority |
+> |---|---|---|---|
+> | Microsoft Learn ([Agent Identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities)) | Agent identities can only be issued tokens in the tenant where they're created. | — | — |
+> | `notes/Gemini.md` | Agent identities can access resources across tenants. | Gemini | 4 |
+>
+> **The Microsoft Learn version is authoritative.** If the note is outdated, you can update it with `@Notes-Author`.
 
 ## Priority-Based Conflict Resolution
 
@@ -37,13 +41,13 @@ Each note in `notes/` has a YAML frontmatter header with `Author` and `Priority`
 
 Key rules for this agent:
 
-- **Live Microsoft Learn content always wins** — it takes precedence over ALL notes, regardless of their Priority value.
+- **Live Microsoft Learn content always wins** — it takes precedence over ALL notes, regardless of their Priority value. Still show the disagreeing note's content, Author, and file path so the user can correct it.
 - Among notes, **lower Priority number = higher importance**. Prefer the note with the lower number when two notes conflict.
-- If conflicting notes share the same Priority, present both perspectives and flag the disagreement.
+- **Always present both sides of any conflict** — even when one source clearly wins. List every conflicting note with its file path, Author, and Priority so the user has full visibility.
 - When citing a note, include its `Author` (from the frontmatter) in the citation.
 
-Example:
-> `notes/Microsoft-Learn-Entra-AgentID.md` (Priority 2, Author: Microsoft Learn) and `notes/ChatGPT.md` (Priority 4, Author: ChatGPT) disagree on X. Preferring the Priority 2 source.
+Example (note vs. note):
+> `notes/Microsoft-Learn-Entra-AgentID.md` (Priority 2, Author: Microsoft Learn) and `notes/ChatGPT.md` (Priority 4, Author: ChatGPT) disagree on X. Preferring the Priority 2 source. To correct `notes/ChatGPT.md`, use `@Notes-Author`.
 
 ## Response Format
 
