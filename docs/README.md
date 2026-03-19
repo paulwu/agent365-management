@@ -10,13 +10,13 @@ The repository includes an **Entra Researcher** custom Copilot agent (`@entra-re
 
 ```
 Agent365-Management/
-├── sources/          ← Raw research documents (primary knowledge sources)
+├── notes/            ← Raw research documents (primary knowledge notes)
 │   ├── ChatGPT.md            Source-cited reference with Microsoft Learn links
 │   ├── Gemini.md             Prescriptive FAQ-style operational guide
 │   ├── Researcher.md         Implementation guide with summary tables
 │   ├── Microsoft-Learn.md    Official Microsoft Learn pages (5 articles on Agent 365 admin)
 │   └── Microsoft-Learn-Entra-AgentID.md  Cached Entra Agent ID docs (73 pages indexed)
-├── docs/             ← Synthesized topic guides (generated from sources)
+├── docs/             ← Synthesized topic guides (generated from notes)
 │   ├── pillar-registry.md             Pillar 1: Registry — discover, onboard, prevent rogue agents
 │   ├── pillar-access-control.md       Pillar 2: Access Control — Conditional Access, governance, least-privilege
 │   ├── pillar-visualization.md        Pillar 3: Visualization — dashboard, Agent Map, monitoring
@@ -82,19 +82,19 @@ Additional topic guides:
 
 ### Need the original source material?
 
-The **sources/** folder contains the unedited research from different AI assistants. These documents cover overlapping topics from different angles and are the basis for everything in **docs/**.
+The **notes/** folder contains the unedited research from different AI assistants. These documents cover overlapping topics from different angles and are the basis for everything in **docs/**.
 
 ### Updating documentation
 
-When new information becomes available, add or update files in **sources/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
+When new information becomes available, add or update files in **notes/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
 
 ### Using the Entra Researcher agent
 
 The `@entra-researcher` custom Copilot agent is available in VS Code Copilot Chat when this repository is open. It provides authoritative answers about Microsoft Entra Agent ID by:
 
 1. **Fetching live content** from Microsoft Learn Entra Agent ID documentation
-2. **Cross-referencing** with the cached baseline in `sources/Microsoft-Learn-Entra-AgentID.md`
-3. **Checking curated sources** in `sources/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
+2. **Cross-referencing** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`
+3. **Checking curated notes** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
 4. **Flagging contradictions** between sources with ⚠️ warnings and links for manual verification
 
 To use it, type `@entra-researcher` followed by your question in VS Code Copilot Chat.

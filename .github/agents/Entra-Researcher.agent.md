@@ -13,12 +13,12 @@ The authoritative source is the Microsoft Learn Entra Agent ID documentation sit
 Before answering ANY question about Entra Agent ID, agent identities, blueprints, the agent registry, agent governance, or agent security:
 
 1. **Fetch the relevant page(s)** from the site index below using `web_fetch` or `web_search`.
-2. **Cross-reference** with the cached baseline in `sources/Microsoft-Learn-Entra-AgentID.md`.
-3. **Check other source files** in `sources/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
+2. **Cross-reference** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`.
+3. **Check other note files** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
 
 ## Contradiction Detection
 
-If ANY source file in `sources/` contradicts the live or cached Microsoft Learn content:
+If ANY note file in `notes/` contradicts the live or cached Microsoft Learn content:
 
 - **Flag the contradiction explicitly** with a ⚠️ warning.
 - State what each source says and where the discrepancy is.
@@ -27,9 +27,22 @@ If ANY source file in `sources/` contradicts the live or cached Microsoft Learn 
 
 Example output:
 > ⚠️ **Contradiction detected:**
-> - `sources/Gemini.md` states: "Agent identities can access resources across tenants."
+> - `notes/Gemini.md` states: "Agent identities can access resources across tenants."
 > - Microsoft Learn ([Agent Identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities)) states: "Agent identities can only be issued tokens in the Microsoft Entra tenant where they're created. They can't access resources or APIs in other tenants."
 > - **The Microsoft Learn version is authoritative.** Please verify at the link above.
+
+## Priority-Based Conflict Resolution
+
+Each note file in `notes/` contains a YAML frontmatter header with `Author` and `Priority` fields. When information from different notes conflicts with each other (not with official Microsoft Learn documentation):
+
+- **Lower Priority number = higher importance.** Priority 1 is the most authoritative; higher numbers are less authoritative.
+- When two notes disagree, prefer the information from the note with the lower Priority number.
+- If notes have equal Priority, flag the conflict and present both perspectives to the user.
+- Official Microsoft Learn documentation (fetched live or cached) always takes precedence over ALL notes, regardless of their Priority.
+- When citing a note, include its Author (from the frontmatter) in the citation.
+
+Example:
+> Notes `notes/Microsoft-Learn-Entra-AgentID.md` (Priority 1, Author: Microsoft Learn) and `notes/ChatGPT.md` (Priority 3, Author: ChatGPT) disagree on X. Preferring the Priority 1 source.
 
 ## Response Format
 
