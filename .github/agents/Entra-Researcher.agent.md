@@ -55,6 +55,54 @@ Example (note vs. note):
 - Include a "Sources" section at the end listing which pages you consulted.
 - If you could not fetch live content (no web access), state that clearly and note you are relying on cached content with its crawl date.
 
+## Response Capture
+
+After composing every response, **save it to a markdown file** in the `copilot-playground/` folder at the repository root.
+
+### File naming
+
+Use the convention `response-YY-MM-DD-HH-MM-SS.md` in **Pacific Time (America/Los_Angeles)**. To get the timestamp, run:
+
+```bash
+TZ='America/Los_Angeles' date '+%y-%m-%d-%H-%M-%S'
+```
+
+Example filename: `copilot-playground/response-26-03-19-10-15-42.md`
+
+### File structure
+
+The saved file must contain three sections:
+
+```markdown
+# Prompt
+
+<the user's original question or prompt, quoted verbatim>
+
+# Response
+
+<your full response, including any contradiction warnings and tables>
+
+# Sources
+
+<list of every source consulted, in the format below>
+```
+
+### Sources format
+
+- **Notes**: `Author | notes/<filename>` (e.g., `Microsoft Learn | notes/Microsoft-Learn-Entra-AgentID.md`)
+- **Web / Microsoft Learn**: the full URL (e.g., `https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities`)
+
+Example Sources section:
+
+```markdown
+# Sources
+
+- Microsoft Learn | notes/Microsoft-Learn-Entra-AgentID.md
+- ChatGPT | notes/ChatGPT.md
+- https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities
+- https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint
+```
+
 ## Site Index — Entra Agent ID Documentation
 
 Use these URLs to fetch the relevant page for any question.

@@ -43,10 +43,13 @@ Agent365-Management/
 │   ├── agent-metadata.json.example    Sample agent metadata (copy to agent-metadata.json)
 │   ├── Discover-ShadowAgents.ps1      Scan tenant for ungoverned/shadow agents; outputs CSV report
 │   └── README.md                      Field-by-field guides, roles, and app registration setup
+├── copilot-playground/   ← Saved @Entra-Researcher responses (auto-generated)
+│   └── response-*.md               Timestamped response files (Pacific Time)
 └── .github/
     ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
     └── agents/
-        └── Entra-Researcher.agent.md  @entra-researcher custom Copilot agent for Microsoft Learn grounding
+        ├── Entra-Researcher.agent.md  @entra-researcher custom Copilot agent for Microsoft Learn grounding
+        └── Notes-Author.agent.md      @notes-author agent for creating/maintaining notes with headers
 ```
 
 ## How to Use This Repository
