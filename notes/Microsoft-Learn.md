@@ -1,3 +1,8 @@
+---
+Author: Microsoft Learn
+Priority: 2
+---
+
 # Microsoft Learn — Official Agent 365 Documentation
 
 > Compiled from 5 Microsoft Learn pages, accessed February 2026.

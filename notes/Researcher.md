@@ -1,3 +1,8 @@
+---
+Author: Researcher
+Priority: 3
+---
+
 # Agent 365 Registration & Management: Complete Implementation Guide
 
 ## Executive Summary

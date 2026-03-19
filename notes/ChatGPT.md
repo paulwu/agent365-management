@@ -1,3 +1,8 @@
+---
+Author: ChatGPT
+Priority: 3
+---
+
 Here’s how to think about it (and why your older Copilot Studio agents might not show up):
 
 * **Agent 365 / Microsoft 365 admin center “Agents” inventory** is built on the **Agent Registry experience** and is focused on agents **integrated with Microsoft 365 Copilot**. ([Microsoft Learn][1])

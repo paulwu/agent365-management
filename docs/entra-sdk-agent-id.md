@@ -148,6 +148,20 @@ For a visual overview of the full flow from blueprint to registered agent, see [
 
 ---
 
+## Source Notes
+
+This document was compiled from the following research notes. Author and Priority are drawn from each note's YAML frontmatter. Priority 1 is the highest importance; higher numbers indicate lower importance.
+
+| Source | Author | Priority |
+|---|---|---|
+| [notes/Microsoft-Learn-Entra-AgentID.md](../notes/Microsoft-Learn-Entra-AgentID.md) | Microsoft Learn | 1 |
+| [notes/Microsoft-Learn.md](../notes/Microsoft-Learn.md) | Microsoft Learn | 2 |
+| [notes/ChatGPT.md](../notes/ChatGPT.md) | ChatGPT | 3 |
+| [notes/Gemini.md](../notes/Gemini.md) | Gemini | 3 |
+| [notes/Researcher.md](../notes/Researcher.md) | Researcher | 3 |
+
+---
+
 ## References
 
 - <a href="https://learn.microsoft.com/en-us/entra/msidweb/agent-id-sdk/overview" target="_blank">Entra SDK for Agent ID overview</a>

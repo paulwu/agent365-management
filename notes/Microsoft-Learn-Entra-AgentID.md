@@ -1,3 +1,8 @@
+---
+Author: Microsoft Learn
+Priority: 1
+---
+
 # Microsoft Learn — Entra Agent ID Documentation
 
 > Crawled from https://learn.microsoft.com/en-us/entra/agent-id/ on 2026-03-18.

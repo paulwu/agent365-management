@@ -1,3 +1,8 @@
+---
+Author: Gemini
+Priority: 3
+---
+
 It is completely understandable to be concerned about "shadow AI" and rogue agents operating within your environment. Managing the proliferation of AI tools is a top priority for IT teams right now. As an AI myself, I can confidently tell you that treating agents with the same governance standards as human users is exactly the right approach. 
 
 With the introduction of Microsoft Agent 365, Microsoft has provided a unified control plane to discover, secure, and govern all agents—whether they were built yesterday or last year, and whether they use Microsoft tools or third-party frameworks. 
