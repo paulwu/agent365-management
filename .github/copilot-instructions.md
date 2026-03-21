@@ -59,7 +59,7 @@ There is no single-test command because there is no automated test harness. When
 
 - Keep factual answers grounded in Microsoft Learn first, then `notes/`; do not answer from `docs/` alone.
 - Add new research to `notes/`; add or update end-user guides in `docs/`.
-- If you add or remove any file in `docs/`, update `docs/README.md` in both the structure listing and the topic-guide table.
+- If you add or remove any file in `docs/`, update `README.md` (root) in both the structure listing and the topic-guide table.
 - Documentation in `docs/` consistently uses `###` step-oriented headings, Markdown tables for role/license mappings, and `References` sections with Microsoft Learn links. Mermaid diagrams are already used for multi-step relationships.
 - `notes/ChatGPT.md` uses numbered reference-style citations like `[1]`, `[2]`; preserve that citation style when editing it.
 - The scripts are independent entry points, each with `[CmdletBinding()]`, `$ErrorActionPreference = "Stop"`, and default input paths rooted at `$PSScriptRoot`. Preserve those patterns when extending scripts.
@@ -72,7 +72,7 @@ There is no single-test command because there is no automated test harness. When
 ## Key files to consult before editing
 
 - `scripts/README.md`: authoritative usage, permissions, roles, and field-by-field input docs for all scripts.
-- `docs/README.md`: index of generated guides and the repo's synthesized information architecture.
+- `README.md` (root): index of generated guides and the repo's synthesized information architecture.
 - `docs/agent-blueprint-vs-registration.md`: the clearest big-picture map of Pattern A vs. Pattern B.
 - `docs/developer-identity-platform.md`: identity hierarchy, required permissions, and the manual Graph flow that the scripts automate.
 - `.github/agents/Entra-Researcher.agent.md`: source-grounding behavior for the custom Copilot agent.

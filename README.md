@@ -4,7 +4,7 @@
 
 This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `notes/` for faster lookups and offline access when the internet is not reachable.
 
-The repository includes three custom Copilot agents:
+The repository includes two custom Copilot agents:
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
@@ -21,6 +21,7 @@ Agent365-Management/
 │   ├── Researcher.md         Implementation guide with summary tables
 │   ├── Microsoft-Learn.md    Official Microsoft Learn pages (5 articles on Agent 365 admin)
 │   └── Microsoft-Learn-Entra-AgentID.md  Cached Entra Agent ID docs (73 pages indexed)
+├── README.md             ← This file
 ├── docs/             ← Synthesized topic guides (generated from notes)
 │   ├── pillar-registry.md             Pillar 1: Registry — discover, onboard, prevent rogue agents
 │   ├── pillar-access-control.md       Pillar 2: Access Control — Conditional Access, governance, least-privilege
@@ -33,14 +34,13 @@ Agent365-Management/
 │   ├── developer-identity-platform.md    Developer guide: blueprints, OAuth flows, admin relationships
 │   ├── entra-sdk-agent-id.md             Entra SDK for Agent ID: companion container, scenarios, security
 │   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
-│   ├── identity-blueprint/
-│   │   ├── README.md                         Landing page for identity blueprint guidance
-│   │   ├── what-is-an-identity-blueprint.md Definition, roles, and object relationships
-│   │   ├── blueprint-contents-explainer.md  Shared settings, credentials, and governance boundary
-│   │   ├── how-blueprints-are-used.md       Provisioning, runtime auth, and operational flow
-│   │   ├── when-to-use-identity-blueprints.md Scenario-based decision guide
-│   │   └── migrating-legacy-agents.md       Modernization paths for older agents
-│   └── README.md                          This file
+│   └── identity-blueprint/
+│       ├── README.md                         Landing page for identity blueprint guidance
+│       ├── what-is-an-identity-blueprint.md Definition, roles, and object relationships
+│       ├── blueprint-contents-explainer.md  Shared settings, credentials, and governance boundary
+│       ├── how-blueprints-are-used.md       Provisioning, runtime auth, and operational flow
+│       ├── when-to-use-identity-blueprints.md Scenario-based decision guide
+│       └── migrating-legacy-agents.md       Modernization paths for older agents
 ├── scripts/          ← Automation scripts and tooling
 │   ├── Create-Blueprint.ps1           Create an agent identity blueprint (Entra Agent ID)
 │   ├── blueprint-input.json.example   Sample blueprint input (copy to blueprint-input.json)
@@ -65,28 +65,28 @@ Start with the **docs/** folder. The **five pillar documents** provide comprehen
 
 | Document | Covers |
 |---|---|
-| [pillar-registry.md](pillar-registry.md) | **Registry** — How to identify rogue agents, onboard them, and prevent future rogue agents |
-| [pillar-access-control.md](pillar-access-control.md) | **Access Control** — Conditional Access, ID Protection, lifecycle governance, least-privilege |
-| [pillar-visualization.md](pillar-visualization.md) | **Visualization** — Overview dashboard, Agent Map, metrics, and monitoring routines |
-| [pillar-interoperability.md](pillar-interoperability.md) | **Interoperability** — MCP tooling servers, custom servers, governed tool access |
-| [pillar-security.md](pillar-security.md) | **Security** — Posture, detection, runtime defense, data protection, Purview/Defender |
+| [pillar-registry.md](docs/pillar-registry.md) | **Registry** — How to identify rogue agents, onboard them, and prevent future rogue agents |
+| [pillar-access-control.md](docs/pillar-access-control.md) | **Access Control** — Conditional Access, ID Protection, lifecycle governance, least-privilege |
+| [pillar-visualization.md](docs/pillar-visualization.md) | **Visualization** — Overview dashboard, Agent Map, metrics, and monitoring routines |
+| [pillar-interoperability.md](docs/pillar-interoperability.md) | **Interoperability** — MCP tooling servers, custom servers, governed tool access |
+| [pillar-security.md](docs/pillar-security.md) | **Security** — Posture, detection, runtime defense, data protection, Purview/Defender |
 
 Additional topic guides:
 
 | Document | Covers |
 |---|---|
-| [licensing-roles-enrollment.md](licensing-roles-enrollment.md) | What licenses you need, which Entra roles to assign, how to enroll in the Frontier preview, and the current GA status |
-| [enabling-legacy-agents.md](enabling-legacy-agents.md) | Step-by-step process to make existing Copilot Studio and Foundry agents visible in Agent 365 |
-| [enabling-code-built-agents.md](enabling-code-built-agents.md) | Two patterns for registering agents built with non-Microsoft tools (registry-only vs. full Entra Agent ID) |
-| [developer-identity-platform.md](developer-identity-platform.md) | Developer guide: blueprint creation (Graph API + PowerShell), OAuth flows, owners/sponsors/managers |
-| [entra-sdk-agent-id.md](entra-sdk-agent-id.md) | Entra SDK for Agent ID: companion container architecture, token flows, scenarios, security requirements |
-| [agent-blueprint-vs-registration.md](agent-blueprint-vs-registration.md) | Relationship diagram: blueprint creation vs. agent registration; Pattern A vs. Pattern B end-to-end flow |
-| [identity-blueprint/README.md](identity-blueprint/README.md) | Landing page for the identity blueprint doc set: definition, contents, usage, scenarios, and migration |
-| [identity-blueprint/what-is-an-identity-blueprint.md](identity-blueprint/what-is-an-identity-blueprint.md) | Defines the blueprint object, its four roles, and its relationship to blueprint principals and agent identities |
-| [identity-blueprint/blueprint-contents-explainer.md](identity-blueprint/blueprint-contents-explainer.md) | Explains which settings live on the blueprint, how credentials work, and when to separate blueprints |
-| [identity-blueprint/how-blueprints-are-used.md](identity-blueprint/how-blueprints-are-used.md) | Shows the provisioning, runtime authentication, and governance lifecycle for blueprint-backed agents |
-| [identity-blueprint/when-to-use-identity-blueprints.md](identity-blueprint/when-to-use-identity-blueprints.md) | Scenario guide for choosing full Entra Agent ID versus registry-only or product-managed paths |
-| [identity-blueprint/migrating-legacy-agents.md](identity-blueprint/migrating-legacy-agents.md) | Modernization paths for registry-only, older Copilot Studio, and custom legacy agents |
+| [licensing-roles-enrollment.md](docs/licensing-roles-enrollment.md) | What licenses you need, which Entra roles to assign, how to enroll in the Frontier preview, and the current GA status |
+| [enabling-legacy-agents.md](docs/enabling-legacy-agents.md) | Step-by-step process to make existing Copilot Studio and Foundry agents visible in Agent 365 |
+| [enabling-code-built-agents.md](docs/enabling-code-built-agents.md) | Two patterns for registering agents built with non-Microsoft tools (registry-only vs. full Entra Agent ID) |
+| [developer-identity-platform.md](docs/developer-identity-platform.md) | Developer guide: blueprint creation (Graph API + PowerShell), OAuth flows, owners/sponsors/managers |
+| [entra-sdk-agent-id.md](docs/entra-sdk-agent-id.md) | Entra SDK for Agent ID: companion container architecture, token flows, scenarios, security requirements |
+| [agent-blueprint-vs-registration.md](docs/agent-blueprint-vs-registration.md) | Relationship diagram: blueprint creation vs. agent registration; Pattern A vs. Pattern B end-to-end flow |
+| [identity-blueprint/README.md](docs/identity-blueprint/README.md) | Landing page for the identity blueprint doc set: definition, contents, usage, scenarios, and migration |
+| [identity-blueprint/what-is-an-identity-blueprint.md](docs/identity-blueprint/what-is-an-identity-blueprint.md) | Defines the blueprint object, its four roles, and its relationship to blueprint principals and agent identities |
+| [identity-blueprint/blueprint-contents-explainer.md](docs/identity-blueprint/blueprint-contents-explainer.md) | Explains which settings live on the blueprint, how credentials work, and when to separate blueprints |
+| [identity-blueprint/how-blueprints-are-used.md](docs/identity-blueprint/how-blueprints-are-used.md) | Shows the provisioning, runtime authentication, and governance lifecycle for blueprint-backed agents |
+| [identity-blueprint/when-to-use-identity-blueprints.md](docs/identity-blueprint/when-to-use-identity-blueprints.md) | Scenario guide for choosing full Entra Agent ID versus registry-only or product-managed paths |
+| [identity-blueprint/migrating-legacy-agents.md](docs/identity-blueprint/migrating-legacy-agents.md) | Modernization paths for registry-only, older Copilot Studio, and custom legacy agents |
 
 ### Need the original source material?
 
