@@ -4,13 +4,15 @@
 
 This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `notes/` for faster lookups and offline access when the internet is not reachable.
 
-The repository includes three custom Copilot agents:
+The repository includes five custom Copilot agents:
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
 | **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `copilot-playground/`. |
 | **Notes Author** | `@notes-author` | Creates and maintains research notes in `notes/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
 | **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that guides you through creating an Entra Agent ID blueprint — checks prerequisites (PowerShell, Graph module, tenant login, Entra roles, app permissions), collects all inputs, generates `blueprint-input.json`, and executes `Create-Blueprint.ps1`. |
+| **Shadow Agent Discovery** | `@shadow-agent-discovery` | Interactive wizard that scans your Entra ID tenant for shadow/rogue agents — checks prerequisites, configures scan options, executes `Discover-ShadowAgents.ps1`, analyzes the CSV report, and recommends remediation actions. |
+| **AgentId Registration Helper** | `@agentid-registration-helper` | Interactive wizard that registers an agent in the Entra Agent Registry — checks prerequisites, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and executes `Register-Agent.ps1`. |
 
 ## Folder Structure
 
@@ -59,9 +61,11 @@ Agent365-Management/
 └── .github/
     ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
     └── agents/
-        ├── Entra-Researcher.agent.md  @entra-researcher custom Copilot agent for Microsoft Learn grounding
-        ├── Notes-Author.agent.md      @notes-author agent for creating/maintaining notes with headers
-        └── BluePrint-Creator.agent.md @blueprint-creator interactive wizard for blueprint creation
+        ├── Entra-Researcher.agent.md           @entra-researcher for Microsoft Learn grounding
+        ├── Notes-Author.agent.md               @notes-author for creating/maintaining notes
+        ├── BluePrint-Creator.agent.md          @blueprint-creator wizard for blueprint creation
+        ├── Shadow-Agent-Discovery.agent.md     @shadow-agent-discovery wizard for tenant scanning
+        └── AgentId-Registration-Helper.agent.md @agentid-registration-helper wizard for registry
 ```
 
 ## How to Use This Repository
@@ -213,6 +217,66 @@ The agent remembers where you left off and re-validates before proceeding.
 ```
 
 The agent will guide you through the managed identity FIC configuration path, collecting the managed identity principal ID and other required fields.
+
+---
+
+#### `@shadow-agent-discovery` — Shadow Agent Discovery Wizard
+
+A read-only scanning wizard that discovers unregistered, ownerless, or high-privilege agents in your Entra ID tenant and helps you interpret the findings.
+
+##### Example 1 — Start a Full Scan
+
+```
+@shadow-agent-discovery Scan my tenant for shadow agents
+```
+
+The agent will walk you through an 8-step process: checking prerequisites, configuring scan options (sign-in logs, stale threshold), executing `scripts/Discover-ShadowAgents.ps1`, and presenting a risk-categorized analysis of the CSV report.
+
+##### Example 2 — Scan with Sign-In Log Analysis
+
+```
+@shadow-agent-discovery Run a discovery scan including sign-in log analysis
+```
+
+The agent will enable the `-IncludeSignIns` flag and explain the additional `AuditLog.Read.All` permission requirement.
+
+##### Example 3 — Interpret Previous Results
+
+```
+@shadow-agent-discovery I already ran the scan — help me understand the results in shadow-agents-report.csv
+```
+
+The agent will read the CSV, categorize findings by risk level (high/medium/low), and provide specific remediation guidance for each issue.
+
+---
+
+#### `@agentid-registration-helper` — Agent Registry Registration Wizard
+
+A step-by-step wizard that registers your agent in the Microsoft Entra Agent Registry, supporting both Pattern A (registry-only) and Pattern B (full Entra Agent ID).
+
+##### Example 1 — Register a Custom Agent
+
+```
+@agentid-registration-helper I want to register my Python agent in the Agent Registry
+```
+
+The agent will walk you through a 12-step process: checking prerequisites, determining your registration pattern, collecting all metadata fields (including the agent card manifest with skills, capabilities, and security config), generating `agent-metadata.json`, and executing `scripts/Register-Agent.ps1`.
+
+##### Example 2 — Register with Entra Agent ID (Pattern B)
+
+```
+@agentid-registration-helper Register my agent with full Entra Agent ID integration — I already have a blueprint
+```
+
+The agent will follow the Pattern B flow, collecting your `agentIdentityBlueprintId` and `agentIdentityId` in addition to the standard registry metadata.
+
+##### Example 3 — Register a Shadow Agent Found by Discovery
+
+```
+@agentid-registration-helper I found an unregistered agent during a shadow scan — help me register it
+```
+
+The agent will guide you through creating proper registry metadata for an agent that was discovered but not yet formally registered.
 
 ---
 

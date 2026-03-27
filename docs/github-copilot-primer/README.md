@@ -111,29 +111,67 @@ This repository has two custom agents, each with a distinct role:
 @blueprint-creator I want to create a new agent identity blueprint
 ```
 
-#### How the Three Agents Work Together
+#### `@shadow-agent-discovery` — Shadow Agent Discovery Wizard
+
+**File:** `.github/agents/Shadow-Agent-Discovery.agent.md`
+
+| Aspect | Configuration |
+|---|---|
+| **Role** | Scans tenant for unregistered, ownerless, or high-privilege agents |
+| **Key behavior** | 8-step workflow: checks prerequisites → configures scan → runs script → analyzes results |
+| **Tools used** | `execute` (run PowerShell), `read` (parse CSV report), `search` |
+
+**Example invocation:**
+```
+@shadow-agent-discovery Scan my tenant for shadow agents
+```
+
+#### `@agentid-registration-helper` — Agent Registry Registration Wizard
+
+**File:** `.github/agents/AgentId-Registration-Helper.agent.md`
+
+| Aspect | Configuration |
+|---|---|
+| **Role** | Registers an agent in the Entra Agent Registry (Pattern A or B) |
+| **Key behavior** | 12-step workflow: checks prerequisites → collects metadata + manifest → generates JSON → runs script |
+| **Tools used** | `execute` (run PowerShell), `read`/`edit` (generate agent-metadata.json), `search` |
+
+**Example invocation:**
+```
+@agentid-registration-helper Register my Python agent in the Agent Registry
+```
+
+#### How the Five Agents Work Together
 
 ```
-User invokes @blueprint-creator
-        │
-        ▼
-@blueprint-creator checks prereqs → collects inputs → runs Create-Blueprint.ps1
-        │
-        ▼
-Blueprint created → user has appId (agentIdentityBlueprintId)
-        │
-        ▼
-User asks @entra-researcher "how do I register this agent?"
-        │
-        ▼
-@entra-researcher provides Graph API steps + references Register-Agent.ps1
-        │
-        ├── If answer contradicts a note → flags it
-        │                                     │
-        │                                     ▼
-        │                   User asks @notes-author to fix the note
-        │
-        └── User runs Register-Agent.ps1 → agent is registered
+          ┌──────────────────────────────────────────────────┐
+          │         @entra-researcher                        │
+          │   Answers questions, references scripts,         │
+          │   flags contradictions in notes                  │
+          └──────────────┬───────────────────────────────────┘
+                         │ flags stale note
+                         ▼
+          ┌──────────────────────────────────────────────────┐
+          │         @notes-author                            │
+          │   Corrects / creates notes in notes/             │
+          └──────────────────────────────────────────────────┘
+
+          ┌──────────────────────────────────────────────────┐
+          │         @blueprint-creator                       │
+          │   Creates blueprint → outputs appId              │
+          └──────────────┬───────────────────────────────────┘
+                         │ appId (agentIdentityBlueprintId)
+                         ▼
+          ┌──────────────────────────────────────────────────┐
+          │         @agentid-registration-helper             │
+          │   Registers agent in Agent Registry              │
+          └──────────────────────────────────────────────────┘
+
+          ┌──────────────────────────────────────────────────┐
+          │         @shadow-agent-discovery                  │
+          │   Discovers unregistered agents → feeds into     │
+          │   @agentid-registration-helper for onboarding    │
+          └──────────────────────────────────────────────────┘
 ```
 
 ### 3. MCP Servers → `.github/copilot/`
@@ -150,9 +188,11 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 .github/
 ├── copilot-instructions.md          ← Repo-wide instructions (all sessions)
 ├── agents/
-│   ├── Entra-Researcher.agent.md    ← @entra-researcher custom agent
-│   ├── Notes-Author.agent.md       ← @notes-author custom agent
-│   └── BluePrint-Creator.agent.md  ← @blueprint-creator wizard agent
+│   ├── Entra-Researcher.agent.md           ← @entra-researcher custom agent
+│   ├── Notes-Author.agent.md              ← @notes-author custom agent
+│   ├── BluePrint-Creator.agent.md         ← @blueprint-creator wizard agent
+│   ├── Shadow-Agent-Discovery.agent.md    ← @shadow-agent-discovery wizard agent
+│   └── AgentId-Registration-Helper.agent.md ← @agentid-registration-helper wizard agent
 └── copilot/                         ← (MCP servers would go here)
 ```
 
