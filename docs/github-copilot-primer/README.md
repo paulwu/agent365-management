@@ -63,7 +63,7 @@ This file tells Copilot about the repository's architecture and conventions. Any
 
 ### 2. Custom Agents → `.github/agents/`
 
-This repository has two custom agents, each with a distinct role:
+This repository has five custom agents:
 
 #### `@entra-researcher` — Research Agent
 

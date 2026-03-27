@@ -25,7 +25,7 @@ The main cross-file workflow is:
 2. An agent identity is then created outside this repo (Graph API / CLI), using the blueprint output.
 3. The resulting `agentIdentityBlueprintId` and `agentIdentityId` are added to `agent-metadata.json`.
 4. `scripts/Register-Agent.ps1` registers the agent in the Agent Registry.
-5. `scripts/Discover-ShadowAgents.ps1` is the separate discovery/audit path and outputs a CSV report rather than registry metadata.
+5. `scripts/Discover-ShadowAgents.ps1` is the separate discovery/audit path and outputs a CSV report to `discovery/` rather than registry metadata.
 
 Pattern A is registry-only registration with `Register-Agent.ps1`. Pattern B is full Entra Agent ID integration and spans blueprint creation, identity creation, metadata wiring, and registry registration. That relationship is documented across `docs/agent-blueprint-vs-registration.md`, `docs/developer-identity-platform.md`, and `scripts/README.md`.
 
@@ -76,3 +76,6 @@ There is no single-test command because there is no automated test harness. When
 - `docs/agent-blueprint-vs-registration.md`: the clearest big-picture map of Pattern A vs. Pattern B.
 - `docs/developer-identity-platform.md`: identity hierarchy, required permissions, and the manual Graph flow that the scripts automate.
 - `.github/agents/Entra-Researcher.agent.md`: source-grounding behavior for the custom Copilot agent.
+- `.github/agents/BluePrint-Creator.agent.md`: interactive wizard that creates blueprints via `Create-Blueprint.ps1`.
+- `.github/agents/Shadow-Agent-Discovery.agent.md`: interactive wizard that discovers shadow agents via `Discover-ShadowAgents.ps1`; outputs to `discovery/`.
+- `.github/agents/AgentId-Registration-Helper.agent.md`: interactive wizard that registers agents via `Register-Agent.ps1`.
