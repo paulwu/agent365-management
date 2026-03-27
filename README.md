@@ -34,6 +34,11 @@ Agent365-Management/
 │   ├── developer-identity-platform.md    Developer guide: blueprints, OAuth flows, admin relationships
 │   ├── entra-sdk-agent-id.md             Entra SDK for Agent ID: companion container, scenarios, security
 │   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
+│   ├── github-copilot-primer/
+│   │   ├── README.md                        Overview: how instructions, agents, and MCP servers work together
+│   │   ├── copilot-instructions.md          What Copilot instructions are and how to write them
+│   │   ├── custom-agents.md                 How to create and configure custom Copilot agents
+│   │   └── mcp-servers-and-skills.md        MCP servers, skills, and tool extensibility
 │   └── identity-blueprint/
 │       ├── README.md                         Landing page for identity blueprint guidance
 │       ├── what-is-an-identity-blueprint.md Definition, roles, and object relationships
@@ -87,6 +92,10 @@ Additional topic guides:
 | [identity-blueprint/how-blueprints-are-used.md](docs/identity-blueprint/how-blueprints-are-used.md) | Shows the provisioning, runtime authentication, and governance lifecycle for blueprint-backed agents |
 | [identity-blueprint/when-to-use-identity-blueprints.md](docs/identity-blueprint/when-to-use-identity-blueprints.md) | Scenario guide for choosing full Entra Agent ID versus registry-only or product-managed paths |
 | [identity-blueprint/migrating-legacy-agents.md](docs/identity-blueprint/migrating-legacy-agents.md) | Modernization paths for registry-only, older Copilot Studio, and custom legacy agents |
+| [github-copilot-primer/README.md](docs/github-copilot-primer/README.md) | Overview: how Copilot instructions, custom agents, and MCP servers work together in this project |
+| [github-copilot-primer/copilot-instructions.md](docs/github-copilot-primer/copilot-instructions.md) | What Copilot instructions are, types of instruction files, and best practices |
+| [github-copilot-primer/custom-agents.md](docs/github-copilot-primer/custom-agents.md) | How to create and configure custom Copilot agents with `.agent.md` profiles |
+| [github-copilot-primer/mcp-servers-and-skills.md](docs/github-copilot-primer/mcp-servers-and-skills.md) | MCP servers, skills, tool extensibility, and security considerations |
 
 ### Need the original source material?
 
@@ -96,16 +105,119 @@ The **notes/** folder contains the unedited research from different AI assistant
 
 When new information becomes available, add or update files in **notes/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
 
-### Using the Copilot agents
+### Using the Copilot Agents
 
-Two custom Copilot agents are available in VS Code Copilot Chat when this repository is open:
+Two custom Copilot agents are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
 
-**`@entra-researcher`** — Ask questions about Microsoft Entra Agent ID. The agent:
+---
+
+#### `@entra-researcher` — Entra Agent ID Research Agent
+
+Ask questions about Microsoft Entra Agent ID. The agent:
 
 1. **Fetches live content** from Microsoft Learn Entra Agent ID documentation
 2. **Cross-references** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`
 3. **Checks curated notes** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
 4. **Flags contradictions** between sources with ⚠️ warnings, listing Author and Priority so you can correct stale notes
-5. **Saves every response** to `copilot-playground/response-YY-MM-DD-HH-MM-SS.md` (Pacific Time)
+5. **References repository scripts** in `scripts/` when a workflow can be expedited with existing automation
+6. **Saves every response** to `copilot-playground/response-YY-MM-DD-HH-MM-SS.md` (Pacific Time)
 
-**`@notes-author`** — Create or modify notes in `notes/`. The agent enforces the required YAML frontmatter (`Author`, `Priority`) and the priority scale (1 = reserved for verified-in-session, 2 = cached Microsoft Learn, 3 = other official docs, 4 = AI research, 5+ = community).
+##### Example 1 — Ask How to Create a Blueprint
+
+```
+@entra-researcher How do I create an agent identity blueprint for my custom Python agent?
+```
+
+The agent will provide the full step-by-step Graph API calls **and** reference `scripts/Create-Blueprint.ps1` as a ready-to-use alternative, including the Quick Start commands.
+
+##### Example 2 — Register an Agent in the Agent Registry
+
+```
+@entra-researcher How do I register my code-built agent in the Entra Agent Registry?
+```
+
+The agent will explain the `POST /beta/agentRegistry/agentInstances` API call, the required `AgentInstance.ReadWrite.All` permission, and point you to `scripts/Register-Agent.ps1` with the `agent-metadata.json.example` template.
+
+##### Example 3 — Ask About a Specific Concept
+
+```
+@entra-researcher What is the difference between an agent identity and an agent user?
+```
+
+```
+@entra-researcher What OAuth flows are supported for agent identities?
+```
+
+The agent will fetch the relevant Microsoft Learn pages, synthesize an answer, and cite the specific documentation URLs.
+
+##### Example 4 — C# or Python Integration
+
+```
+@entra-researcher I have a C# agent — how do I integrate it with Entra Agent ID to call Microsoft Graph?
+```
+
+```
+@entra-researcher Show me how to use the Agent ID SDK sidecar container with a FastAPI Python app.
+```
+
+The agent will provide language-specific guidance: native NuGet packages (`Microsoft.Identity.Web.AgentIdentities`) for .NET, or the containerized sidecar SDK for Python and other languages.
+
+##### Example 5 — Discover Shadow Agents
+
+```
+@entra-researcher How do I find unregistered or shadow agents in my tenant?
+```
+
+The agent will explain the discovery approach and reference `scripts/Discover-ShadowAgents.ps1`, which scans for agent-tagged service principals, ownerless apps, high-privilege permissions, and stale credentials.
+
+##### Example 6 — Governance and Security
+
+```
+@entra-researcher What Conditional Access policies can I apply to agent identities?
+```
+
+```
+@entra-researcher How does Identity Protection work for agents?
+```
+
+The agent will fetch the relevant Entra governance/security pages and provide grounded recommendations.
+
+---
+
+#### `@notes-author` — Research Notes Author
+
+Create or modify research notes in `notes/`. The agent enforces the required YAML frontmatter (`Author`, `Priority`) and the canonical priority scale.
+
+##### Example 1 — Create a New Research Note
+
+```
+@notes-author Create a new note about Entra Agent ID Conditional Access policies based on this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
+```
+
+The agent will create a properly formatted note in `notes/` with the correct frontmatter headers and priority level.
+
+##### Example 2 — Update an Existing Note
+
+```
+@notes-author Update notes/ChatGPT.md to add a section about agent registry collections
+```
+
+The agent will edit the note while preserving its existing frontmatter, citation style, and structure.
+
+##### Example 3 — Fix a Contradiction Flagged by Entra Researcher
+
+When `@entra-researcher` flags a contradiction (e.g., a note says something different from Microsoft Learn), use `@notes-author` to correct it:
+
+```
+@notes-author In notes/Gemini.md, the section on agent identity tenancy says agents can access resources across tenants. Microsoft Learn says they can only be issued tokens in the tenant where they're created. Please correct the note.
+```
+
+#### Priority Scale Reference
+
+| Priority | Meaning | Example |
+|---|---|---|
+| 1 | Verified in-session (human-confirmed) | Manual corrections |
+| 2 | Cached Microsoft Learn content | `notes/Microsoft-Learn-Entra-AgentID.md` |
+| 3 | Other official documentation | Microsoft blog posts, whitepapers |
+| 4 | AI-generated research | `notes/ChatGPT.md`, `notes/Gemini.md` |
+| 5+ | Community / speculative | Forum posts, early previews |

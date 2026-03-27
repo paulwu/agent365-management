@@ -1,0 +1,144 @@
+# GitHub Copilot Primer
+
+> A quick-start guide for understanding how GitHub Copilot's customization system works and how this repository uses it.
+
+If you're new to GitHub Copilot's agent and customization features, start here. This primer explains the three core building blocks — **instructions**, **custom agents**, and **MCP servers / skills** — then shows exactly how this repository wires them together.
+
+## The Three Building Blocks
+
+| Building Block | What It Does | Where It Lives |
+|---|---|---|
+| [**Copilot Instructions**](./copilot-instructions.md) | Give Copilot persistent, repository-specific context — conventions, build commands, architecture notes | `.github/copilot-instructions.md` |
+| [**Custom Agents**](./custom-agents.md) | Create specialized personas with tailored prompts, tool access, and MCP servers | `.github/agents/<name>.agent.md` |
+| [**MCP Servers & Skills**](./mcp-servers-and-skills.md) | Connect Copilot to external tools and data sources (web fetch, APIs, databases, browsers) | `.github/copilot/mcp.json` or inline in agent profiles |
+
+### How They Relate
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Your Repository                       │
+│                                                          │
+│  .github/                                                │
+│  ├── copilot-instructions.md  ◄── Copilot Instructions   │
+│  │   (applies to ALL Copilot interactions)               │
+│  │                                                       │
+│  ├── agents/                                             │
+│  │   ├── agent-a.agent.md     ◄── Custom Agent A         │
+│  │   └── agent-b.agent.md     ◄── Custom Agent B         │
+│  │   (each agent has its own prompt + tool config)       │
+│  │                                                       │
+│  └── copilot/                                            │
+│      └── mcp.json             ◄── MCP Server Config      │
+│          (shared tools available to all agents)           │
+└─────────────────────────────────────────────────────────┘
+
+Flow:
+1. Copilot reads copilot-instructions.md → learns repo conventions
+2. User invokes @agent-a → Copilot loads agent-a's prompt + tools
+3. Agent calls MCP server tools → fetches web pages, runs commands, etc.
+4. Agent produces a grounded, context-aware response
+```
+
+**Key principle:** Instructions set the baseline for all interactions. Agents build on that baseline with specialized behavior. MCP servers give agents the ability to take external actions.
+
+---
+
+## How This Repository Uses Each Concept
+
+### 1. Copilot Instructions → `.github/copilot-instructions.md`
+
+This file tells Copilot about the repository's architecture and conventions. Any Copilot session (chat, agent, code review) automatically reads it.
+
+**What it contains in this repo:**
+
+| Section | Purpose |
+|---|---|
+| Canonical sources and grounding | Always prefer Microsoft Learn over local notes |
+| Repository architecture | Three layers: `notes/` → `docs/` → `scripts/` |
+| Build, test, lint commands | PowerShell parse validation for scripts |
+| Codebase conventions | JSON field names, citation styles, Graph API version rules |
+| Key files to consult | Which files to read before making changes |
+
+**Why it matters:** Without this file, Copilot would treat `docs/` as a source of truth (it's actually generated output). The instructions ensure Copilot always grounds answers on Microsoft Learn first, then `notes/`.
+
+### 2. Custom Agents → `.github/agents/`
+
+This repository has two custom agents, each with a distinct role:
+
+#### `@entra-researcher` — Research Agent
+
+**File:** `.github/agents/Entra-Researcher.agent.md`
+
+| Aspect | Configuration |
+|---|---|
+| **Role** | Answer questions about Microsoft Entra Agent ID, grounded on Microsoft Learn |
+| **Key behavior** | Fetches live docs, cross-references local notes, flags contradictions, references `scripts/` |
+| **Response capture** | Saves every response to `copilot-playground/response-*.md` |
+| **Tools used** | `web_fetch` / `web_search` (to fetch Microsoft Learn pages), file read/edit (to save responses) |
+
+**Example invocation:**
+```
+@entra-researcher How do I create an agent identity blueprint for my C# agent?
+```
+
+#### `@notes-author` — Notes Maintenance Agent
+
+**File:** `.github/agents/Notes-Author.agent.md`
+
+| Aspect | Configuration |
+|---|---|
+| **Role** | Create and maintain research notes in `notes/` |
+| **Key behavior** | Enforces YAML frontmatter format (`Author`, `Priority`), validates priority scale |
+| **Boundaries** | Only operates on files in `notes/` |
+
+**Example invocation:**
+```
+@notes-author Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
+```
+
+#### How the Two Agents Work Together
+
+```
+User asks @entra-researcher a question
+        │
+        ▼
+@entra-researcher fetches Microsoft Learn + checks notes/
+        │
+        ├── Answer is consistent → provides grounded response
+        │
+        └── Contradiction found → flags it with ⚠️ warning
+                │
+                ▼
+        User asks @notes-author to correct the stale note
+                │
+                ▼
+        @notes-author updates notes/ with correct info + proper headers
+```
+
+### 3. MCP Servers → `.github/copilot/`
+
+This repository does not currently define additional MCP servers beyond the defaults. The `@entra-researcher` agent relies on Copilot's built-in web tools (`web_fetch`, `web_search`) to fetch live Microsoft Learn pages.
+
+If the repository needed additional capabilities (e.g., querying Microsoft Graph directly, running PowerShell scripts as tools), MCP servers would be configured in `.github/copilot/mcp.json` or inline in the agent profiles.
+
+---
+
+## Quick Reference: File Locations in This Repo
+
+```
+.github/
+├── copilot-instructions.md          ← Repo-wide instructions (all sessions)
+├── agents/
+│   ├── Entra-Researcher.agent.md    ← @entra-researcher custom agent
+│   └── Notes-Author.agent.md       ← @notes-author custom agent
+└── copilot/                         ← (MCP servers would go here)
+```
+
+## Further Reading
+
+- [Custom Agents](./custom-agents.md) — How agent profiles work, YAML frontmatter, tool aliases
+- [Copilot Instructions](./copilot-instructions.md) — Types of instruction files, what to include, load order
+- [MCP Servers & Skills](./mcp-servers-and-skills.md) — How MCP works, configuration, security
+- [GitHub Docs: About custom agents](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents)
+- [GitHub Docs: Custom instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot)
+- [GitHub Docs: Extending Copilot with MCP](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/extend-coding-agent-with-mcp)

@@ -16,6 +16,26 @@ Before answering ANY question about Entra Agent ID, agent identities, blueprints
 2. **Cross-reference** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`.
 3. **Check other note files** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
 
+## Repository Scripts — Actionable Shortcuts
+
+This repository contains PowerShell scripts in `scripts/` that automate key Entra Agent ID workflows. When your answer involves a workflow that one of these scripts covers, **always mention the script as a ready-to-use alternative** in addition to showing the raw HTTP / Graph API calls.
+
+### Script-to-topic mapping
+
+| User is asking about… | Reference this script | Key input file |
+|---|---|---|
+| Creating an agent identity blueprint, configuring blueprint credentials, setting up identifier URIs / scopes, creating a blueprint principal | `scripts/Create-Blueprint.ps1` | `scripts/blueprint-input.json.example` |
+| Registering an agent in the Agent Registry, creating an agent instance, publishing an agent card manifest | `scripts/Register-Agent.ps1` | `scripts/agent-metadata.json.example` |
+| Discovering shadow agents, auditing unregistered agents, finding ownerless or high-privilege apps, reviewing sign-in logs for agents | `scripts/Discover-ShadowAgents.ps1` | *(generates a CSV report)* |
+
+### How to reference scripts
+
+- Show the relevant `Quick Start` commands from `scripts/README.md` (copy the example file, edit it, run the script).
+- Mention the required Entra roles and Graph permissions the script needs (documented in `scripts/README.md`).
+- If the user's question spans both blueprint creation **and** registry registration (Pattern B), reference both `Create-Blueprint.ps1` and `Register-Agent.ps1` and explain the sequencing: blueprint first → agent identity creation (manual Graph call) → registry registration.
+- Always present the script alongside (not instead of) the raw Graph API calls so the user can choose their preferred approach.
+- For full script documentation, point the user to `scripts/README.md`.
+
 ## Contradiction Detection
 
 Whenever information from a note in `notes/` conflicts with live or cached Microsoft Learn content, **always present both perspectives** so the user can verify and correct stale notes:

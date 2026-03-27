@@ -32,6 +32,7 @@ That combination is what makes a blueprint different from a normal app registrat
 - [Enabling Agents Created in Code](../enabling-code-built-agents.md) — registry-only versus full Entra Agent ID
 - [Enabling Legacy Agents](../enabling-legacy-agents.md) — Copilot Studio and Foundry modernization path
 - [Scripts README](../../scripts/README.md) — `blueprint-input.json` and `agent-metadata.json` field guides
+- [GitHub Copilot Primer](../github-copilot-primer/README.md) — how the custom agents, instructions, and MCP servers in this repository work together
 
 ## References
 
