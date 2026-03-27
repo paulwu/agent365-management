@@ -4,12 +4,13 @@
 
 This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `notes/` for faster lookups and offline access when the internet is not reachable.
 
-The repository includes two custom Copilot agents:
+The repository includes three custom Copilot agents:
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
 | **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `copilot-playground/`. |
 | **Notes Author** | `@notes-author` | Creates and maintains research notes in `notes/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
+| **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that guides you through creating an Entra Agent ID blueprint — checks prerequisites (PowerShell, Graph module, tenant login, Entra roles, app permissions), collects all inputs, generates `blueprint-input.json`, and executes `Create-Blueprint.ps1`. |
 
 ## Folder Structure
 
@@ -59,7 +60,8 @@ Agent365-Management/
     ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
     └── agents/
         ├── Entra-Researcher.agent.md  @entra-researcher custom Copilot agent for Microsoft Learn grounding
-        └── Notes-Author.agent.md      @notes-author agent for creating/maintaining notes with headers
+        ├── Notes-Author.agent.md      @notes-author agent for creating/maintaining notes with headers
+        └── BluePrint-Creator.agent.md @blueprint-creator interactive wizard for blueprint creation
 ```
 
 ## How to Use This Repository
@@ -181,6 +183,36 @@ The agent will explain the discovery approach and reference `scripts/Discover-Sh
 ```
 
 The agent will fetch the relevant Entra governance/security pages and provide grounded recommendations.
+
+---
+
+#### `@blueprint-creator` — Interactive Blueprint Creation Wizard
+
+A step-by-step operational wizard that creates an Entra Agent ID blueprint from scratch. It checks prerequisites, collects inputs, generates the configuration file, and runs the script.
+
+##### Example 1 — Start the Wizard
+
+```
+@blueprint-creator I want to create a new agent identity blueprint
+```
+
+The agent will walk you through a 10-step process: checking PowerShell, verifying your tenant login, validating Entra roles, collecting blueprint fields, generating `blueprint-input.json`, and executing `scripts/Create-Blueprint.ps1`.
+
+##### Example 2 — Resume After Fixing a Prerequisite
+
+```
+@blueprint-creator I've activated the Agent ID Developer role, let's continue
+```
+
+The agent remembers where you left off and re-validates before proceeding.
+
+##### Example 3 — Create a Blueprint for Production
+
+```
+@blueprint-creator Create a blueprint using managed identity credentials for a production agent
+```
+
+The agent will guide you through the managed identity FIC configuration path, collecting the managed identity principal ID and other required fields.
 
 ---
 

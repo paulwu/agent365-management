@@ -96,23 +96,44 @@ This repository has two custom agents, each with a distinct role:
 @notes-author Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 ```
 
-#### How the Two Agents Work Together
+#### `@blueprint-creator` — Blueprint Creation Wizard
+
+**File:** `.github/agents/BluePrint-Creator.agent.md`
+
+| Aspect | Configuration |
+|---|---|
+| **Role** | Interactive wizard that creates an Entra Agent ID blueprint end-to-end |
+| **Key behavior** | 10-step workflow: checks prerequisites → collects inputs → generates JSON → runs script |
+| **Tools used** | `execute` (run PowerShell), `read`/`edit` (generate blueprint-input.json), `search` |
+
+**Example invocation:**
+```
+@blueprint-creator I want to create a new agent identity blueprint
+```
+
+#### How the Three Agents Work Together
 
 ```
-User asks @entra-researcher a question
+User invokes @blueprint-creator
         │
         ▼
-@entra-researcher fetches Microsoft Learn + checks notes/
+@blueprint-creator checks prereqs → collects inputs → runs Create-Blueprint.ps1
         │
-        ├── Answer is consistent → provides grounded response
+        ▼
+Blueprint created → user has appId (agentIdentityBlueprintId)
         │
-        └── Contradiction found → flags it with ⚠️ warning
-                │
-                ▼
-        User asks @notes-author to correct the stale note
-                │
-                ▼
-        @notes-author updates notes/ with correct info + proper headers
+        ▼
+User asks @entra-researcher "how do I register this agent?"
+        │
+        ▼
+@entra-researcher provides Graph API steps + references Register-Agent.ps1
+        │
+        ├── If answer contradicts a note → flags it
+        │                                     │
+        │                                     ▼
+        │                   User asks @notes-author to fix the note
+        │
+        └── User runs Register-Agent.ps1 → agent is registered
 ```
 
 ### 3. MCP Servers → `.github/copilot/`
@@ -130,7 +151,8 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 ├── copilot-instructions.md          ← Repo-wide instructions (all sessions)
 ├── agents/
 │   ├── Entra-Researcher.agent.md    ← @entra-researcher custom agent
-│   └── Notes-Author.agent.md       ← @notes-author custom agent
+│   ├── Notes-Author.agent.md       ← @notes-author custom agent
+│   └── BluePrint-Creator.agent.md  ← @blueprint-creator wizard agent
 └── copilot/                         ← (MCP servers would go here)
 ```
 
