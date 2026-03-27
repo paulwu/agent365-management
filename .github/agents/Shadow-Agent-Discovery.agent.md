@@ -29,14 +29,157 @@ Step 8: Recommend remediation actions
 
 ## Step 1 — Check PowerShell Availability
 
-Run:
+This step detects the operating environment, checks for PowerShell 7, and attempts installation if missing.
+
+### Phase A — Detect environment
+
+Run these commands to determine the platform:
+
+```bash
+uname -s 2>/dev/null || echo "UNKNOWN"
+```
+
+```bash
+grep -qi microsoft /proc/version 2>/dev/null && echo "WSL" || echo "NOT_WSL"
+```
+
+```bash
+pwsh --version 2>/dev/null || echo "PWSH_NOT_FOUND"
+```
+
+Use the results to classify the environment:
+- **WSL Ubuntu:** `uname -s` returns `Linux` AND `/proc/version` contains `microsoft`
+- **Native Linux:** `uname -s` returns `Linux` AND NOT WSL
+- **macOS:** `uname -s` returns `Darwin`
+- **Windows (Git Bash / MINGW):** `uname -s` starts with `MINGW` or `MSYS`
+
+### Phase B — PowerShell found
+
+If `pwsh --version` returns `PowerShell 7.x.x` or later, show the version and proceed to Step 2.
+
+### Phase C — PowerShell not found — attempt auto-install
+
+Ask the user: "PowerShell 7 is not installed. Would you like me to try installing it automatically?"
+
+**If the user agrees**, attempt installation based on the detected platform:
+
+**WSL Ubuntu / Native Linux (Debian/Ubuntu-based):**
+```bash
+# Try APT repo first
+sudo apt-get update && sudo apt-get install -y wget curl gpg
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+. /etc/os-release
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/ubuntu/${VERSION_ID}/prod ${UBUNTU_CODENAME} main" | sudo tee /etc/apt/sources.list.d/microsoft.list
+sudo apt-get update && sudo apt-get install -y powershell
+```
+
+If APT fails, try snap:
+```bash
+sudo snap install powershell --classic
+```
+
+**macOS:**
+```bash
+brew install powershell/tap/powershell
+```
+
+**Windows (Git Bash / MINGW):**
+```bash
+winget install Microsoft.PowerShell
+```
+
+After the install attempt, re-check:
+```bash
+pwsh --version
+```
+
+If `pwsh` is now available, proceed to Step 2.
+
+### Phase D — Installation failed or user declined — generate installation guide
+
+If auto-install failed or the user declined, generate a `docs/PowerShell-install.md` file with platform-specific instructions:
+
+```bash
+mkdir -p docs
+```
+
+Create `docs/PowerShell-install.md` with the following content:
+
+~~~markdown
+# PowerShell 7 Installation Guide
+
+PowerShell 7 is required to run the scripts in this repository. It runs **natively on Linux, macOS, and Windows** — no Windows PowerShell dependency is needed.
+
+## WSL Ubuntu / Ubuntu
+
+### Option 1 — Microsoft APT Repository (recommended)
+
+```bash
+sudo apt-get update && sudo apt-get install -y wget curl gpg
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+
+# Auto-detect your Ubuntu version
+. /etc/os-release
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/ubuntu/${VERSION_ID}/prod ${UBUNTU_CODENAME} main" | sudo tee /etc/apt/sources.list.d/microsoft.list
+
+sudo apt-get update && sudo apt-get install -y powershell
+```
+
+### Option 2 — Snap
+
+```bash
+sudo snap install powershell --classic
+```
+
+### Option 3 — Manual Tarball (if APT repo not available for your version)
+
+```bash
+# Check https://github.com/PowerShell/PowerShell/releases for latest version
+VERSION="7.5.1"
+ARCH=$(dpkg --print-architecture)
+curl -LO "https://github.com/PowerShell/PowerShell/releases/download/v${VERSION}/powershell-${VERSION}-linux-${ARCH}.tar.gz"
+sudo mkdir -p /opt/microsoft/powershell/7
+sudo tar zxf "powershell-${VERSION}-linux-${ARCH}.tar.gz" -C /opt/microsoft/powershell/7
+sudo ln -sf /opt/microsoft/powershell/7/pwsh /usr/local/bin/pwsh
+rm "powershell-${VERSION}-linux-${ARCH}.tar.gz"
+```
+
+## macOS
+
+```bash
+brew install powershell/tap/powershell
+```
+
+## Windows
+
+```powershell
+winget install Microsoft.PowerShell
+```
+
+Or download the MSI installer from: https://github.com/PowerShell/PowerShell/releases
+
+## Verify Installation
 
 ```bash
 pwsh --version
 ```
 
-- If PowerShell 7+ is available, proceed.
-- If not, tell the user: "PowerShell 7 is required. Install it from https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell"
+You should see `PowerShell 7.x.x` or later.
+
+## References
+
+- [Install PowerShell (Microsoft Learn)](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
+- [PowerShell GitHub Releases](https://github.com/PowerShell/PowerShell/releases)
+~~~
+
+After creating the file, tell the user:
+
+```
+I've created docs/PowerShell-install.md with installation instructions for all platforms.
+Please install PowerShell 7 and re-run @shadow-agent-discovery when ready.
+```
+
+**Stop the workflow here** — do not proceed to Step 2 without PowerShell.
 
 ---
 
@@ -131,9 +274,12 @@ Ask: "How many days of inactivity should mark an agent as 'stale'? Default is 90
 
 ### 5c. Output Path
 
-Ask: "Where should the CSV report be saved? Default is `scripts/shadow-agents-report.csv`. Press enter for the default or provide a custom path."
+The default output location is `discovery/shadow-agents-report.csv`. Ask:
+
+"Where should the CSV report be saved? Default is `discovery/shadow-agents-report.csv`. Press enter for the default or provide a custom path."
 
 - If custom path, validate it looks like a valid file path ending in `.csv`.
+- If using the default, the `discovery/` folder will be created automatically in Step 6.
 
 ### 5d. Summary
 
@@ -159,10 +305,16 @@ Ask: "Ready to start the scan? (yes/no)"
 
 ## Step 6 — Execute Discover-ShadowAgents.ps1
 
-Build the command from the collected options:
+First, ensure the output directory exists:
 
 ```bash
-pwsh -File ./scripts/Discover-ShadowAgents.ps1 [-IncludeSignIns] [-DaysInactive <N>] [-OutputPath "<path>"]
+mkdir -p discovery
+```
+
+Build the command from the collected options. Use `discovery/shadow-agents-report.csv` as the default output path:
+
+```bash
+pwsh -File ./scripts/Discover-ShadowAgents.ps1 [-IncludeSignIns] [-DaysInactive <N>] -OutputPath "<path>"
 ```
 
 Run the script. **It will prompt the user for browser-based authentication** via `Connect-MgGraph`.
@@ -188,7 +340,7 @@ Monitor the output. The script runs 5 checks in sequence:
 
 ## Step 7 — Analyze and Interpret Results
 
-After the script completes, read the CSV report and present a structured analysis:
+After the script completes, read the CSV report from the output path (default: `discovery/shadow-agents-report.csv`) and present a structured analysis:
 
 ```bash
 pwsh -NoLogo -NoProfile -Command "if (Test-Path '<output-path>') { Import-Csv '<output-path>' | Format-Table DisplayName, Type, RiskIndicators -AutoSize } else { Write-Output 'NO_REPORT_FOUND' }"
