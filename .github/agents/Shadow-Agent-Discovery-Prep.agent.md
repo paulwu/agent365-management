@@ -17,7 +17,7 @@ Present this overview to the user at the start, then begin at Step 1:
 ```
 Step 1: Check PowerShell availability
 Step 2: Check Microsoft Graph PowerShell module
-Step 3: Explain required Entra role and Graph permissions
+Step 3: Check Azure CLI and verify Entra roles
 Step 4: Configure scan options
 Step 5: Generate the run command
 Step 6: Explain how to interpret results
@@ -197,42 +197,132 @@ pwsh -NoLogo -NoProfile -Command "Get-InstalledModule Microsoft.Graph.Authentica
 
 ---
 
-## Step 3 — Explain Required Entra Role and Graph Permissions
+## Step 3 — Check Azure CLI and Verify Entra Roles
 
-Explain the requirements to the user. **Do not attempt to verify roles programmatically** — this would require the same interactive auth the script needs.
+Azure CLI (`az`) can verify your Entra directory role assignments via `az rest`, which calls the Microsoft Graph API using your current login. This lets us confirm you have the required **Global Reader** role before you run the scan.
 
-### Entra Role (Least-Privilege)
+### Phase A — Check if Azure CLI is installed
 
-| Role | Purpose |
-|---|---|
-| **Global Reader** | Read-only access to app registrations, service principals, and sign-in logs |
+Run:
 
-> Global Reader is sufficient. No write permissions are needed — this is a read-only scan.
+```bash
+az version --output table 2>/dev/null || echo "AZ_NOT_FOUND"
+```
 
-### Microsoft Graph Permissions (Delegated)
+**If installed**, show the version and proceed to Phase B.
 
-The script requests these scopes automatically when connecting:
+**If not installed**, ask the user: "Azure CLI is not installed. Would you like me to try installing it?"
+
+If the user agrees, attempt installation based on the detected platform (from Step 1):
+
+**WSL Ubuntu / Native Linux:**
+```bash
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+
+**macOS:**
+```bash
+brew install azure-cli
+```
+
+**Windows (Git Bash / MINGW):**
+```bash
+winget install Microsoft.AzureCLI
+```
+
+After the install attempt, re-check:
+```bash
+az version --output table
+```
+
+If Azure CLI still isn't available, tell the user:
+```
+Azure CLI could not be installed. You can still run the scan — just make sure
+you have the Global Reader role before running the command.
+
+Install manually: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+```
+Skip to Step 4 — the scan will still work, you just won't be able to verify roles in advance.
+
+### Phase B — Check Azure CLI login
+
+```bash
+az account show --output json 2>/dev/null || echo "NOT_LOGGED_IN"
+```
+
+**If logged in**, show the tenant and account, then proceed to Phase C.
+
+**If not logged in**, attempt login:
+```bash
+az login
+```
+
+This opens a browser for interactive login. If it succeeds, proceed to Phase C.
+
+If login fails (e.g., no browser available), tell the user:
+```
+Azure CLI login requires browser access. You can log in from your terminal:
+  az login
+
+Or skip role verification — just make sure you have Global Reader before running the scan.
+```
+Skip to Step 4.
+
+### Phase C — Verify Entra directory role assignments
+
+Use `az rest` to query Microsoft Graph for the current user's directory role memberships:
+
+```bash
+az rest --method GET --url "https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.directoryRole?\$select=displayName,roleTemplateId" --output json 2>/dev/null
+```
+
+Parse the output and look for these role display names:
+- **Global Reader**
+- **Global Administrator** (also sufficient, but overprivileged)
+- **Directory Reader** (partial — may work for some checks)
+
+**If Global Reader (or higher) is found:**
+```
+✅ Entra role verified: Global Reader is active.
+   You have the required read-only access for the shadow agent scan.
+```
+
+Proceed to Step 4.
+
+**If the role is NOT found:**
+
+Tell the user:
+```
+⚠️ Global Reader role not found for your account.
+
+The scan requires Global Reader to read app registrations, service principals,
+and sign-in logs. Without it, you'll get 403 Forbidden errors.
+
+To activate the role:
+  Option 1 — Direct assignment:
+    1. Go to Entra admin center → Roles and administrators
+    2. Search for "Global Reader"
+    3. Click "Add assignments" → select yourself
+
+  Option 2 — PIM (Privileged Identity Management):
+    1. Go to Identity Governance → Privileged Identity Management
+    2. Select "My roles" → "Entra roles"
+    3. Find "Global Reader" → Click "Activate"
+
+  Option 3 — Ask your admin to assign the role.
+```
+
+**Do not block the workflow** — the user may have equivalent permissions through a custom role or group membership that `az rest` doesn't surface cleanly. Warn them but proceed to Step 4.
+
+### Required Graph Permissions (for reference)
+
+The discovery script requests these scopes automatically when connecting via `Connect-MgGraph`:
 
 | Permission | Required For |
 |---|---|
 | `Application.Read.All` | Read app registrations and service principals |
 | `Directory.Read.All` | Read directory objects and ownership |
 | `AuditLog.Read.All` | Read sign-in logs (**only if** `-IncludeSignIns` is used) |
-
-Tell the user:
-```
-Make sure you have the Global Reader role (or equivalent) before running the scan.
-
-To check or activate your role:
-  1. Go to Entra admin center → Roles and administrators
-  2. Search for "Global Reader"
-  3. Verify you have an active assignment
-
-If using PIM (Privileged Identity Management):
-  1. Go to Identity Governance → Privileged Identity Management
-  2. Select "My roles" → "Entra roles"
-  3. Find "Global Reader" → Click "Activate"
-```
 
 Proceed to Step 4.
 
