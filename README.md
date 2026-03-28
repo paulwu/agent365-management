@@ -4,7 +4,7 @@
 
 This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `notes/` for faster lookups and offline access when the internet is not reachable.
 
-The repository includes five custom [Copilot agents](docs/github-copilot-primer/README.md):
+The repository includes eight custom [Copilot agents](docs/github-copilot-primer/README.md):
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
@@ -13,6 +13,9 @@ The repository includes five custom [Copilot agents](docs/github-copilot-primer/
 | **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that creates an Entra Agent ID blueprint — auto-detects tenant via `az account show`, checks prerequisites, collects inputs, generates `blueprint-input.json`, and provides the command to run `Create-Blueprint.ps1`. **Requires interactive mode.** |
 | **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Prepares your environment for scanning — auto-detects tenant, checks/installs PowerShell and Graph module, verifies Entra roles via `az rest`, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1`. **Requires interactive mode.** |
 | **AgentId Registration Helper** | `@agentid-registration-helper` | Registers an agent in the Entra Agent Registry — auto-detects tenant via `az account show`, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and provides the command to run `Register-Agent.ps1`. **Requires interactive mode.** |
+| **Spec Exporter** | `@spec-exporter` | Extracts reusable Copilot agent patterns from a project into parameterized spec files in `specs/`. |
+| **Spec Importer** | `@spec-importer` | Applies spec files to a project — collects variable values, generates copilot-instructions, agent files, and README structure. **Requires interactive mode.** |
+| **Spec Drift** | `@spec-drift` | Compares a project's current state against its imported specs and reports divergences with actionable diffs. |
 
 ## Table of Contents
 
@@ -386,7 +389,10 @@ Agent365-Management/
         ├── Notes-Author.agent.md               @notes-author for creating/maintaining notes
         ├── BluePrint-Creator.agent.md          @blueprint-creator wizard for blueprint creation
         ├── Shadow-Agent-Discovery-Prep.agent.md @shadow-agent-discovery-prep env prep wizard
-        └── AgentId-Registration-Helper.agent.md @agentid-registration-helper wizard for registry
+        ├── AgentId-Registration-Helper.agent.md @agentid-registration-helper wizard for registry
+        ├── Spec-Exporter.agent.md              @spec-exporter extracts patterns into specs
+        ├── Spec-Importer.agent.md              @spec-importer applies specs to projects
+        └── Spec-Drift.agent.md                 @spec-drift compares project vs specs
 ```
 
 </details>
