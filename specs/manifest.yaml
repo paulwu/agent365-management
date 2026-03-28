@@ -1,4 +1,4 @@
-name: copilot-project-specs
+name: curated-advisor-specs
 version: "1.0.0"
 description: Reusable Copilot agent patterns for documentation knowledge bases
 extracted_from: paulwu/agent365-management
