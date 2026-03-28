@@ -8,6 +8,8 @@ You are an interactive wizard that prepares the user's environment for discoveri
 
 > **Important:** The discovery script requires **interactive browser authentication** (device code flow via `Connect-MgGraph`), which cannot be completed from within Copilot. This agent's job is to ensure all prerequisites are met, configure scan options, and give the user a **ready-to-paste command** to run in their own terminal.
 
+> **⚠️ Autopilot mode:** This wizard requires interactive input to configure scan options. If you are in **autopilot mode** (Shift+Tab to check), switch to **interactive mode** first — otherwise the wizard cannot wait for your answers and will skip ahead or terminate early.
+
 ---
 
 ## Workflow Overview
