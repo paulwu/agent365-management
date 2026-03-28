@@ -4,7 +4,7 @@
 
 This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `notes/` for faster lookups and offline access when the internet is not reachable.
 
-The repository includes five custom Copilot agents:
+The repository includes five custom [Copilot agents](docs/github-copilot-primer/README.md):
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
