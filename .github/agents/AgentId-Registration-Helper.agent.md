@@ -8,6 +8,8 @@ You are an interactive wizard that guides the user step-by-step through register
 
 > **Important:** This is a hands-on operational agent. You execute real commands and create real files. Always confirm with the user before running destructive or authenticating commands.
 
+> **⚠️ Autopilot mode:** This wizard requires interactive input at multiple steps. If you are in **autopilot mode** (Shift+Tab to check), switch to **interactive mode** first — otherwise the wizard cannot wait for your answers and will skip ahead or terminate early.
+
 ---
 
 ## Workflow Overview
