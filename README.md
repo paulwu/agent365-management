@@ -10,9 +10,9 @@ The repository includes five custom Copilot agents:
 |---|---|---|
 | **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `copilot-playground/`. |
 | **Notes Author** | `@notes-author` | Creates and maintains research notes in `notes/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
-| **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that guides you through creating an Entra Agent ID blueprint — checks prerequisites (PowerShell, Graph module, tenant login, Entra roles, app permissions), collects all inputs, generates `blueprint-input.json`, and executes `Create-Blueprint.ps1`. |
-| **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Interactive wizard that prepares your environment for scanning — checks prerequisites, installs PowerShell modules, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1` in your terminal. |
-| **AgentId Registration Helper** | `@agentid-registration-helper` | Interactive wizard that registers an agent in the Entra Agent Registry — checks prerequisites, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and executes `Register-Agent.ps1`. |
+| **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that creates an Entra Agent ID blueprint — auto-detects tenant via `az account show`, checks prerequisites, collects inputs, generates `blueprint-input.json`, and provides the command to run `Create-Blueprint.ps1`. **Requires interactive mode.** |
+| **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Prepares your environment for scanning — auto-detects tenant, checks/installs PowerShell and Graph module, verifies Entra roles via `az rest`, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1`. **Requires interactive mode.** |
+| **AgentId Registration Helper** | `@agentid-registration-helper` | Registers an agent in the Entra Agent Registry — auto-detects tenant via `az account show`, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and provides the command to run `Register-Agent.ps1`. **Requires interactive mode.** |
 
 ## Folder Structure
 
@@ -115,7 +115,23 @@ When new information becomes available, add or update files in **notes/** first,
 
 ### Using the Copilot Agents
 
-Two custom Copilot agents are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
+Five custom Copilot agents are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
+
+#### ⚠️ Before Using the Wizard Agents
+
+The three wizard agents (`@blueprint-creator`, `@shadow-agent-discovery-prep`, `@agentid-registration-helper`) require interactive input and Azure access. Before invoking them:
+
+1. **Switch to interactive mode** — Press **Shift+Tab** to exit autopilot mode. The wizards require multi-step user input and will skip ahead or terminate prematurely in autopilot mode.
+
+2. **Log in to Azure CLI** — The wizards use `az account show` to auto-detect your tenant and `az rest` to verify your Entra roles. Run this first:
+   ```bash
+   az login
+   ```
+
+3. **Ensure PowerShell 7 is installed** — The wizards will check and attempt to install it, but having it ready saves time:
+   ```bash
+   pwsh --version
+   ```
 
 ---
 

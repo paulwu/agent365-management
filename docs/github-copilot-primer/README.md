@@ -63,7 +63,11 @@ This file tells Copilot about the repository's architecture and conventions. Any
 
 ### 2. Custom Agents → `.github/agents/`
 
-This repository has five custom agents:
+This repository has five custom agents. Three are interactive wizards that require **interactive mode** (not autopilot) and **Azure CLI login** (`az login`) before use:
+
+> **⚠️ Before using `@blueprint-creator`, `@shadow-agent-discovery-prep`, or `@agentid-registration-helper`:**
+> 1. Press **Shift+Tab** to switch to **interactive mode** (autopilot will skip wizard steps)
+> 2. Run `az login` in your terminal (the wizards use `az account show` to auto-detect your tenant)
 
 #### `@entra-researcher` — Research Agent
 
@@ -103,7 +107,7 @@ This repository has five custom agents:
 | Aspect | Configuration |
 |---|---|
 | **Role** | Interactive wizard that creates an Entra Agent ID blueprint end-to-end |
-| **Key behavior** | 10-step workflow: checks prerequisites → collects inputs → generates JSON → runs script |
+| **Key behavior** | 10-step workflow: auto-detects tenant via `az account show` → checks prerequisites → collects inputs → generates JSON → provides run command |
 | **Tools used** | `execute` (run PowerShell), `read`/`edit` (generate blueprint-input.json), `search` |
 
 **Example invocation:**
@@ -118,7 +122,7 @@ This repository has five custom agents:
 | Aspect | Configuration |
 |---|---|
 | **Role** | Prepares environment for scanning, provides the run command |
-| **Key behavior** | 6-step workflow: checks prerequisites → installs modules → configures options → generates command |
+| **Key behavior** | 6-step workflow: auto-detects tenant → checks prerequisites → verifies Entra roles via `az rest` → configures options → generates command |
 | **Tools used** | `execute` (install PowerShell/modules), `read` (check versions), `search` |
 
 **Example invocation:**
@@ -133,7 +137,7 @@ This repository has five custom agents:
 | Aspect | Configuration |
 |---|---|
 | **Role** | Registers an agent in the Entra Agent Registry (Pattern A or B) |
-| **Key behavior** | 12-step workflow: checks prerequisites → collects metadata + manifest → generates JSON → runs script |
+| **Key behavior** | 12-step workflow: auto-detects tenant via `az account show` → checks prerequisites → collects metadata + manifest → generates JSON → provides run command |
 | **Tools used** | `execute` (run PowerShell), `read`/`edit` (generate agent-metadata.json), `search` |
 
 **Example invocation:**
