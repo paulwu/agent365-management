@@ -50,8 +50,22 @@ pwsh --version
 
 The script handles its own authentication (device code or client credentials), so this step is about confirming which tenant to target.
 
-Ask the user: "What is the Entra tenant ID (GUID or domain name) where you want to register the agent?"
+### Auto-detect via Azure CLI
 
+First, try to auto-detect the tenant from Azure CLI:
+
+```bash
+az account show --query "{tenantId:tenantId,name:name,user:user.name}" --output json 2>/dev/null || echo "AZ_NOT_LOGGED_IN"
+```
+
+**If Azure CLI is logged in:**
+- Show the detected tenant ID, subscription name, and account.
+- Ask: "Is this the correct tenant? (yes/no)"
+- If yes, **record the tenant ID** and proceed to Step 3.
+- If no, ask the user to provide the correct tenant ID manually.
+
+**If Azure CLI is not available or not logged in:**
+- Ask the user: "What is the Entra tenant ID (GUID or domain name) where you want to register the agent?"
 - Validate it looks like a GUID or a `.onmicrosoft.com` / custom domain.
 - **Record the tenant ID** — you will need it in Step 10.
 
@@ -59,7 +73,7 @@ If the user is unsure, suggest:
 ```
 To find your tenant ID:
   - Entra admin center → Overview → Tenant ID
-  - Or run: pwsh -Command "(Get-MgContext).TenantId" (if already connected)
+  - Or run: az login && az account show --query tenantId
 ```
 
 ---

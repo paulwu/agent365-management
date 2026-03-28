@@ -62,13 +62,27 @@ pwsh -NoLogo -NoProfile -Command "Get-InstalledModule Microsoft.Graph.Beta.Appli
 
 ## Step 3 — Verify Tenant Login and Correct Tenant
 
-Run:
+### Auto-detect via Azure CLI
+
+First, try to auto-detect the tenant from Azure CLI:
+
+```bash
+az account show --query "{tenantId:tenantId,name:name,user:user.name}" --output json 2>/dev/null || echo "AZ_NOT_LOGGED_IN"
+```
+
+**If Azure CLI is logged in:**
+- Show the detected tenant ID, subscription name, and account.
+- Ask: "Is this the correct tenant for creating your blueprint? (yes/no)"
+- If yes, **record the tenant ID** and proceed to Step 4.
+- If no, ask the user to provide the correct tenant ID manually.
+
+**If Azure CLI is not available or not logged in**, fall back to checking Graph PowerShell:
 
 ```bash
 pwsh -NoLogo -NoProfile -Command "Import-Module Microsoft.Graph.Authentication -ErrorAction SilentlyContinue; \$ctx = Get-MgContext -ErrorAction SilentlyContinue; if (\$ctx) { Write-Output \"Connected to tenant: \$(\$ctx.TenantId)\"; Write-Output \"Account: \$(\$ctx.Account)\" } else { Write-Output 'NOT_CONNECTED' }"
 ```
 
-**If connected:**
+**If connected via Graph PowerShell:**
 - Show the tenant ID and account to the user.
 - Ask: "Is this the correct tenant for creating your blueprint? (yes/no)"
 - If wrong tenant, tell the user to disconnect and reconnect:
@@ -77,14 +91,10 @@ pwsh -NoLogo -NoProfile -Command "Import-Module Microsoft.Graph.Authentication -
   Connect-MgGraph -TenantId "<correct-tenant-id>" -Scopes "AgentIdentityBlueprint.Create AgentIdentityBlueprint.AddRemoveCreds.All AgentIdentityBlueprint.ReadWrite.All AgentIdentityBlueprintPrincipal.Create User.Read"
   ```
 
-**If not connected:**
-- Tell the user they need to connect first. Ask for their tenant ID, then explain they can either:
-  - **Option A — Interactive (delegated):** The script handles auth via device code flow. They will authenticate when the script runs in Step 9. Proceed to Step 4.
-  - **Option B — Connect now via Graph PowerShell:**
-    ```
-    Connect-MgGraph -TenantId "<tenant-id>" -Scopes "AgentIdentityBlueprint.Create AgentIdentityBlueprint.AddRemoveCreds.All AgentIdentityBlueprint.ReadWrite.All AgentIdentityBlueprintPrincipal.Create User.Read"
-    ```
-- Either way, **record the tenant ID** — you will need it in Step 8.
+**If neither is connected:**
+- Ask the user for their tenant ID manually.
+- The script handles auth via device code flow when it runs in Step 9.
+- **Record the tenant ID** — you will need it in Step 8.
 
 ---
 
