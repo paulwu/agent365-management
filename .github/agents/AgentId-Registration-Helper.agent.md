@@ -418,7 +418,7 @@ Next steps:
      and re-run Register-Agent.ps1
 
   5. To discover other unregistered agents in your tenant:
-     Use @shadow-agent-discovery
+     Use @shadow-agent-discovery-prep
 ```
 
 ---

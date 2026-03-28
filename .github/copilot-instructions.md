@@ -77,5 +77,5 @@ There is no single-test command because there is no automated test harness. When
 - `docs/developer-identity-platform.md`: identity hierarchy, required permissions, and the manual Graph flow that the scripts automate.
 - `.github/agents/Entra-Researcher.agent.md`: source-grounding behavior for the custom Copilot agent.
 - `.github/agents/BluePrint-Creator.agent.md`: interactive wizard that creates blueprints via `Create-Blueprint.ps1`.
-- `.github/agents/Shadow-Agent-Discovery.agent.md`: interactive wizard that discovers shadow agents via `Discover-ShadowAgents.ps1`; outputs to `discovery/`.
+- `.github/agents/Shadow-Agent-Discovery-Prep.agent.md`: interactive wizard that prepares the environment for shadow agent discovery via `Discover-ShadowAgents.ps1`; outputs to `discovery/`.
 - `.github/agents/AgentId-Registration-Helper.agent.md`: interactive wizard that registers agents via `Register-Agent.ps1`.

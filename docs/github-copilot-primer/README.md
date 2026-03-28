@@ -111,19 +111,19 @@ This repository has five custom agents:
 @blueprint-creator I want to create a new agent identity blueprint
 ```
 
-#### `@shadow-agent-discovery` — Shadow Agent Discovery Wizard
+#### `@shadow-agent-discovery-prep` — Shadow Agent Discovery Prep Wizard
 
-**File:** `.github/agents/Shadow-Agent-Discovery.agent.md`
+**File:** `.github/agents/Shadow-Agent-Discovery-Prep.agent.md`
 
 | Aspect | Configuration |
 |---|---|
-| **Role** | Scans tenant for unregistered, ownerless, or high-privilege agents |
-| **Key behavior** | 8-step workflow: checks prerequisites → configures scan → runs script → analyzes results |
-| **Tools used** | `execute` (run PowerShell), `read` (parse CSV report), `search` |
+| **Role** | Prepares environment for scanning, provides the run command |
+| **Key behavior** | 6-step workflow: checks prerequisites → installs modules → configures options → generates command |
+| **Tools used** | `execute` (install PowerShell/modules), `read` (check versions), `search` |
 
 **Example invocation:**
 ```
-@shadow-agent-discovery Scan my tenant for shadow agents
+@shadow-agent-discovery-prep I want to scan my tenant for shadow agents
 ```
 
 #### `@agentid-registration-helper` — Agent Registry Registration Wizard
@@ -168,9 +168,9 @@ This repository has five custom agents:
           └──────────────────────────────────────────────────┘
 
           ┌──────────────────────────────────────────────────┐
-          │         @shadow-agent-discovery                  │
-          │   Discovers unregistered agents → feeds into     │
-          │   @agentid-registration-helper for onboarding    │
+          │         @shadow-agent-discovery-prep                │
+          │   Prepares environment, provides run command      │
+          │   for discovering unregistered agents              │
           └──────────────────────────────────────────────────┘
 ```
 
@@ -191,7 +191,7 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 │   ├── Entra-Researcher.agent.md           ← @entra-researcher custom agent
 │   ├── Notes-Author.agent.md              ← @notes-author custom agent
 │   ├── BluePrint-Creator.agent.md         ← @blueprint-creator wizard agent
-│   ├── Shadow-Agent-Discovery.agent.md    ← @shadow-agent-discovery wizard agent
+│   ├── Shadow-Agent-Discovery-Prep.agent.md ← @shadow-agent-discovery-prep env prep wizard
 │   └── AgentId-Registration-Helper.agent.md ← @agentid-registration-helper wizard agent
 └── copilot/                         ← (MCP servers would go here)
 ```
