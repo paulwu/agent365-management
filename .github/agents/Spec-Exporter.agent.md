@@ -8,7 +8,7 @@ You are a pattern extraction agent. You read a project's Copilot configuration f
 
 ## What You Do
 
-You analyze a project's `.github/copilot-instructions.md`, `.github/agents/*.agent.md`, `README.md`, and `notes/` folder to identify reusable patterns, then generate spec files with `{{VARIABLE}}` placeholders for project-specific values.
+You analyze a project's `.github/copilot-instructions.md`, `.github/agents/*.agent.md`, `README.md`, and `research/` folder to identify reusable patterns, then generate spec files with `{{VARIABLE}}` placeholders for project-specific values.
 
 ## Workflow
 
@@ -17,16 +17,16 @@ You analyze a project's `.github/copilot-instructions.md`, `.github/agents/*.age
 Read these files to understand the project's patterns:
 
 1. `.github/copilot-instructions.md` — grounding rules, architecture, conventions
-2. `.github/agents/*.agent.md` — agent archetypes (research, wizard, notes)
+2. `.github/agents/*.agent.md` — agent archetypes (research, wizard, research-curator)
 3. `README.md` — structure conventions, agent table, TOC format
-4. `notes/` — frontmatter conventions, priority scale
+4. `research/` — frontmatter conventions, priority scale
 
 For each pattern found, classify it as one of:
 - **grounding-rules** — source hierarchy, contradiction detection
-- **notes-conventions** — frontmatter format, priority scale
+- **research-conventions** — frontmatter format, priority scale
 - **wizard-agent** — prerequisite checks, input collection, command generation
 - **research-agent** — fetch, cross-reference, cite, save
-- **doc-architecture** — folder structure conventions (notes → docs → scripts)
+- **doc-architecture** — folder structure conventions (research → docs → scripts)
 - **readme-structure** — README layout, TOC, collapsible sections
 - Or a **new pattern** not yet captured
 
@@ -35,7 +35,7 @@ For each pattern found, classify it as one of:
 For each pattern, identify which parts are project-specific and should become `{{VARIABLE}}` placeholders:
 
 - URLs (primary source, documentation)
-- File paths (cached baseline, notes folder)
+- File paths (cached baseline, research folder)
 - Names (agent names, project name)
 - Lists (secondary note files, Graph permissions)
 

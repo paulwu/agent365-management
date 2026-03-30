@@ -39,7 +39,7 @@ curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/
 mkdir -p specs
 curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/manifest.yaml" -o specs/manifest.yaml
 curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/grounding-rules.spec.md" -o specs/grounding-rules.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/notes-conventions.spec.md" -o specs/notes-conventions.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/research-conventions.spec.md" -o specs/research-conventions.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/wizard-agent.spec.md" -o specs/wizard-agent.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/research-agent.spec.md" -o specs/research-agent.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/doc-architecture.spec.md" -o specs/doc-architecture.spec.md
@@ -87,7 +87,7 @@ Show the available specs from the manifest:
 ```
 Available specs:
   1. grounding-rules (v1.0.0) — Source hierarchy and contradiction detection
-  2. notes-conventions (v1.0.0) — YAML frontmatter and priority scale
+  2. research-conventions (v1.0.0) — YAML frontmatter and priority scale
   3. wizard-agent (v1.0.0) — Interactive wizard pattern
   4. research-agent (v1.0.0) — Research agent with grounding
   5. doc-architecture (v1.0.0) — Three-layer architecture
@@ -111,10 +111,10 @@ Based on the selected specs, generate or update:
 | Spec | Generated File(s) |
 |---|---|
 | `grounding-rules` | `.github/copilot-instructions.md` (canonical sources section) |
-| `notes-conventions` | `.github/agents/Notes-Author.agent.md` scaffold |
+| `research-conventions` | `.github/agents/Research-Curator.agent.md` scaffold |
 | `research-agent` | `.github/agents/<name>.agent.md` scaffold |
 | `wizard-agent` | `.github/agents/<name>.agent.md` scaffold |
-| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), create `notes/`, `docs/` folders |
+| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), create `research/`, `docs/` folders |
 | `readme-structure` | `README.md` scaffold with TOC, agent table, collapsible structure |
 
 **For each file:**
@@ -144,7 +144,7 @@ variables:
 
 Files created/updated:
   ✅ .github/copilot-instructions.md
-  ✅ .github/agents/Notes-Author.agent.md
+  ✅ .github/agents/Research-Curator.agent.md
   ✅ README.md
   ...
 
@@ -159,6 +159,6 @@ To re-import after spec updates: @spec-importer
 - **Ask before overwriting** — if a file already exists, show the diff and confirm
 - **Collect variables interactively** unless `.spec-config.yaml` already has them
 - **Deduplicate variables** — if the same variable appears in multiple specs, collect once
-- **Create directories** as needed (`notes/`, `docs/`, `.github/agents/`)
+- **Create directories** as needed (`research/`, `docs/`, `.github/agents/`)
 - **Never modify spec files** — only read them
 - **Save `.spec-config.yaml`** so future imports and drift checks can use it

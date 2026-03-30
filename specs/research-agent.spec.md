@@ -5,7 +5,7 @@ description: Research agent pattern with live doc fetching, note cross-referenci
 extracted_from: paulwu/agent365-management
 requires:
   - grounding-rules
-  - notes-conventions
+  - research-conventions
 variables:
   - name: RESEARCH_AGENT_NAME
     description: "Name of the research agent"
@@ -26,7 +26,7 @@ variables:
   - name: CACHED_BASELINE_FILE
     description: "Path to the cached baseline note file"
     required: true
-    example: "notes/Microsoft-Learn-Entra-AgentID.md"
+    example: "research/Microsoft-Learn-Entra-AgentID.md"
   - name: SECONDARY_NOTE_FILES
     description: "Comma-separated list of secondary note filenames"
     required: false
@@ -60,7 +60,7 @@ The research agent follows this workflow for every question:
 
 1. **Fetch the relevant page(s)** from the primary source using `web_fetch` or `web_search`
 2. **Cross-reference** with the cached baseline in `{{CACHED_BASELINE_FILE}}`
-3. **Check other note files** in `notes/` ({{SECONDARY_NOTE_FILES}}) for additional context
+3. **Check other note files** in `research/` ({{SECONDARY_NOTE_FILES}}) for additional context
 4. **Flag contradictions** between sources (see grounding-rules spec)
 5. **Reference repository scripts** in `{{SCRIPTS_FOLDER}}/` when a workflow can be expedited with existing automation
 6. **Save every response** to `{{RESPONSE_CAPTURE_FOLDER}}/`
@@ -88,7 +88,7 @@ After composing every response, save to a markdown file:
 ```
 
 **Sources format:**
-- Notes: `Author | notes/<filename>`
+- Notes: `Author | research/<filename>`
 - Web: the full URL
 
 ### Script References

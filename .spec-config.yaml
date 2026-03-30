@@ -4,7 +4,7 @@ imported_at: "2026-03-28T00:09:33-07:00"
 
 imports:
   - grounding-rules
-  - notes-conventions
+  - research-conventions
   - wizard-agent
   - research-agent
   - doc-architecture
@@ -14,13 +14,13 @@ variables:
   # --- grounding-rules ---
   PRIMARY_SOURCE_URL: "https://learn.microsoft.com/en-us/entra/agent-id/"
   PRIMARY_SOURCE_NAME: "Microsoft Learn"
-  CACHED_BASELINE_FILE: "notes/Microsoft-Learn-Entra-AgentID.md"
+  CACHED_BASELINE_FILE: "research/Microsoft-Learn-Entra-AgentID.md"
   SECONDARY_NOTE_FILES: "ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md"
-  NOTES_FOLDER: "notes"
+  RESEARCH_FOLDER: "research"
   DOCS_FOLDER: "docs"
 
-  # --- notes-conventions ---
-  NOTES_AGENT_NAME: "Notes Author"
+  # --- research-conventions ---
+  RESEARCH_CURATOR_NAME: "Research Curator"
 
   # --- research-agent ---
   RESEARCH_AGENT_NAME: "Entra Researcher"
@@ -30,7 +30,7 @@ variables:
   SCRIPTS_FOLDER: "scripts"
 
   # --- doc-architecture ---
-  RAW_RESEARCH_FOLDER: "notes"
+  RAW_RESEARCH_FOLDER: "research"
   SYNTHESIZED_DOCS_FOLDER: "docs"
   AUTOMATION_FOLDER: "scripts"
 

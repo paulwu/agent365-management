@@ -13,8 +13,8 @@ The authoritative source is the Microsoft Learn Entra Agent ID documentation sit
 Before answering ANY question about Entra Agent ID, agent identities, blueprints, the agent registry, agent governance, or agent security:
 
 1. **Fetch the relevant page(s)** from the site index below using `web_fetch` or `web_search`.
-2. **Cross-reference** with the cached baseline in `notes/Microsoft-Learn-Entra-AgentID.md`.
-3. **Check other note files** in `notes/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
+2. **Cross-reference** with the cached baseline in `research/Microsoft-Learn-Entra-AgentID.md`.
+3. **Check other note files** in `research/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md) for additional context.
 
 ## Repository Scripts — Actionable Shortcuts
 
@@ -38,12 +38,12 @@ This repository contains PowerShell scripts in `scripts/` that automate key Entr
 
 ## Contradiction Detection
 
-Whenever information from a note in `notes/` conflicts with live or cached Microsoft Learn content, **always present both perspectives** so the user can verify and correct stale notes:
+Whenever information from a note in `research/` conflicts with live or cached Microsoft Learn content, **always present both perspectives** so the user can verify and correct stale notes:
 
 - **Flag the contradiction explicitly** with a ⚠️ warning.
 - **List every conflicting source** — include the note's file path, Author (from frontmatter), and Priority alongside the Microsoft Learn page URL.
 - **Prefer the Microsoft Learn version** as authoritative, but still show what the note says so the user can decide whether to update it.
-- Remind the user they can correct the note using `@Notes-Author`.
+- Remind the user they can correct the note using `@Research-Curator`.
 
 Example output:
 > ⚠️ **Contradiction detected:**
@@ -51,13 +51,13 @@ Example output:
 > | Source | Says | Author | Priority |
 > |---|---|---|---|
 > | Microsoft Learn ([Agent Identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities)) | Agent identities can only be issued tokens in the tenant where they're created. | — | — |
-> | `notes/Gemini.md` | Agent identities can access resources across tenants. | Gemini | 4 |
+> | `research/Gemini.md` | Agent identities can access resources across tenants. | Gemini | 4 |
 >
-> **The Microsoft Learn version is authoritative.** If the note is outdated, you can update it with `@Notes-Author`.
+> **The Microsoft Learn version is authoritative.** If the note is outdated, you can update it with `@Research-Curator`.
 
 ## Priority-Based Conflict Resolution
 
-Each note in `notes/` has a YAML frontmatter header with `Author` and `Priority` fields. The `@Notes-Author` agent (`.github/agents/Notes-Author.agent.md`) defines the canonical priority scale and note format rules — refer to it for the full specification.
+Each note in `research/` has a YAML frontmatter header with `Author` and `Priority` fields. The `@Research-Curator` agent (`.github/agents/Research-Curator.agent.md`) defines the canonical priority scale and note format rules — refer to it for the full specification.
 
 Key rules for this agent:
 
@@ -67,7 +67,7 @@ Key rules for this agent:
 - When citing a note, include its `Author` (from the frontmatter) in the citation.
 
 Example (note vs. note):
-> `notes/Microsoft-Learn-Entra-AgentID.md` (Priority 2, Author: Microsoft Learn) and `notes/ChatGPT.md` (Priority 4, Author: ChatGPT) disagree on X. Preferring the Priority 2 source. To correct `notes/ChatGPT.md`, use `@Notes-Author`.
+> `research/Microsoft-Learn-Entra-AgentID.md` (Priority 2, Author: Microsoft Learn) and `research/ChatGPT.md` (Priority 4, Author: ChatGPT) disagree on X. Preferring the Priority 2 source. To correct `research/ChatGPT.md`, use `@Research-Curator`.
 
 ## Response Format
 
@@ -109,7 +109,7 @@ The saved file must contain three sections:
 
 ### Sources format
 
-- **Notes**: `Author | notes/<filename>` (e.g., `Microsoft Learn | notes/Microsoft-Learn-Entra-AgentID.md`)
+- **Notes**: `Author | research/<filename>` (e.g., `Microsoft Learn | research/Microsoft-Learn-Entra-AgentID.md`)
 - **Web / Microsoft Learn**: the full URL (e.g., `https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities`)
 
 Example Sources section:
@@ -117,8 +117,8 @@ Example Sources section:
 ```markdown
 # Sources
 
-- Microsoft Learn | notes/Microsoft-Learn-Entra-AgentID.md
-- ChatGPT | notes/ChatGPT.md
+- Microsoft Learn | research/Microsoft-Learn-Entra-AgentID.md
+- ChatGPT | research/ChatGPT.md
 - https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities
 - https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint
 ```

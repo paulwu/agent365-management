@@ -9,8 +9,8 @@ specs:
     version: "1.0.0"
     description: Source priority hierarchy, contradiction detection, and citation format
 
-  - id: notes-conventions
-    file: specs/notes-conventions.spec.md
+  - id: research-conventions
+    file: specs/research-conventions.spec.md
     version: "1.0.0"
     description: YAML frontmatter format and priority scale for research notes
 
@@ -27,7 +27,7 @@ specs:
   - id: doc-architecture
     file: specs/doc-architecture.spec.md
     version: "1.0.0"
-    description: Three-layer notes → docs → scripts documentation architecture
+    description: Three-layer research → docs → scripts documentation architecture
 
   - id: readme-structure
     file: specs/readme-structure.spec.md

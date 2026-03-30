@@ -65,8 +65,8 @@ grounding-rules:
        Actual:   "The Microsoft Learn version is always correct."
        → Minor wording change. Update with @spec-importer or add to overrides.
 
-notes-conventions:
-  .github/agents/Notes-Author.agent.md
+research-conventions:
+  .github/agents/Research-Curator.agent.md
     ✅ Frontmatter rules — matches spec
     ✅ Priority scale — matches spec
 

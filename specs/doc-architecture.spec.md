@@ -1,14 +1,14 @@
 ---
 spec: doc-architecture
 version: "1.0.0"
-description: Three-layer notes → docs → scripts architecture for documentation knowledge bases
+description: Three-layer research → docs → scripts architecture for documentation knowledge bases
 extracted_from: paulwu/agent365-management
 requires: []
 variables:
   - name: RAW_RESEARCH_FOLDER
     description: "Folder for raw research and cached documentation"
     required: false
-    default: "notes"
+    default: "research"
   - name: SYNTHESIZED_DOCS_FOLDER
     description: "Folder for synthesized topic guides"
     required: false
@@ -35,7 +35,7 @@ variables:
 
 The repository has three working layers:
 
-1. **`{{RAW_RESEARCH_FOLDER}}/`** — Raw research and cached documentation (primary knowledge notes)
+1. **`{{RAW_RESEARCH_FOLDER}}/`** — Raw research and cached documentation (primary knowledge source)
 2. **`{{SYNTHESIZED_DOCS_FOLDER}}/`** — Synthesized topic guides (generated from the research)
 3. **`{{AUTOMATION_FOLDER}}/`** — Automation scripts and tooling that operationalize the documentation
 

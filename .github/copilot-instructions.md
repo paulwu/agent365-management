@@ -5,8 +5,8 @@
 This repository is a documentation knowledge base for Microsoft Agent 365 management, Entra Agent ID, and the Agent Registry.
 
 - Treat live Microsoft Learn content under `https://learn.microsoft.com/en-us/entra/agent-id/` as the highest-authority source.
-- Use `notes/Microsoft-Learn-Entra-AgentID.md` as the cached baseline when live fetches are unavailable or to find the right page URL first.
-- Use the other files in `notes/` (`ChatGPT.md`, `Gemini.md`, `Researcher.md`, `Microsoft-Learn.md`) as secondary research only.
+- Use `research/Microsoft-Learn-Entra-AgentID.md` as the cached baseline when live fetches are unavailable or to find the right page URL first.
+- Use the other files in `research/` (`ChatGPT.md`, `Gemini.md`, `Researcher.md`, `Microsoft-Learn.md`) as secondary research only.
 - Treat `docs/` as generated output, not as the factual source of truth, except when you are explicitly updating documentation in `docs/`.
 - If a source file disagrees with Microsoft Learn, call out the contradiction explicitly, prefer Microsoft Learn, and include the Learn URL for manual verification.
 - The custom agent in `.github/agents/Entra-Researcher.agent.md` follows the same grounding policy; use `@Entra-Researcher` for Entra Agent ID questions that need source-cited synthesis.
@@ -15,7 +15,7 @@ This repository is a documentation knowledge base for Microsoft Agent 365 manage
 
 The repository has three working layers that matter together:
 
-1. `notes/` stores raw research and cached documentation.
+1. `research/` stores raw research and cached documentation.
 2. `docs/` stores synthesized topic guides generated from those sources.
 3. `scripts/` stores PowerShell automation that operationalizes the documentation against Microsoft Graph beta endpoints.
 
@@ -57,11 +57,11 @@ There is no single-test command because there is no automated test harness. When
 
 ## Codebase conventions
 
-- Keep factual answers grounded in Microsoft Learn first, then `notes/`; do not answer from `docs/` alone.
-- Add new research to `notes/`; add or update end-user guides in `docs/`.
+- Keep factual answers grounded in Microsoft Learn first, then `research/`; do not answer from `docs/` alone.
+- Add new research to `research/`; add or update end-user guides in `docs/`.
 - If you add or remove any file in `docs/`, update `README.md` (root) in both the structure listing and the topic-guide table.
 - Documentation in `docs/` consistently uses `###` step-oriented headings, Markdown tables for role/license mappings, and `References` sections with Microsoft Learn links. Mermaid diagrams are already used for multi-step relationships.
-- `notes/ChatGPT.md` uses numbered reference-style citations like `[1]`, `[2]`; preserve that citation style when editing it.
+- `research/ChatGPT.md` uses numbered reference-style citations like `[1]`, `[2]`; preserve that citation style when editing it.
 - The scripts are independent entry points, each with `[CmdletBinding()]`, `$ErrorActionPreference = "Stop"`, and default input paths rooted at `$PSScriptRoot`. Preserve those patterns when extending scripts.
 - `Create-Blueprint.ps1` and `Register-Agent.ps1` both switch auth mode based on `-ClientSecret`: omit it for interactive device-code flow, provide it for app-only client-credentials flow.
 - The scripts expect companion working JSON files named `blueprint-input.json` and `agent-metadata.json`, created by copying the committed `.json.example` templates. Keep those filenames and field names stable.

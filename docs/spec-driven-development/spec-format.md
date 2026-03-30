@@ -79,8 +79,8 @@ specs:
     version: "1.0.0"
     description: Source priority hierarchy and contradiction detection
 
-  - id: notes-conventions
-    file: specs/notes-conventions.spec.md
+  - id: research-conventions
+    file: specs/research-conventions.spec.md
     version: "1.0.0"
     description: YAML frontmatter format and priority scale for research notes
 
@@ -97,7 +97,7 @@ specs:
   - id: doc-architecture
     file: specs/doc-architecture.spec.md
     version: "1.0.0"
-    description: Three-layer notes → docs → scripts architecture
+    description: Three-layer research → docs → scripts architecture
 
   - id: readme-structure
     file: specs/readme-structure.spec.md
@@ -116,7 +116,7 @@ imported_at: "2026-03-28T06:00:00Z"
 
 imports:
   - grounding-rules
-  - notes-conventions
+  - research-conventions
   - research-agent
   - wizard-agent
   - doc-architecture
@@ -125,7 +125,7 @@ imports:
 variables:
   # grounding-rules variables
   PRIMARY_SOURCE_URL: "https://learn.microsoft.com/en-us/entra/agent-id/"
-  CACHED_BASELINE_FILE: "notes/Microsoft-Learn-Entra-AgentID.md"
+  CACHED_BASELINE_FILE: "research/Microsoft-Learn-Entra-AgentID.md"
   SECONDARY_NOTE_FILES: "ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md"
 
   # research-agent variables
@@ -135,7 +135,7 @@ variables:
   RESPONSE_TIMEZONE: "America/Los_Angeles"
 
   # doc-architecture variables
-  RAW_RESEARCH_FOLDER: "notes"
+  RAW_RESEARCH_FOLDER: "research"
   SYNTHESIZED_DOCS_FOLDER: "docs"
   AUTOMATION_FOLDER: "scripts"
 
@@ -154,11 +154,11 @@ spec: research-agent
 version: "1.0.0"
 requires:
   - grounding-rules
-  - notes-conventions
+  - research-conventions
 ---
 ```
 
-This means the research-agent spec assumes the grounding-rules and notes-conventions patterns are also applied. The importer will warn if a required spec is not in the project's import list.
+This means the research-agent spec assumes the grounding-rules and research-conventions patterns are also applied. The importer will warn if a required spec is not in the project's import list.
 
 ## Versioning Rules
 

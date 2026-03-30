@@ -53,13 +53,13 @@ This file tells Copilot about the repository's architecture and conventions. Any
 
 | Section | Purpose |
 |---|---|
-| Canonical sources and grounding | Always prefer Microsoft Learn over local notes |
-| Repository architecture | Three layers: `notes/` → `docs/` → `scripts/` |
+| Canonical sources and grounding | Always prefer Microsoft Learn over local research |
+| Repository architecture | Three layers: `research/` → `docs/` → `scripts/` |
 | Build, test, lint commands | PowerShell parse validation for scripts |
 | Codebase conventions | JSON field names, citation styles, Graph API version rules |
 | Key files to consult | Which files to read before making changes |
 
-**Why it matters:** Without this file, Copilot would treat `docs/` as a source of truth (it's actually generated output). The instructions ensure Copilot always grounds answers on Microsoft Learn first, then `notes/`.
+**Why it matters:** Without this file, Copilot would treat `docs/` as a source of truth (it's actually generated output). The instructions ensure Copilot always grounds answers on Microsoft Learn first, then `research/`.
 
 ### 2. Custom Agents → `.github/agents/`
 
@@ -76,7 +76,7 @@ This repository has five custom agents. Three are interactive wizards that requi
 | Aspect | Configuration |
 |---|---|
 | **Role** | Answer questions about Microsoft Entra Agent ID, grounded on Microsoft Learn |
-| **Key behavior** | Fetches live docs, cross-references local notes, flags contradictions, references `scripts/` |
+| **Key behavior** | Fetches live docs, cross-references local research, flags contradictions, references `scripts/` |
 | **Response capture** | Saves every response to `copilot-playground/response-*.md` |
 | **Tools used** | `web_fetch` / `web_search` (to fetch Microsoft Learn pages), file read/edit (to save responses) |
 
@@ -85,19 +85,19 @@ This repository has five custom agents. Three are interactive wizards that requi
 @entra-researcher How do I create an agent identity blueprint for my C# agent?
 ```
 
-#### `@notes-author` — Notes Maintenance Agent
+#### `@research-curator` — Research Curator
 
-**File:** `.github/agents/Notes-Author.agent.md`
+**File:** `.github/agents/Research-Curator.agent.md`
 
 | Aspect | Configuration |
 |---|---|
-| **Role** | Create and maintain research notes in `notes/` |
+| **Role** | Create and maintain research notes in `research/` |
 | **Key behavior** | Enforces YAML frontmatter format (`Author`, `Priority`), validates priority scale |
-| **Boundaries** | Only operates on files in `notes/` |
+| **Boundaries** | Only operates on files in `research/` |
 
 **Example invocation:**
 ```
-@notes-author Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
+@research-curator Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 ```
 
 #### `@blueprint-creator` — Blueprint Creation Wizard
@@ -151,13 +151,13 @@ This repository has five custom agents. Three are interactive wizards that requi
           ┌──────────────────────────────────────────────────┐
           │         @entra-researcher                        │
           │   Answers questions, references scripts,         │
-          │   flags contradictions in notes                  │
+          │   flags contradictions in research                │
           └──────────────┬───────────────────────────────────┘
                          │ flags stale note
                          ▼
           ┌──────────────────────────────────────────────────┐
-          │         @notes-author                            │
-          │   Corrects / creates notes in notes/             │
+          │         @research-curator                            │
+          │   Corrects / creates notes in research/             │
           └──────────────────────────────────────────────────┘
 
           ┌──────────────────────────────────────────────────┐
@@ -193,7 +193,7 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 ├── copilot-instructions.md          ← Repo-wide instructions (all sessions)
 ├── agents/
 │   ├── Entra-Researcher.agent.md           ← @entra-researcher custom agent
-│   ├── Notes-Author.agent.md              ← @notes-author custom agent
+│   ├── Research-Curator.agent.md              ← @research-curator custom agent
 │   ├── BluePrint-Creator.agent.md         ← @blueprint-creator wizard agent
 │   ├── Shadow-Agent-Discovery-Prep.agent.md ← @shadow-agent-discovery-prep env prep wizard
 │   └── AgentId-Registration-Helper.agent.md ← @agentid-registration-helper wizard agent

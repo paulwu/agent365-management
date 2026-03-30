@@ -16,16 +16,16 @@ variables:
   - name: CACHED_BASELINE_FILE
     description: "Path to the cached baseline note file"
     required: true
-    example: "notes/Microsoft-Learn-Entra-AgentID.md"
+    example: "research/Microsoft-Learn-Entra-AgentID.md"
   - name: SECONDARY_NOTE_FILES
     description: "Comma-separated list of secondary research note filenames"
     required: false
     default: ""
     example: "ChatGPT.md, Gemini.md, Researcher.md"
-  - name: NOTES_FOLDER
+  - name: RESEARCH_FOLDER
     description: "Folder containing research notes"
     required: false
-    default: "notes"
+    default: "research"
   - name: DOCS_FOLDER
     description: "Folder containing generated documentation"
     required: false
@@ -42,18 +42,18 @@ All factual answers must follow this priority order:
 
 1. **Live content** from `{{PRIMARY_SOURCE_URL}}` — always the highest-authority source
 2. **Cached baseline** in `{{CACHED_BASELINE_FILE}}` — use when live fetches are unavailable
-3. **Secondary research notes** in `{{NOTES_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) — supporting context only
+3. **Secondary research notes** in `{{RESEARCH_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) — supporting context only
 4. **Generated docs** in `{{DOCS_FOLDER}}/` — treat as output, NOT as a factual source of truth
 
 ### Contradiction Detection
 
-When information from a note in `{{NOTES_FOLDER}}/` conflicts with live or cached {{PRIMARY_SOURCE_NAME}} content:
+When information from a note in `{{RESEARCH_FOLDER}}/` conflicts with live or cached {{PRIMARY_SOURCE_NAME}} content:
 
 1. **Flag the contradiction explicitly** with a ⚠️ warning
 2. **List every conflicting source** — include the note's file path, Author (from frontmatter), and Priority alongside the {{PRIMARY_SOURCE_NAME}} page URL
 3. **Prefer the {{PRIMARY_SOURCE_NAME}} version** as authoritative
 4. Still show the disagreeing note's content so the user can decide whether to update it
-5. Remind the user they can correct the note using `@notes-author`
+5. Remind the user they can correct the note using `@research-curator`
 
 ### Contradiction Output Template
 
@@ -63,9 +63,9 @@ When information from a note in `{{NOTES_FOLDER}}/` conflicts with live or cache
 | Source | Says | Author | Priority |
 |---|---|---|---|
 | {{PRIMARY_SOURCE_NAME}} ([Page Title](url)) | <what the primary source says> | — | — |
-| `{{NOTES_FOLDER}}/<file>.md` | <what the note says> | <Author from frontmatter> | <Priority> |
+| `{{RESEARCH_FOLDER}}/<file>.md` | <what the note says> | <Author from frontmatter> | <Priority> |
 
-**The {{PRIMARY_SOURCE_NAME}} version is authoritative.** If the note is outdated, you can update it with `@notes-author`.
+**The {{PRIMARY_SOURCE_NAME}} version is authoritative.** If the note is outdated, you can update it with `@research-curator`.
 ```
 
 ### Priority-Based Conflict Resolution
@@ -85,7 +85,7 @@ Add this to `.github/copilot-instructions.md` under "Canonical sources and groun
 
 - Treat live content under `{{PRIMARY_SOURCE_URL}}` as the highest-authority source.
 - Use `{{CACHED_BASELINE_FILE}}` as the cached baseline when live fetches are unavailable.
-- Use other files in `{{NOTES_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) as secondary research only.
+- Use other files in `{{RESEARCH_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) as secondary research only.
 - Treat `{{DOCS_FOLDER}}/` as generated output, not as the factual source of truth.
 - If a source disagrees with {{PRIMARY_SOURCE_NAME}}, call out the contradiction explicitly, prefer {{PRIMARY_SOURCE_NAME}}, and include the URL for manual verification.
 ```
