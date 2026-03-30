@@ -1,12 +1,12 @@
 ---
 spec: research-conventions
-version: "1.0.0"
+version: "2.0.0"
 description: YAML frontmatter format, priority scale, and authoring rules for research notes
 extracted_from: paulwu/agent365-management
 requires: []
 variables:
-  - name: RESEARCH_FOLDER
-    description: "Folder containing research notes"
+  - name: KNOWLEDGE_FOLDER
+    description: "Folder containing knowledge notes"
     required: false
     default: "research"
   - name: RESEARCH_CURATOR_NAME
@@ -21,7 +21,7 @@ variables:
 
 ### Required YAML Frontmatter
 
-Every note file in `{{RESEARCH_FOLDER}}/` **must** begin with a YAML frontmatter block:
+Every note file in `{{KNOWLEDGE_FOLDER}}/` **must** begin with a YAML frontmatter block:
 
 ```yaml
 ---

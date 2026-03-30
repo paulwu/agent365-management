@@ -1,14 +1,27 @@
 spec_repo: paulwu/curated-advisor-specs
-spec_version: "1.1.0"
+spec_version: "2.0.0"
 imported_at: "2026-03-28T00:09:33-07:00"
 
 imports:
-  - grounding-rules
-  - research-conventions
-  - wizard-agent
-  - research-agent
-  - doc-architecture
-  - readme-structure
+  # --- Tier 1: Core Specs ---
+  - id: grounding-rules
+    drift_mode: behavioral
+  - id: research-conventions
+    drift_mode: structural
+  - id: doc-architecture
+    drift_mode: behavioral
+  - id: readme-structure
+    drift_mode: structural
+  - id: response-capture
+    drift_mode: structural
+
+  # --- Tier 2: Role Specs ---
+  - id: research-agent
+    drift_mode: structural
+  - id: author-agent
+    drift_mode: structural
+  - id: wizard-agent
+    drift_mode: structural
 
 variables:
   # --- grounding-rules ---
@@ -16,21 +29,28 @@ variables:
   PRIMARY_SOURCE_NAME: "Microsoft Learn"
   CACHED_BASELINE_FILE: "research/Microsoft-Learn-Entra-AgentID.md"
   SECONDARY_NOTE_FILES: "ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md"
-  RESEARCH_FOLDER: "research"
+  KNOWLEDGE_FOLDER: "research"
   DOCS_FOLDER: "docs"
 
   # --- research-conventions ---
   RESEARCH_CURATOR_NAME: "Research Curator"
 
+  # --- response-capture ---
+  RESPONSE_FOLDER: "copilot-playground"
+  RESPONSE_TIMEZONE: "America/Los_Angeles"
+  RESPONSE_FILENAME_PREFIX: "response"
+
   # --- research-agent ---
   RESEARCH_AGENT_NAME: "Entra Researcher"
   RESEARCH_AGENT_DESCRIPTION: "Research agent grounded on official Microsoft Learn Entra Agent ID documentation. Use @Entra-Researcher for authoritative answers about agent identities, blueprints, registry, governance, and security."
-  RESPONSE_CAPTURE_FOLDER: "copilot-playground"
-  RESPONSE_TIMEZONE: "America/Los_Angeles"
   SCRIPTS_FOLDER: "scripts"
 
+  # --- author-agent ---
+  AUTHOR_AGENT_NAME: "Research Curator"
+  AUTHOR_AGENT_DESCRIPTION: "Agent for creating and maintaining research notes in the research/ folder. Ensures all notes have proper Author and Priority headers."
+  CONTENT_TEMPLATE_PATH: ""
+
   # --- doc-architecture ---
-  RAW_RESEARCH_FOLDER: "research"
   SYNTHESIZED_DOCS_FOLDER: "docs"
   AUTOMATION_FOLDER: "scripts"
 
@@ -42,21 +62,8 @@ variables:
   PROJECT_DESCRIPTION: "Knowledge base for managing and governing AI agents in Microsoft 365 using Microsoft Agent 365, Microsoft Entra Agent ID, and the Agent Registry"
 
 overrides:
-  # --- grounding-rules ---
-  # copilot-instructions.md "Canonical sources" section uses project-specific
-  # wording: "live Microsoft Learn content" qualifier, "or to find the right
-  # page URL first" clause, backtick-wrapped filenames, docs/ exception clause,
-  # intro paragraph, and Entra-Researcher cross-reference line.
-  - spec: grounding-rules
-    file: .github/copilot-instructions.md
-    section: "Canonical sources and grounding"
-    reason: "Project-specific wording enhancements that preserve spec intent"
-
-  # --- doc-architecture ---
-  # copilot-instructions.md "Repository architecture" section adds "that matter
-  # together", uses a more specific scripts/ description, and includes the
-  # cross-file workflow, build commands, conventions, and key-files sections.
-  - spec: doc-architecture
-    file: .github/copilot-instructions.md
-    section: "Repository architecture"
-    reason: "Project-specific detail beyond the spec template"
+  # With drift_mode: behavioral, the grounding-rules and doc-architecture
+  # overrides from v1.1.0 are no longer needed — behavioral checks allow
+  # project-specific wording by design. Only truly intentional deviations
+  # from required elements need to be listed here.
+  []
