@@ -70,33 +70,48 @@ The spec repo root contains a `manifest.yaml` that indexes all available specs:
 
 ```yaml
 name: curated-advisor-specs
-version: "1.0.0"
+version: "2.0.0"
 description: Reusable Copilot agent patterns for documentation knowledge bases
 
 specs:
   - id: grounding-rules
     file: specs/grounding-rules.spec.md
-    version: "1.0.0"
+    version: "2.0.0"
     description: Source priority hierarchy and contradiction detection
 
   - id: research-conventions
     file: specs/research-conventions.spec.md
-    version: "1.0.0"
+    version: "2.0.0"
     description: YAML frontmatter format and priority scale for research notes
+
+  - id: response-capture
+    file: specs/response-capture.spec.md
+    version: "2.0.0"
+    description: Response file naming, structure, and sources format
 
   - id: wizard-agent
     file: specs/wizard-agent.spec.md
-    version: "1.0.0"
+    version: "1.1.0"
     description: Interactive wizard agent pattern with prerequisite checks
 
   - id: research-agent
     file: specs/research-agent.spec.md
-    version: "1.0.0"
+    version: "2.0.0"
     description: Research agent pattern with grounding and contradiction detection
+
+  - id: author-agent
+    file: specs/author-agent.spec.md
+    version: "2.0.0"
+    description: Create and validate knowledge notes with enforced frontmatter
+
+  - id: advisor-agent
+    file: specs/advisor-agent.spec.md
+    version: "2.0.0"
+    description: Advisory agent pattern for source-cited research answers
 
   - id: doc-architecture
     file: specs/doc-architecture.spec.md
-    version: "1.0.0"
+    version: "2.0.0"
     description: Three-layer research → docs → scripts architecture
 
   - id: readme-structure
@@ -111,13 +126,16 @@ Each project that imports specs has a `.spec-config.yaml` in its root:
 
 ```yaml
 spec_repo: paulwu/curated-advisor-specs
-spec_version: "1.0.0"
+spec_version: "2.0.0"
 imported_at: "2026-03-28T06:00:00Z"
 
 imports:
   - grounding-rules
   - research-conventions
+  - response-capture
   - research-agent
+  - author-agent
+  - advisor-agent
   - wizard-agent
   - doc-architecture
   - readme-structure
@@ -131,11 +149,11 @@ variables:
   # research-agent variables
   RESEARCH_AGENT_NAME: "Entra Researcher"
   RESEARCH_AGENT_DESCRIPTION: "Research agent grounded on official Microsoft Learn Entra Agent ID documentation."
-  RESPONSE_CAPTURE_FOLDER: "copilot-playground"
+  RESPONSE_FOLDER: "copilot-playground"
   RESPONSE_TIMEZONE: "America/Los_Angeles"
 
   # doc-architecture variables
-  RAW_RESEARCH_FOLDER: "research"
+  KNOWLEDGE_FOLDER: "research"
   SYNTHESIZED_DOCS_FOLDER: "docs"
   AUTOMATION_FOLDER: "scripts"
 
@@ -151,7 +169,7 @@ Specs can reference other specs using the `requires` field:
 ```yaml
 ---
 spec: research-agent
-version: "1.0.0"
+version: "2.0.0"
 requires:
   - grounding-rules
   - research-conventions

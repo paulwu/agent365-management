@@ -19,9 +19,12 @@ This project **imports** specs from that repo. The import configuration is in [`
 │                                                             │
 │  specs/                                                     │
 │  ├── grounding-rules.spec.md      Source hierarchy rules    │
-│  ├── research-conventions.spec.md    Frontmatter, priority     │
+│  ├── research-conventions.spec.md Frontmatter, priority     │
+│  ├── response-capture.spec.md     Response file format      │
 │  ├── wizard-agent.spec.md         Prerequisite/wizard flow  │
 │  ├── research-agent.spec.md       Fetch/cross-ref/cite      │
+│  ├── author-agent.spec.md         Note creation/validation  │
+│  ├── advisor-agent.spec.md        Advisory agent pattern    │
 │  ├── doc-architecture.spec.md     research→docs→scripts layers │
 │  └── readme-structure.spec.md     TOC, collapsible, agents  │
 │                                                             │
@@ -50,11 +53,13 @@ See [`.spec-config.yaml`](../../.spec-config.yaml) for the full list and variabl
 
 | Spec | Version | What It Governs |
 |---|---|---|
-| `grounding-rules` | 1.0.0 | Source hierarchy, contradiction detection, citation format |
-| `research-conventions` | 1.0.0 | YAML frontmatter (`Author`, `Priority`), priority scale |
-| `wizard-agent` | 1.0.0 | Prerequisite checks, `az account show` detection, autopilot warning |
-| `research-agent` | 1.0.0 | Fetch live docs, cross-reference research, save responses |
-| `doc-architecture` | 1.0.0 | `research/` → `docs/` → `scripts/` three-layer architecture |
+| `grounding-rules` | 2.0.0 | Source hierarchy, contradiction detection, citation format |
+| `research-conventions` | 2.0.0 | YAML frontmatter (`Author`, `Priority`), priority scale |
+| `response-capture` | 2.0.0 | Response file naming, structure, and sources format |
+| `research-agent` | 2.0.0 | Fetch live docs, cross-reference research, flag contradictions |
+| `author-agent` | 2.0.0 | Create/validate knowledge notes, enforce frontmatter |
+| `wizard-agent` | 1.1.0 | Prerequisite checks, `az account show` detection, autopilot warning |
+| `doc-architecture` | 2.0.0 | `research/` → `docs/` → `scripts/` three-layer architecture |
 | `readme-structure` | 1.0.0 | TOC, collapsible sections, agent table, prerequisite warnings |
 
 ## Spec-to-Agent Coverage Map
@@ -63,16 +68,16 @@ The table below shows which spec(s) govern each agent in this project.
 
 ### Agent coverage matrix
 
-| Agent | `wizard-agent` | `research-agent` | `grounding-rules` | `research-conventions` | `doc-architecture` | `readme-structure` |
-|---|---|---|---|---|---|---|
-| AgentId-Registration-Helper | ✅ | — | — | — | — | — |
-| BluePrint-Creator | ✅ | — | — | — | — | — |
-| Shadow-Agent-Discovery-Prep | ✅ | — | — | — | — | — |
-| Entra-Researcher | — | ✅ | ✅ | — | — | — |
-| Research-Curator | — | — | — | ✅ | — | — |
-| Spec-Drift | — | — | — | — | — | — |
-| Spec-Exporter | — | — | — | — | — | — |
-| Spec-Importer | — | — | — | — | — | — |
+| Agent | `wizard-agent` | `research-agent` | `grounding-rules` | `research-conventions` | `response-capture` | `author-agent` | `advisor-agent` | `doc-architecture` | `readme-structure` |
+|---|---|---|---|---|---|---|---|---|---|
+| AgentId-Registration-Helper | ✅ | — | — | — | — | — | — | — | — |
+| BluePrint-Creator | ✅ | — | — | — | — | — | — | — | — |
+| Shadow-Agent-Discovery-Prep | ✅ | — | — | — | — | — | — | — | — |
+| Entra-Researcher | — | ✅ | ✅ | — | ✅ | — | — | — | — |
+| Research-Curator | — | — | — | ✅ | — | ✅ | — | — | — |
+| Spec-Drift | — | — | — | — | — | — | — | — | — |
+| Spec-Exporter | — | — | — | — | — | — | — | — | — |
+| Spec-Importer | — | — | — | — | — | — | — | — | — |
 
 > **Infrastructure specs:** `doc-architecture` and `readme-structure` govern repository-wide conventions (folder layout, README format) rather than individual agent behaviour. They are consumed by `copilot-instructions.md` and `README.md`, not by a specific agent file.
 >
@@ -87,6 +92,9 @@ graph LR
         RA[research-agent]
         GR[grounding-rules]
         NC[research-conventions]
+        RC[response-capture]
+        AA[author-agent]
+        AD[advisor-agent]
     end
 
     subgraph "Infrastructure Specs"
@@ -116,7 +124,9 @@ graph LR
     WZ --> SD
     RA --> ER
     GR --> ER
+    RC --> ER
     NC --> NA
+    AA --> NA
 
     DA -.->|governs| CI[copilot-instructions.md]
     RS -.->|governs| RM[README.md]

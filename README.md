@@ -378,8 +378,11 @@ Agent365-Management/
 │   ├── manifest.yaml               Index of all available specs with versions
 │   ├── grounding-rules.spec.md     Source hierarchy and contradiction detection
 │   ├── research-conventions.spec.md   YAML frontmatter and priority scale
+│   ├── response-capture.spec.md    Response file naming, structure, and sources format
 │   ├── wizard-agent.spec.md        Interactive wizard agent pattern
 │   ├── research-agent.spec.md      Research agent with grounding and response capture
+│   ├── author-agent.spec.md        Create and validate knowledge notes with frontmatter
+│   ├── advisor-agent.spec.md       Advisory agent pattern for source-cited answers
 │   ├── doc-architecture.spec.md    Three-layer research → docs → scripts pattern
 │   └── readme-structure.spec.md    README structure with TOC and collapsible sections
 └── .github/
