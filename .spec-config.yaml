@@ -1,5 +1,5 @@
 spec_repo: paulwu/curated-advisor-specs
-spec_version: "1.0.0"
+spec_version: "1.1.0"
 imported_at: "2026-03-28T00:09:33-07:00"
 
 imports:
@@ -40,3 +40,23 @@ variables:
   # --- project-level ---
   PROJECT_NAME: "Agent 365 Management"
   PROJECT_DESCRIPTION: "Knowledge base for managing and governing AI agents in Microsoft 365 using Microsoft Agent 365, Microsoft Entra Agent ID, and the Agent Registry"
+
+overrides:
+  # --- grounding-rules ---
+  # copilot-instructions.md "Canonical sources" section uses project-specific
+  # wording: "live Microsoft Learn content" qualifier, "or to find the right
+  # page URL first" clause, backtick-wrapped filenames, docs/ exception clause,
+  # intro paragraph, and Entra-Researcher cross-reference line.
+  - spec: grounding-rules
+    file: .github/copilot-instructions.md
+    section: "Canonical sources and grounding"
+    reason: "Project-specific wording enhancements that preserve spec intent"
+
+  # --- doc-architecture ---
+  # copilot-instructions.md "Repository architecture" section adds "that matter
+  # together", uses a more specific scripts/ description, and includes the
+  # cross-file workflow, build commands, conventions, and key-files sections.
+  - spec: doc-architecture
+    file: .github/copilot-instructions.md
+    section: "Repository architecture"
+    reason: "Project-specific detail beyond the spec template"
