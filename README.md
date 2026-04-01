@@ -307,10 +307,11 @@ When `@entra-researcher` flags a contradiction (e.g., a note says something diff
 
 ## Spec-Driven Development
 
-This project's agent patterns (grounding rules, wizard flows, research conventions, doc architecture) are extracted into **parameterized spec files** in the `specs/` folder. These specs can be shared across repositories so multiple projects use the same approach.
+This project's agent patterns (grounding rules, wizard flows, research conventions, doc architecture) are extracted into **parameterized spec files** in the `specs/` folder. The canonical source of truth for these specs is the **[arbitrated-grounding-specs](https://github.com/paulwu/arbitrated-grounding-specs)** repository — this project imports from it via `.spec-config.yaml`.
 
 | What | Where |
 |---|---|
+| **Canonical spec repo** | [paulwu/arbitrated-grounding-specs](https://github.com/paulwu/arbitrated-grounding-specs) — source of truth for all specs |
 | **Spec files** | `specs/*.spec.md` — parameterized patterns with `{{VARIABLE}}` placeholders |
 | **Manifest** | `specs/manifest.yaml` — index of all available specs |
 | **Full documentation** | [docs/spec-driven-development/](docs/spec-driven-development/README.md) |
