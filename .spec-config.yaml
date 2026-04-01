@@ -36,7 +36,7 @@ variables:
   RESEARCH_CURATOR_NAME: "Research Curator"
 
   # --- response-capture ---
-  RESPONSE_FOLDER: "copilot-playground"
+  RESPONSE_FOLDER: "answers"
   RESPONSE_TIMEZONE: "America/Los_Angeles"
   RESPONSE_FILENAME_PREFIX: "response"
 

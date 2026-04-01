@@ -77,7 +77,7 @@ This repository has five custom agents. Three are interactive wizards that requi
 |---|---|
 | **Role** | Answer questions about Microsoft Entra Agent ID, grounded on Microsoft Learn |
 | **Key behavior** | Fetches live docs, cross-references local research, flags contradictions, references `scripts/` |
-| **Response capture** | Saves every response to `copilot-playground/response-*.md` |
+| **Response capture** | Saves every response to `answers/response-*.md` |
 | **Tools used** | `web_fetch` / `web_search` (to fetch Microsoft Learn pages), file read/edit (to save responses) |
 
 **Example invocation:**

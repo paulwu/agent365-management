@@ -77,7 +77,7 @@ Example (note vs. note):
 
 ## Response Capture
 
-After composing every response, **save it to a markdown file** in the `copilot-playground/` folder at the repository root.
+After composing every response, **save it to a markdown file** in the `answers/` folder at the repository root.
 
 ### File naming
 
@@ -87,7 +87,7 @@ Use the convention `response-YY-MM-DD-HH-MM-SS.md` in **Pacific Time (America/Lo
 TZ='America/Los_Angeles' date '+%y-%m-%d-%H-%M-%S'
 ```
 
-Example filename: `copilot-playground/response-26-03-19-10-15-42.md`
+Example filename: `answers/response-26-03-19-10-15-42.md`
 
 ### File structure
 
@@ -122,6 +122,8 @@ Example Sources section:
 - https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-identities
 - https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint
 ```
+
+After saving, confirm inline: "✅ Response saved to `answers/response-YY-MM-DD-HH-MM-SS.md`."
 
 ## Site Index — Entra Agent ID Documentation
 
