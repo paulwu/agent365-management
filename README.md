@@ -2,14 +2,14 @@
 
 ## Purpose
 
-This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `research/` for faster lookups and offline access when the internet is not reachable.
+This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `grounding/` for faster lookups and offline access when the internet is not reachable.
 
 The repository includes eight custom [Copilot agents](docs/github-copilot-primer/README.md):
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
 | **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `answers/`. |
-| **Research Curator** | `@research-curator` | Creates and maintains research notes in `research/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
+| **Entra Curator** | `@entra-curator` | Creates and maintains research notes in `grounding/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
 | **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that creates an Entra Agent ID blueprint — auto-detects tenant via `az account show`, checks prerequisites, collects inputs, generates `blueprint-input.json`, and provides the command to run `Create-Blueprint.ps1`. **Requires interactive mode.** |
 | **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Prepares your environment for scanning — auto-detects tenant, checks/installs PowerShell and Graph module, verifies Entra roles via `az rest`, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1`. **Requires interactive mode.** |
 | **AgentId Registration Helper** | `@agentid-registration-helper` | Registers an agent in the Entra Agent Registry — auto-detects tenant via `az account show`, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and provides the command to run `Register-Agent.ps1`. **Requires interactive mode.** |
@@ -29,7 +29,7 @@ The repository includes eight custom [Copilot agents](docs/github-copilot-primer
   - [@blueprint-creator](#blueprint-creator--interactive-blueprint-creation-wizard)
   - [@shadow-agent-discovery-prep](#shadow-agent-discovery-prep--shadow-agent-discovery-prep-wizard)
   - [@agentid-registration-helper](#agentid-registration-helper--agent-registry-registration-wizard)
-  - [@research-curator](#research-curator--research-curator)
+  - [@entra-curator](#entra-curator--entra-curator)
   - [Priority Scale Reference](#priority-scale-reference)
 - [Spec-Driven Development](#spec-driven-development)
 - [Folder Structure](#folder-structure)
@@ -74,11 +74,11 @@ Additional topic guides:
 
 ### Need the original source material?
 
-The **research/** folder contains the unedited research from different AI assistants. These documents cover overlapping topics from different angles and are the basis for everything in **docs/**.
+The **grounding/** folder contains the unedited research from different AI assistants. These documents cover overlapping topics from different angles and are the basis for everything in **docs/**.
 
 ### Updating documentation
 
-When new information becomes available, add or update files in **research/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
+When new information becomes available, add or update files in **grounding/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
 
 ### Using the Copilot Agents
 
@@ -107,8 +107,8 @@ The three wizard agents (`@blueprint-creator`, `@shadow-agent-discovery-prep`, `
 Ask questions about Microsoft Entra Agent ID. The agent:
 
 1. **Fetches live content** from Microsoft Learn Entra Agent ID documentation
-2. **Cross-references** with the cached baseline in `research/Microsoft-Learn-Entra-AgentID.md`
-3. **Checks curated research** in `research/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
+2. **Cross-references** with the cached baseline in `grounding/Microsoft-Learn-Entra-AgentID.md`
+3. **Checks curated research** in `grounding/` (ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md)
 4. **Flags contradictions** between sources with ⚠️ warnings, listing Author and Priority so you can correct stale research
 5. **References repository scripts** in `scripts/` when a workflow can be expedited with existing automation
 6. **Saves every response** to `answers/response-YY-MM-DD-HH-MM-SS.md` (Pacific Time)
@@ -265,32 +265,32 @@ The agent will guide you through creating proper registry metadata for an agent 
 
 ---
 
-#### `@research-curator` — Research Curator
+#### `@entra-curator` — Entra Curator
 
-Create or modify research notes in `research/`. The agent enforces the required YAML frontmatter (`Author`, `Priority`) and the canonical priority scale.
+Create or modify research notes in `grounding/`. The agent enforces the required YAML frontmatter (`Author`, `Priority`) and the canonical priority scale.
 
 ##### Example 1 — Create a New Research Note
 
 ```
-@research-curator Create a new note about Entra Agent ID Conditional Access policies based on this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
+@entra-curator Create a new note about Entra Agent ID Conditional Access policies based on this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 ```
 
-The agent will create a properly formatted note in `research/` with the correct frontmatter headers and priority level.
+The agent will create a properly formatted note in `grounding/` with the correct frontmatter headers and priority level.
 
 ##### Example 2 — Update an Existing Note
 
 ```
-@research-curator Update research/ChatGPT.md to add a section about agent registry collections
+@entra-curator Update grounding/ChatGPT.md to add a section about agent registry collections
 ```
 
 The agent will edit the note while preserving its existing frontmatter, citation style, and structure.
 
 ##### Example 3 — Fix a Contradiction Flagged by Entra Researcher
 
-When `@entra-researcher` flags a contradiction (e.g., a note says something different from Microsoft Learn), use `@research-curator` to correct it:
+When `@entra-researcher` flags a contradiction (e.g., a note says something different from Microsoft Learn), use `@entra-curator` to correct it:
 
 ```
-@research-curator In research/Gemini.md, the section on agent identity tenancy says agents can access resources across tenants. Microsoft Learn says they can only be issued tokens in the tenant where they're created. Please correct the note.
+@entra-curator In grounding/Gemini.md, the section on agent identity tenancy says agents can access resources across tenants. Microsoft Learn says they can only be issued tokens in the tenant where they're created. Please correct the note.
 ```
 
 #### Priority Scale Reference
@@ -298,9 +298,9 @@ When `@entra-researcher` flags a contradiction (e.g., a note says something diff
 | Priority | Meaning | Example |
 |---|---|---|
 | 1 | Verified in-session (human-confirmed) | Manual corrections |
-| 2 | Cached Microsoft Learn content | `research/Microsoft-Learn-Entra-AgentID.md` |
+| 2 | Cached Microsoft Learn content | `grounding/Microsoft-Learn-Entra-AgentID.md` |
 | 3 | Other official documentation | Microsoft blog posts, whitepapers |
-| 4 | AI-generated research | `research/ChatGPT.md`, `research/Gemini.md` |
+| 4 | AI-generated research | `grounding/ChatGPT.md`, `grounding/Gemini.md` |
 | 5+ | Community / speculative | Forum posts, early previews |
 
 ---
@@ -328,7 +328,7 @@ To apply these patterns to another project, see the [FAQ: How do I apply specs t
 
 ```
 Agent365-Management/
-├── research/            ← Raw research documents (primary knowledge source)
+├── grounding/            ← Raw research documents (primary knowledge source)
 │   ├── ChatGPT.md            Source-cited reference with Microsoft Learn links
 │   ├── Gemini.md             Prescriptive FAQ-style operational guide
 │   ├── Researcher.md         Implementation guide with summary tables
@@ -389,7 +389,7 @@ Agent365-Management/
     ├── copilot-instructions.md        Instructions for GitHub Copilot sessions
     └── agents/
         ├── Entra-Researcher.agent.md           @entra-researcher for Microsoft Learn grounding
-        ├── Research-Curator.agent.md               @research-curator for creating/maintaining research
+        ├── Entra-Curator.agent.md               @entra-curator for creating/maintaining research
         ├── BluePrint-Creator.agent.md          @blueprint-creator wizard for blueprint creation
         ├── Shadow-Agent-Discovery-Prep.agent.md @shadow-agent-discovery-prep env prep wizard
         ├── AgentId-Registration-Helper.agent.md @agentid-registration-helper wizard for registry

@@ -59,7 +59,7 @@ See [`.spec-config.yaml`](../../.spec-config.yaml) for the full list and variabl
 | `research-agent` | 2.0.0 | Fetch live docs, cross-reference research, flag contradictions |
 | `author-agent` | 2.0.0 | Create/validate knowledge notes, enforce frontmatter |
 | `wizard-agent` | 1.1.0 | Prerequisite checks, `az account show` detection, autopilot warning |
-| `doc-architecture` | 2.0.0 | `research/` → `docs/` → `scripts/` three-layer architecture |
+| `doc-architecture` | 2.0.0 | `grounding/` → `docs/` → `scripts/` three-layer architecture |
 | `readme-structure` | 1.0.0 | TOC, collapsible sections, agent table, prerequisite warnings |
 
 ## Spec-to-Agent Coverage Map
@@ -74,7 +74,7 @@ The table below shows which spec(s) govern each agent in this project.
 | BluePrint-Creator | ✅ | — | — | — | — | — | — | — | — |
 | Shadow-Agent-Discovery-Prep | ✅ | — | — | — | — | — | — | — | — |
 | Entra-Researcher | — | ✅ | ✅ | — | ✅ | — | — | — | — |
-| Research-Curator | — | — | — | ✅ | — | ✅ | — | — | — |
+| Entra-Curator | — | — | — | ✅ | — | ✅ | — | — | — |
 | Spec-Drift | — | — | — | — | — | — | — | — | — |
 | Spec-Exporter | — | — | — | — | — | — | — | — | — |
 | Spec-Importer | — | — | — | — | — | — | — | — | — |
@@ -110,7 +110,7 @@ graph LR
 
     subgraph "Research & Curation Agents"
         ER[Entra-Researcher]
-        NA[Research-Curator]
+        NA[Entra-Curator]
     end
 
     subgraph "Meta-Agents (no spec)"

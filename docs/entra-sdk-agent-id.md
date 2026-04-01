@@ -154,11 +154,11 @@ This document was compiled from the following research notes. Author and Priorit
 
 | Source | Author | Priority |
 |---|---|---|
-| [research/Microsoft-Learn-Entra-AgentID.md](../research/Microsoft-Learn-Entra-AgentID.md) | Microsoft Learn | 2 |
-| [research/Microsoft-Learn.md](../research/Microsoft-Learn.md) | Microsoft Learn | 3 |
-| [research/ChatGPT.md](../research/ChatGPT.md) | ChatGPT | 4 |
-| [research/Gemini.md](../research/Gemini.md) | Gemini | 4 |
-| [research/Researcher.md](../research/Researcher.md) | Researcher | 4 |
+| [grounding/Microsoft-Learn-Entra-AgentID.md](../grounding/Microsoft-Learn-Entra-AgentID.md) | Microsoft Learn | 2 |
+| [grounding/Microsoft-Learn.md](../grounding/Microsoft-Learn.md) | Microsoft Learn | 3 |
+| [grounding/ChatGPT.md](../grounding/ChatGPT.md) | ChatGPT | 4 |
+| [grounding/Gemini.md](../grounding/Gemini.md) | Gemini | 4 |
+| [grounding/Researcher.md](../grounding/Researcher.md) | Researcher | 4 |
 
 ---
 

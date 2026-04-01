@@ -65,7 +65,7 @@ Three steps:
      - research-agent
    variables:
      PRIMARY_SOURCE_URL: "https://learn.microsoft.com/en-us/azure/well-architected/"
-     CACHED_BASELINE_FILE: "research/WAF-docs.md"
+     CACHED_BASELINE_FILE: "grounding/WAF-docs.md"
    ```
 
 3. **Run `@spec-importer`** in Copilot Chat (interactive mode):
@@ -122,10 +122,10 @@ Depending on which specs are imported:
 | Spec | Files Generated/Updated |
 |---|---|
 | `grounding-rules` | `.github/copilot-instructions.md` (canonical sources section) |
-| `research-conventions` | `.github/agents/Research-Curator.agent.md` |
+| `research-conventions` | `.github/agents/Entra-Curator.agent.md` |
 | `research-agent` | `.github/agents/Entra-Researcher.agent.md` |
 | `wizard-agent` | `.github/agents/AgentId-Registration-Helper.agent.md`, `BluePrint-Creator.agent.md`, `Shadow-Agent-Discovery-Prep.agent.md` |
-| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), `research/`, `docs/` folders |
+| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), `grounding/`, `docs/` folders |
 | `readme-structure` | `README.md` (TOC, agent table, collapsible structure) |
 
 ### What's the variable syntax?

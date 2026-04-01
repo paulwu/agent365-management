@@ -27,13 +27,13 @@ variables:
   # --- grounding-rules ---
   PRIMARY_SOURCE_URL: "https://learn.microsoft.com/en-us/entra/agent-id/"
   PRIMARY_SOURCE_NAME: "Microsoft Learn"
-  CACHED_BASELINE_FILE: "research/Microsoft-Learn-Entra-AgentID.md"
+  CACHED_BASELINE_FILE: "grounding/Microsoft-Learn-Entra-AgentID.md"
   SECONDARY_NOTE_FILES: "ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md"
-  KNOWLEDGE_FOLDER: "research"
+  KNOWLEDGE_FOLDER: "grounding"
   DOCS_FOLDER: "docs"
 
   # --- research-conventions ---
-  RESEARCH_CURATOR_NAME: "Research Curator"
+  CURATOR_AGENT_NAME: "Entra Curator"
 
   # --- response-capture ---
   RESPONSE_FOLDER: "answers"
@@ -46,8 +46,8 @@ variables:
   SCRIPTS_FOLDER: "scripts"
 
   # --- author-agent ---
-  AUTHOR_AGENT_NAME: "Research Curator"
-  AUTHOR_AGENT_DESCRIPTION: "Agent for creating and maintaining research notes in the research/ folder. Ensures all notes have proper Author and Priority headers."
+  AUTHOR_AGENT_NAME: "Entra Curator"
+  AUTHOR_AGENT_DESCRIPTION: "Agent for creating and maintaining grounding notes in the grounding/ folder. Ensures all notes have proper Author and Priority headers."
   CONTENT_TEMPLATE_PATH: ""
 
   # --- doc-architecture ---

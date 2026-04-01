@@ -54,12 +54,12 @@ This file tells Copilot about the repository's architecture and conventions. Any
 | Section | Purpose |
 |---|---|
 | Canonical sources and grounding | Always prefer Microsoft Learn over local research |
-| Repository architecture | Three layers: `research/` → `docs/` → `scripts/` |
+| Repository architecture | Three layers: `grounding/` → `docs/` → `scripts/` |
 | Build, test, lint commands | PowerShell parse validation for scripts |
 | Codebase conventions | JSON field names, citation styles, Graph API version rules |
 | Key files to consult | Which files to read before making changes |
 
-**Why it matters:** Without this file, Copilot would treat `docs/` as a source of truth (it's actually generated output). The instructions ensure Copilot always grounds answers on Microsoft Learn first, then `research/`.
+**Why it matters:** Without this file, Copilot would treat `docs/` as a source of truth (it's actually generated output). The instructions ensure Copilot always grounds answers on Microsoft Learn first, then `grounding/`.
 
 ### 2. Custom Agents → `.github/agents/`
 
@@ -85,19 +85,19 @@ This repository has five custom agents. Three are interactive wizards that requi
 @entra-researcher How do I create an agent identity blueprint for my C# agent?
 ```
 
-#### `@research-curator` — Research Curator
+#### `@entra-curator` — Entra Curator
 
-**File:** `.github/agents/Research-Curator.agent.md`
+**File:** `.github/agents/Entra-Curator.agent.md`
 
 | Aspect | Configuration |
 |---|---|
-| **Role** | Create and maintain research notes in `research/` |
+| **Role** | Create and maintain research notes in `grounding/` |
 | **Key behavior** | Enforces YAML frontmatter format (`Author`, `Priority`), validates priority scale |
-| **Boundaries** | Only operates on files in `research/` |
+| **Boundaries** | Only operates on files in `grounding/` |
 
 **Example invocation:**
 ```
-@research-curator Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
+@entra-curator Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 ```
 
 #### `@blueprint-creator` — Blueprint Creation Wizard
@@ -156,8 +156,8 @@ This repository has five custom agents. Three are interactive wizards that requi
                          │ flags stale note
                          ▼
           ┌──────────────────────────────────────────────────┐
-          │         @research-curator                            │
-          │   Corrects / creates notes in research/             │
+          │         @entra-curator                            │
+          │   Corrects / creates notes in grounding/             │
           └──────────────────────────────────────────────────┘
 
           ┌──────────────────────────────────────────────────┐
@@ -193,7 +193,7 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 ├── copilot-instructions.md          ← Repo-wide instructions (all sessions)
 ├── agents/
 │   ├── Entra-Researcher.agent.md           ← @entra-researcher custom agent
-│   ├── Research-Curator.agent.md              ← @research-curator custom agent
+│   ├── Entra-Curator.agent.md              ← @entra-curator custom agent
 │   ├── BluePrint-Creator.agent.md         ← @blueprint-creator wizard agent
 │   ├── Shadow-Agent-Discovery-Prep.agent.md ← @shadow-agent-discovery-prep env prep wizard
 │   └── AgentId-Registration-Helper.agent.md ← @agentid-registration-helper wizard agent

@@ -143,7 +143,7 @@ imports:
 variables:
   # grounding-rules variables
   PRIMARY_SOURCE_URL: "https://learn.microsoft.com/en-us/entra/agent-id/"
-  CACHED_BASELINE_FILE: "research/Microsoft-Learn-Entra-AgentID.md"
+  CACHED_BASELINE_FILE: "grounding/Microsoft-Learn-Entra-AgentID.md"
   SECONDARY_NOTE_FILES: "ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md"
 
   # research-agent variables
@@ -153,7 +153,7 @@ variables:
   RESPONSE_TIMEZONE: "America/Los_Angeles"
 
   # doc-architecture variables
-  KNOWLEDGE_FOLDER: "research"
+  KNOWLEDGE_FOLDER: "grounding"
   SYNTHESIZED_DOCS_FOLDER: "docs"
   AUTOMATION_FOLDER: "scripts"
 
