@@ -4,9 +4,9 @@
 
 ## Spec Repository
 
-The canonical spec files, format reference, and full documentation live in the **curated-advisor-specs** repo:
+The canonical spec files, format reference, and full documentation live in the **arbitrated-grounding-specs** repo:
 
-👉 **https://github.com/paulwu/curated-advisor-specs**
+👉 **https://github.com/paulwu/arbitrated-grounding-specs**
 
 This project **imports** specs from that repo. The import configuration is in [`.spec-config.yaml`](../../.spec-config.yaml) at the project root.
 
@@ -14,7 +14,7 @@ This project **imports** specs from that repo. The import configuration is in [`
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│              paulwu/curated-advisor-specs                    │
+│              paulwu/arbitrated-grounding-specs                    │
 │              (canonical spec repository)                     │
 │                                                             │
 │  specs/                                                     │
@@ -147,6 +147,6 @@ graph LR
 
 ## Further Reading
 
-- [Spec repository — full documentation](https://github.com/paulwu/curated-advisor-specs)
+- [Spec repository — full documentation](https://github.com/paulwu/arbitrated-grounding-specs)
 - [`.spec-config.yaml`](../../.spec-config.yaml) — this project's import configuration
 - [GitHub Copilot Primer](../github-copilot-primer/README.md) — how the agents in this project work

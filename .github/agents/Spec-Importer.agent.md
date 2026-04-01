@@ -18,7 +18,7 @@ You read spec files from a local `specs/` folder (or a path the user specifies),
 
 Before anything else, ensure the project has the latest spec agents and spec files from the canonical spec repo.
 
-Read the spec repo URL from `.spec-config.yaml` (if it exists) or use the default: `paulwu/curated-advisor-specs`.
+Read the spec repo URL from `.spec-config.yaml` (if it exists) or use the default: `paulwu/arbitrated-grounding-specs`.
 
 ```bash
 cat .spec-config.yaml 2>/dev/null | grep spec_repo || echo "USING_DEFAULT"
@@ -28,22 +28,22 @@ cat .spec-config.yaml 2>/dev/null | grep spec_repo || echo "USING_DEFAULT"
 
 ```bash
 mkdir -p .github/agents
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Exporter.agent.md" -o .github/agents/Spec-Exporter.agent.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Importer.agent.md" -o .github/agents/Spec-Importer.agent.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Drift.agent.md" -o .github/agents/Spec-Drift.agent.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/.github/agents/Spec-Exporter.agent.md" -o .github/agents/Spec-Exporter.agent.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/.github/agents/Spec-Importer.agent.md" -o .github/agents/Spec-Importer.agent.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/.github/agents/Spec-Drift.agent.md" -o .github/agents/Spec-Drift.agent.md
 ```
 
 **Download all spec files** into `specs/`:
 
 ```bash
 mkdir -p specs
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/manifest.yaml" -o specs/manifest.yaml
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/grounding-rules.spec.md" -o specs/grounding-rules.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/research-conventions.spec.md" -o specs/research-conventions.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/wizard-agent.spec.md" -o specs/wizard-agent.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/research-agent.spec.md" -o specs/research-agent.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/doc-architecture.spec.md" -o specs/doc-architecture.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/readme-structure.spec.md" -o specs/readme-structure.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/manifest.yaml" -o specs/manifest.yaml
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/grounding-rules.spec.md" -o specs/grounding-rules.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/research-conventions.spec.md" -o specs/research-conventions.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/wizard-agent.spec.md" -o specs/wizard-agent.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/research-agent.spec.md" -o specs/research-agent.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/doc-architecture.spec.md" -o specs/doc-architecture.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/readme-structure.spec.md" -o specs/readme-structure.spec.md
 ```
 
 Show what was downloaded:
