@@ -6,6 +6,33 @@ This guide walks you through the complete workflow for creating an AI agent that
 
 The guide covers: creating an agent identity blueprint, provisioning an agent identity, creating an agent's user account, assigning a license, registering in the Agent Registry, and building a backend that communicates via Teams.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Prerequisites](#prerequisites)
+  - [Tool Options](#tool-options)
+- [Step 1: Create the Agent Identity Blueprint](#step-1-create-the-agent-identity-blueprint)
+- [Step 2: Create the Agent Identity](#step-2-create-the-agent-identity)
+- [Step 3: Grant Permission to Create Agent's User Account](#step-3-grant-permission-to-create-agents-user-account)
+- [Step 4: Create the Agent's User Account](#step-4-create-the-agents-user-account)
+- [Step 5: Assign a Microsoft 365 License](#step-5-assign-a-microsoft-365-license)
+- [Step 6: Add the Agent to a Team](#step-6-add-the-agent-to-a-team)
+- [Step 7: Build the Agent Backend Service](#step-7-build-the-agent-backend-service)
+  - [7a. Subscribe to Teams chat messages](#7a-subscribe-to-teams-chat-messages-change-notifications)
+  - [7b. Process incoming messages and respond](#7b-process-incoming-messages-and-respond)
+  - [7c. Token acquisition (authentication chain)](#7c-token-acquisition-authentication-chain)
+- [Step 8: Register the Agent in the Agent Registry](#step-8-register-the-agent-in-the-agent-registry)
+- [Step 9: How It Works for the Human User](#step-9-how-it-works-for-the-human-user)
+- [Security Constraints](#security-constraints)
+- [Complete Architecture](#complete-architecture)
+- [Tool Reference Summary](#tool-reference-summary)
+- [Related Pages](#related-pages)
+- [References](#references)
+
+</details>
+
+⬅️ [Back to docs index](../README.md#looking-for-guidance-on-a-specific-topic)
+
 ---
 
 ## Prerequisites
@@ -576,6 +603,8 @@ The agent's user account appears in Teams like a real user — with a display na
 - [Agent's user account guide](./identity-blueprint/agent-user-account-guide.md) — Detailed reference for agent's user accounts
 - [Developer guide](./developer-identity-platform.md) — Blueprint creation, OAuth flows, admin relationships
 - [Agent blueprint vs. registration](./agent-blueprint-vs-registration.md) — Pattern A vs. Pattern B
+
+⬅️ [Back to docs index](../README.md#looking-for-guidance-on-a-specific-topic) · [↑ Back to top](#use-case-teams-chat-via-agents-user-account)
 
 ## References
 
