@@ -66,6 +66,7 @@ Additional topic guides:
 | [identity-blueprint/migrating-legacy-agents.md](docs/identity-blueprint/migrating-legacy-agents.md) | Modernization paths for registry-only, older Copilot Studio, and custom legacy agents |
 | [identity-blueprint/agent-identity-hierarchy.md](docs/identity-blueprint/agent-identity-hierarchy.md) | Visual diagram of the blueprint → identity → user account hierarchy with cardinality and token flows |
 | [identity-blueprint/agent-user-account-guide.md](docs/identity-blueprint/agent-user-account-guide.md) | How to create an agent's user account, assign licenses, enable Teams communication, and interact via chat |
+| [Use-Case-Teams-Chat-via-Agent-User-Account.md](docs/Use-Case-Teams-Chat-via-Agent-User-Account.md) | End-to-end guide: build an agent that chats on Teams (Graph API + CLI + sample Python code) |
 | [github-copilot-primer/README.md](docs/github-copilot-primer/README.md) | Overview: how Copilot instructions, custom agents, and MCP servers work together in this project |
 | [github-copilot-primer/copilot-instructions.md](docs/github-copilot-primer/copilot-instructions.md) | What Copilot instructions are, types of instruction files, and best practices |
 | [github-copilot-primer/custom-agents.md](docs/github-copilot-primer/custom-agents.md) | How to create and configure custom Copilot agents with `.agent.md` profiles |
@@ -351,6 +352,7 @@ Agent365-Management/
 │   ├── developer-identity-platform.md    Developer guide: blueprints, OAuth flows, admin relationships
 │   ├── entra-sdk-agent-id.md             Entra SDK for Agent ID: companion container, scenarios, security
 │   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
+│   ├── Use-Case-Teams-Chat-via-Agent-User-Account.md  End-to-end Teams chat agent guide
 │   ├── github-copilot-primer/
 │   │   ├── README.md                        Overview: how instructions, agents, and MCP servers work together
 │   │   ├── copilot-instructions.md          What Copilot instructions are and how to write them
