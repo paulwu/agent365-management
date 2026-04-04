@@ -52,7 +52,8 @@ If the GUID is missing, verify Step 1 was completed for the correct environment 
 4. Approve or reject the agent.
 
 Once approved:
-- The **default template** can apply predefined policies and **auto-assign the Agent 365 license** during activation.
+
+- The **default template** canapply predefined policies and **auto-assign the Agent 365 license** during activation.
 - Use **Agent settings** to control allowed agent types, sharing, user access, and template guardrails.
 
 ## Step 5: Apply Governance Controls

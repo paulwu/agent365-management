@@ -14,9 +14,9 @@ If you're new to GitHub Copilot's agent and customization features, start here. 
 
 ### How They Relate
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
-│                    Your Repository                       │
+│                    Your Repository│
 │                                                          │
 │  .github/                                                │
 │  ├── copilot-instructions.md  ◄── Copilot Instructions   │
@@ -66,6 +66,7 @@ This file tells Copilot about the repository's architecture and conventions. Any
 This repository has five custom agents. Three are interactive wizards that require **interactive mode** (not autopilot) and **Azure CLI login** (`az login`) before use:
 
 > **⚠️ Before using `@blueprint-creator`, `@shadow-agent-discovery-prep`, or `@agentid-registration-helper`:**
+>
 > 1. Press **Shift+Tab** to switch to **interactive mode** (autopilot will skip wizard steps)
 > 2. Run `az login` in your terminal (the wizards use `az account show` to auto-detect your tenant)
 
@@ -81,7 +82,8 @@ This repository has five custom agents. Three are interactive wizards that requi
 | **Tools used** | `web_fetch` / `web_search` (to fetch Microsoft Learn pages), file read/edit (to save responses) |
 
 **Example invocation:**
-```
+
+```text
 @entra-researcher How do I create an agent identity blueprint for my C# agent?
 ```
 
@@ -96,7 +98,8 @@ This repository has five custom agents. Three are interactive wizards that requi
 | **Boundaries** | Only operates on files in `grounding/` |
 
 **Example invocation:**
-```
+
+```text
 @entra-curator Create a new note about Conditional Access for agents from this Microsoft Learn page: https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 ```
 
@@ -111,7 +114,8 @@ This repository has five custom agents. Three are interactive wizards that requi
 | **Tools used** | `execute` (run PowerShell), `read`/`edit` (generate blueprint-input.json), `search` |
 
 **Example invocation:**
-```
+
+```text
 @blueprint-creator I want to create a new agent identity blueprint
 ```
 
@@ -126,7 +130,8 @@ This repository has five custom agents. Three are interactive wizards that requi
 | **Tools used** | `execute` (install PowerShell/modules), `read` (check versions), `search` |
 
 **Example invocation:**
-```
+
+```text
 @shadow-agent-discovery-prep I want to scan my tenant for shadow agents
 ```
 
@@ -141,13 +146,14 @@ This repository has five custom agents. Three are interactive wizards that requi
 | **Tools used** | `execute` (run PowerShell), `read`/`edit` (generate agent-metadata.json), `search` |
 
 **Example invocation:**
-```
+
+```text
 @agentid-registration-helper Register my Python agent in the Agent Registry
 ```
 
 #### How the Five Agents Work Together
 
-```
+```text
           ┌──────────────────────────────────────────────────┐
           │         @entra-researcher                        │
           │   Answers questions, references scripts,         │
@@ -188,9 +194,9 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 
 ## Quick Reference: File Locations in This Repo
 
-```
+```text
 .github/
-├── copilot-instructions.md          ← Repo-wide instructions (all sessions)
+├── copilot-instructions.md← Repo-wide instructions (all sessions)
 ├── agents/
 │   ├── Entra-Researcher.agent.md           ← @entra-researcher custom agent
 │   ├── Entra-Curator.agent.md              ← @entra-curator custom agent

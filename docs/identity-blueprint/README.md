@@ -13,6 +13,20 @@ An **agent identity blueprint** is the Entra Agent ID template and control plane
 | How a blueprint is used in the creation and runtime flow | [How blueprints are used](./how-blueprints-are-used.md) |
 | Which scenarios call for a blueprint versus registry-only onboarding | [When to use identity blueprints](./when-to-use-identity-blueprints.md) |
 | How to move older or registry-only agents toward the blueprint model | [Migrating legacy agents](./migrating-legacy-agents.md) |
+| How blueprint, agent identity, and agent's user account relate | [Agent identity hierarchy](./agent-identity-hierarchy.md) |
+| How to create an agent's user account, assign licenses, and use Teams | [Agent's user account guide](./agent-user-account-guide.md) |
+
+## Terminology Note
+
+This guide uses "identity blueprint" and "blueprint" as shorthand. The official Microsoft Learn term is **agent identity blueprint**. Other common terms mapped to official terminology:
+
+| Common Term | Official Term |
+|---|---|
+| "identity blueprint", "blueprint" | **Agent identity blueprint** |
+| "agent ID", "agent instance" | **Agent identity** |
+| "agent user" | **Agent's user account** |
+
+> Terms like "agent blueprint", "agentic app instance", and "agentic user" are NOT official Microsoft Learn terminology.
 
 ## At a Glance
 
@@ -41,3 +55,5 @@ That combination is what makes a blueprint different from a normal app registrat
 - [Create and delete agent identities](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-delete-agent-identities)
 - [Agent ID creation channels](https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/agent-id-creation-channels)
 - [Manage Agent Registry-only agents](https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/manage-agents-without-identity)
+- [Agent's user accounts](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/agent-users)
+- [Key concepts in Microsoft Entra Agent ID](https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/key-concepts)

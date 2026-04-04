@@ -13,7 +13,7 @@
 **Key clarifications:**
 
 - Agent 365 is **not** included in Microsoft 365 E3/E5 licenses — it is a separate offering.
-- For agentic users (humans interacting with agents), additional licenses may be required (M365 E5, Teams Enterprise, Copilot) depending on the scenario.
+- For users interacting with agents, additional licenses may be required (M365 E5, Teams Enterprise, Copilot) depending on the scenario. For agents with an **agent's user account**, a license assignment to the agent user is typically needed.
 - Managing Copilot agents in the M365 admin center is enabled by default in **Microsoft 365 Copilot licensed tenants** — no extra enablement needed for the base admin experience.
 
 ## Entra Roles

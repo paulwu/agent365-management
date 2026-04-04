@@ -6,15 +6,15 @@
 
 The canonical spec files, format reference, and full documentation live in the **arbitrated-grounding-specs** repo:
 
-👉 **https://github.com/paulwu/arbitrated-grounding-specs**
+👉 **<https://github.com/paulwu/arbitrated-grounding-specs>**
 
 This project **imports** specs from that repo. The import configuration is in [`.spec-config.yaml`](../../.spec-config.yaml) at the project root.
 
 ## How It Works
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
-│              paulwu/arbitrated-grounding-specs                    │
+│              paulwu/arbitrated-grounding-specs│
 │              (canonical spec repository)                     │
 │                                                             │
 │  specs/                                                     │

@@ -8,7 +8,7 @@ The Microsoft Entra SDK for Agent ID is a **containerized web service** (compani
 
 ## Architecture
 
-```
+```text
 Client Application
        │
        ▼
@@ -41,19 +41,22 @@ The SDK runs as a **sidecar container** in the same trust boundary as your appli
 ## Key capabilities
 
 ### Token validation
-- Validates access tokens and ID tokens issued by Microsoft Entra ID
+
+- Validates access tokensand ID tokens issued by Microsoft Entra ID
 - Verifies signatures against Entra's public keys
 - Checks expiration and audience claims
 - Extracts user claims, roles, and scopes for authorization decisions
 
 ### Token acquisition
-- On-Behalf-Of (OBO) flow — delegates user context to downstream APIs
+
+- On-Behalf-Of(OBO) flow — delegates user context to downstream APIs
 - Client Credentials — app-to-app / autonomous agent authentication
 - Managed Identity — native Azure service authentication
 - Agent Identity — autonomous or delegated agent patterns
 
 ### Downstream API calls
-- Automatically acquires and attaches tokens to outbound requests
+
+- Automatically acquiresand attaches tokens to outbound requests
 - Supports optional scope, method, and header overrides
 - Supports Signed HTTP Requests (Proof-of-Possession / PoP/SHR)
 

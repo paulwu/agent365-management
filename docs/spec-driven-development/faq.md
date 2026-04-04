@@ -21,7 +21,8 @@ Yes. The `docs/spec-driven-development/` folder in this project documents the sp
 No. The `@spec-exporter` writes spec files to a **local folder** (default: `specs/` in the current project). The user is responsible for reviewing the generated specs and committing/pushing them to the master spec repo. This is a deliberate safety boundary — the agent never pushes to a remote repository.
 
 **Typical workflow:**
-```
+
+```text
 @spec-exporter → writes to local specs/ folder
      ↓
 User reviews the generated specs
@@ -40,6 +41,7 @@ User copies specs to the spec repo, commits, and pushes
 ### What if the spec repo and my project get out of sync?
 
 Run `@spec-drift` — it compares your project's current files against the specs in your `.spec-config.yaml` and reports:
+
 - Which patterns have diverged
 - What's different (with diffs)
 - Whether the divergence is intentional (project-specific override) or accidental (drift)
@@ -51,12 +53,14 @@ Run `@spec-drift` — it compares your project's current files against the specs
 Three steps:
 
 1. **Copy the meta-agents** into your project:
+
    ```bash
    cp arbitrated-grounding-specs/.github/agents/Spec-Importer.agent.md \
       your-project/.github/agents/
    ```
 
 2. **Create a `.spec-config.yaml`** in your project root listing which specs to import and your project-specific variable values:
+
    ```yaml
    spec_repo: paulwu/arbitrated-grounding-specs
    spec_version: "1.0.0"
@@ -69,10 +73,12 @@ Three steps:
    ```
 
 3. **Run `@spec-importer`** in Copilot Chat (interactive mode):
-   ```
+
+   ```text
    @spec-importer Import specs from ~/arbitrated-grounding-specs/specs/ using .spec-config.yaml
    ```
-   The importer generates `.github/copilot-instructions.md`, agent files, README sections, etc.
+
+   The importer generates`.github/copilot-instructions.md`, agent files, README sections, etc.
 
 ### What if I only want some specs?
 

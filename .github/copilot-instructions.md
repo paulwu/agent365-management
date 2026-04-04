@@ -4,7 +4,7 @@
 
 This repository is a documentation knowledge base for Microsoft Agent 365 management, Entra Agent ID, and the Agent Registry.
 
-- Treat live Microsoft Learn content under `https://learn.microsoft.com/en-us/entra/agent-id/` as the highest-authority source.
+- Treat live Microsoft Learn content under `https://learn.microsoft.com/en-us/microsoft-agent-365/` as the highest-authority source.
 - Use `grounding/Microsoft-Learn-Entra-AgentID.md` as the cached baseline when live fetches are unavailable or to find the right page URL first.
 - Use the other files in `grounding/` (`ChatGPT.md`, `Gemini.md`, `Researcher.md`, `Microsoft-Learn.md`) as secondary research only.
 - Treat `docs/` as generated output, not as the factual source of truth, except when you are explicitly updating documentation in `docs/`.

@@ -21,6 +21,7 @@ The Overview page provides a 30-day snapshot of agent health and actionable insi
 2. The Agent Map tab appears before the Registry tab for eligible users.
 
 **Access requirements:**
+
 - Available exclusively to **Frontier customers**.
 - No special license beyond Frontier group membership.
 - If the tab doesn't appear, confirm the user has been added to the Frontier group.
@@ -74,13 +75,15 @@ The Agent Map is an interactive spatial visualization that clusters agents by pl
 ### Filtering
 
 Apply filters to narrow the view:
-- **By platform** — focus on a specific creation tool (e.g., only Copilot Studio lite).
+
+- **By platform** — focus on a specific creation tool(e.g., only Copilot Studio lite).
 - **By publisher** — isolate agents from a specific team or partner.
 - **By status** — show only blocked agents to triage restricted agents.
 
 ### Agent Details (Click-Through)
 
 Select any agent icon to see:
+
 - **Details** — description, publisher, agent type, platform, last updated, version.
 - **Users** — who is using this agent.
 - **Data and tools** — what data sources and tools the agent accesses.
@@ -96,7 +99,69 @@ Select any agent icon to see:
 
 ---
 
-## Phase 4: Build a Monitoring Routine
+## Phase 4: Monitor Agent Activity via Sign-In and Audit Logs
+
+### Agent Sign-In Logs
+
+Entra ID includes a dedicated `agentSignIn` resource type in sign-in logs, enabling fine-grained monitoring of agent authentication activity.
+
+1. Go to **Entra admin center → Entra ID → Monitoring & health → Sign-in logs**.
+2. Use the dedicated agent filters:
+   - **Agent type** — choose from: **Agent ID user**, **Agent Identity**, **Agent Identity Blueprint**, or **Not Agentic**.
+   - **Is Agent** — choose **Yes** or **No**.
+3. Because agents can sign in with either user-delegated or app-only permissions, their sign-ins may appear across each of the four sign-in log types:
+   - Agent identities (actor) accessing resources → **Service principal sign-in logs** → agentType: agent ID user
+   - Agent users accessing resources → **Non-interactive user sign-ins** → agentType: agent user
+   - Users accessing agents → **User sign-ins**
+
+**Via Microsoft Graph API (beta):**
+
+```powershell
+# Retrieve agent identity sign-in events
+GET https://graph.microsoft.com/beta/auditLogs/signIns?$filter=signInEventTypes/any(t: t eq 'servicePrincipal') and agent/agentType eq 'AgentIdentity'
+```
+
+### Agent Audit Logs
+
+Agent activity is logged under the base identity type from which it originates:
+
+| Agent Identity Type | Example Audit Events |
+|---|---|
+| Agent identity user (agent's user account) | "Create user" audit activity |
+| Agent identity (service principal) | "Create service principal" audit event |
+| Agent identity blueprint (application) | "Create application" / "Delete application" audit event |
+
+### Risky Agents Report
+
+Microsoft Entra ID Protection provides a dedicated **Risky Agents** report for monitoring agent risk:
+
+1. Go to **Entra admin center → Protection → Identity Protection → Risky Agents**.
+2. Review agents flagged for risky behavior, including:
+   - **Unfamiliar resource access** — agent targeted resources it doesn't usually access.
+   - **Sign-in spike** — abnormally high number of sign-ins compared to usual frequency.
+   - **Failed access attempt** — agent attempted to access unauthorized resources.
+   - **Sign-in by risky user** — agent signed in on behalf of a risky user.
+   - **Confirmed compromised** — admin confirmed agent compromised.
+   - **Microsoft Entra threat intelligence** — activity consistent with known attack patterns.
+3. Take action directly from the report:
+   - **Confirm compromise** — sets risk to High and triggers risk-based Conditional Access.
+   - **Confirm safe** — clears risk state for false positives.
+   - **Dismiss risk** — marks risk as no longer relevant.
+   - **Disable** — prevents all sign-ins for that agent.
+
+### Programmatic Monitoring via Graph API
+
+Use Microsoft Graph for automated monitoring:
+
+| API Collection | Purpose |
+|---|---|
+| `riskyAgents` | List all agents flagged for risky behavior |
+| `agentRiskDetections` | List individual risk detection events for agents (up to 90 days) |
+| `auditLogs/signIns` with agent filters | Query agent-specific sign-in events |
+
+---
+
+## Phase 5: Build a Monitoring Routine
 
 ### Weekly Review Checklist
 
@@ -107,6 +172,8 @@ Select any agent icon to see:
 | **Active Users trend** | Overview → Active Users Over Time chart | Sudden drops (agent outage?) or spikes (unauthorized agent?) |
 | **Platform distribution** | Overview → Agents by Platforms | Unexpected growth in "Others" = possible shadow agents |
 | **Blocked agents** | Agent Map → Filter: blocked | Agents that were blocked but may need re-evaluation |
+| **Risky agents** | Entra → ID Protection → Risky Agents | New risk detections requiring investigation or remediation |
+| **Agent sign-in anomalies** | Entra → Sign-in logs → filter Is Agent = Yes | Unusual sign-in patterns, unfamiliar resources, or sign-in spikes |
 
 ### Monthly Review Checklist
 
@@ -119,15 +186,23 @@ Select any agent icon to see:
 
 ### Establish Alerting
 
-While Agent 365 surfaces governance signals on the dashboard, complement with:
-1. **Entra sign-in logs** — set up alerts for agent identity sign-in failures or risky sign-ins.
-2. **Microsoft Defender → Advanced Hunting** — create detection rules for anomalous agent tool calls.
-3. **Purview alerts** — trigger on agents interacting with sensitive data classifications.
+Complement the dashboard with programmatic alerting:
+
+1. **Entra sign-in logs** — set up alerts for agent identity sign-in failures, risky sign-ins, or unfamiliar resource access.
+2. **Entra ID Protection → Risky Agents** — configure automated responses (block, alert sponsor) for high-risk agent detections.
+3. **Microsoft Defender → Advanced Hunting** — create detection rules for anomalous agent tool calls.
+4. **Purview alerts** — trigger on agents interacting with sensitive data classifications.
+5. **Microsoft Graph** — use `riskyAgents` and `agentRiskDetections` API collections to build custom alerting workflows.
 
 ---
 
 ## References
 
-- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-365-overview?view=o365-worldwide" target="_blank">Agent 365 Overview page in the admin center</a>
-- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-map?view=o365-worldwide" target="_blank">Agent Map</a>
-- <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide" target="_blank">Agent Registry in the Microsoft 365 admin center</a>
+| Source | Author | Priority |
+|---|---|---|
+| <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-365-overview?view=o365-worldwide" target="_blank">Agent 365 Overview page in the admin center</a> | Microsoft Learn | 1 |
+| <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-map?view=o365-worldwide" target="_blank">Agent Map</a> | Microsoft Learn | 1 |
+| <a href="https://learn.microsoft.com/en-us/entra/agent-id/sign-in-audit-logs-agents" target="_blank">Sign-in and audit logs for agents</a> | Microsoft Learn | 1 |
+| <a href="https://learn.microsoft.com/en-us/entra/id-protection/concept-risky-agents" target="_blank">Entra ID Protection for agents (Risky Agents report)</a> | Microsoft Learn | 1 |
+| <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide" target="_blank">Agent Registry in the Microsoft 365 admin center</a> | Microsoft Learn | 1 |
+| [grounding/Microsoft-Learn.md](../grounding/Microsoft-Learn.md) | Microsoft Learn | 3 |

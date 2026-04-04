@@ -10,7 +10,7 @@ If you want the conceptual version before diving into the Graph steps, start wit
 
 The agent identity platform uses a three-level hierarchy:
 
-```
+```text
 Agent Identity Blueprint  (template + credential store)
         │
         ├── Agent Identity        (app-like identity, object ID = app ID)
@@ -86,7 +86,7 @@ Record the `appId` from the response — you need it for all subsequent steps.
 
 ### 3. Configure credentials
 
-**Production (recommended): Managed identity as federated identity credential**
+### Production (recommended): Managed identity as federated identity credential
 
 ```http
 POST https://graph.microsoft.com/beta/applications/<agent-blueprint-id>/federatedIdentityCredentials
@@ -101,7 +101,7 @@ Content-Type: application/json
 }
 ```
 
-**Development/testing: Client secret**
+### Development/testing: Client secret
 
 ```http
 POST https://graph.microsoft.com/beta/applications/<agent-blueprint-id>/addPassword
@@ -178,7 +178,7 @@ All agent entities are **confidential clients**. Interactive flows (redirect URL
 
 The agent front-end receives a user token, then exchanges it for an agent token via the OBO flow. The blueprint must have an identifier URI and scope configured (see step 4 above).
 
-```
+```text
 User → Front-end → [OBO exchange via blueprint] → Agent backend → Downstream APIs
 ```
 
@@ -186,7 +186,7 @@ User → Front-end → [OBO exchange via blueprint] → Agent backend → Downst
 
 The agent authenticates using the blueprint's credential (managed identity preferred) and receives an agent token scoped to the target resource — no user context.
 
-```
+```text
 Agent → Blueprint credential → client_credentials → Agent token → Resource APIs
 ```
 

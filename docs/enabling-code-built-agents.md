@@ -19,11 +19,12 @@ Use this when the agent uses its own identity provider or you want **visibility 
 
 1. **Register an agent instance** via Microsoft Graph using [`Register-Agent.ps1`](../scripts/Register-Agent.ps1):
 
-   ```
+   ```http
    POST /beta/agentRegistry/agentInstances
    ```
 
-   Copy `scripts/agent-metadata.json.example` → `agent-metadata.json`, fill in your values, then run:
+   Copy`scripts/agent-metadata.json.example` → `agent-metadata.json`, fill in your values, then run:
+
    ```powershell
    .\Register-Agent.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
    ```
@@ -57,19 +58,21 @@ Use this when the agent uses its own identity provider or you want **visibility 
 
 Use this when you want **Entra-issued tokens, Conditional Access enforcement, and full lifecycle controls** — treating the code-built agent with the same identity governance as Microsoft-native agents.
 
-### Prerequisites
+### Prerequisites (Pattern B)
 
 - **Entra roles:** Agent ID Developer or Agent ID Administrator (for blueprints); Agent Registry Administrator (for registration)
 - **Licensing:** Microsoft 365 Copilot license + Entra ID P1 (for Conditional Access) + optionally Entra ID Governance (for access packages)
 
-### Steps
+### Steps (Pattern B)
 
 1. **Create an agent identity blueprint** using [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1):
     - Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in sponsor/owner IDs and credentials, then run:
+
       ```powershell
       .\Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
       ```
-    - Or use Microsoft Graph API directly — see [Developer Guide: Agent Identity Platform](./developer-identity-platform.md).
+
+    - Or use Microsoft Graph API directly— see [Developer Guide: Agent Identity Platform](./developer-identity-platform.md).
     - For a focused explanation of what lives on the blueprint and why the credential model works this way, see [Blueprint contents explainer](./identity-blueprint/blueprint-contents-explainer.md).
     - Requires Agent ID Developer or Agent ID Administrator role plus the Graph permissions described in the <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">blueprint creation guide</a>.
     - For a visual overview of how blueprint creation relates to agent registration, see [Agent Blueprint vs. Registration](./agent-blueprint-vs-registration.md).
@@ -81,11 +84,12 @@ Use this when you want **Entra-issued tokens, Conditional Access enforcement, an
 3. **Register the agent instance in the Agent Registry** using [`Register-Agent.ps1`](../scripts/Register-Agent.ps1):
 
    Add the identity IDs to `agent-metadata.json`, then run:
+
    ```powershell
    .\Register-Agent.ps1 -TenantId "contoso.onmicrosoft.com" -ClientId "your-app-client-id"
    ```
 
-   ```
+   ```http
    POST /beta/agentRegistry/agentInstances
    ```
 
@@ -158,7 +162,7 @@ Supports **1,500+ connectors** (ServiceNow, JIRA, etc.), Microsoft Graph APIs, D
 
 ### Authentication for Tooling
 
-Agents authenticate to MCP servers using **agentic user identity** or **On-Behalf-Of (OBO) delegated user permissions**.
+Agents authenticate to MCP servers using **agent's user account identity** or **On-Behalf-Of (OBO) delegated user permissions**.
 
 ## Security Stack for Code-Built Agents
 

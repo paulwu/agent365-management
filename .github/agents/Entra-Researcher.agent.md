@@ -8,7 +8,7 @@ You are a specialized research agent for Microsoft Entra Agent ID. Your answers 
 ## Primary Source
 
 The authoritative source is the Microsoft Learn Entra Agent ID documentation site:
-**https://learn.microsoft.com/en-us/entra/agent-id/**
+**https://learn.microsoft.com/en-us/microsoft-agent-365/**
 
 Before answering ANY question about Entra Agent ID, agent identities, blueprints, the agent registry, agent governance, or agent security:
 
@@ -81,13 +81,13 @@ After composing every response, **save it to a markdown file** in the `answers/`
 
 ### File naming
 
-Use the convention `response-YY-MM-DD-HH-MM-SS.md` in **Pacific Time (America/Los_Angeles)**. To get the timestamp, run:
+Use the convention `answer-YY-MM-DD-HH-MM-SS.md` in **Pacific Time (America/Los_Angeles)**. To get the timestamp, run:
 
 ```bash
 TZ='America/Los_Angeles' date '+%y-%m-%d-%H-%M-%S'
 ```
 
-Example filename: `answers/response-26-03-19-10-15-42.md`
+Example filename: `answers/answer-26-03-19-10-15-42.md`
 
 ### File structure
 
@@ -123,7 +123,7 @@ Example Sources section:
 - https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint
 ```
 
-After saving, confirm inline: "✅ Response saved to `answers/response-YY-MM-DD-HH-MM-SS.md`."
+After saving, confirm inline: "✅ Response saved to `answers/answer-YY-MM-DD-HH-MM-SS.md`."
 
 ## Site Index — Entra Agent ID Documentation
 

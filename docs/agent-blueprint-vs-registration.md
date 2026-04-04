@@ -83,7 +83,7 @@ flowchart LR
 
 ## Workflow: Pattern B End-to-End
 
-```
+```text
 1. Create-Blueprint.ps1
    └─ Outputs: blueprintAppId
 

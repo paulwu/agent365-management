@@ -72,7 +72,7 @@ The Agent ID model introduces new object types that map loosely — but not dire
 
 ### Object hierarchy
 
-```
+```text
 Agent Identity Blueprint          ← Application object (specialized type)
 ├── Blueprint Principal           ← Service principal (tenant-local representation)
 ├── Credentials                   ← Configured here; shared by all children

@@ -38,7 +38,7 @@ variables:
   # --- response-capture ---
   RESPONSE_FOLDER: "answers"
   RESPONSE_TIMEZONE: "America/Los_Angeles"
-  RESPONSE_FILENAME_PREFIX: "response"
+  RESPONSE_FILENAME_PREFIX: "answer"
 
   # --- research-agent ---
   RESEARCH_AGENT_NAME: "Entra Researcher"
