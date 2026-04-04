@@ -1,5 +1,20 @@
 # Spec File Format Reference
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Overview](#overview)
+- [File Structure](#file-structure)
+- [YAML Frontmatter Properties](#yaml-frontmatter-properties)
+- [Variable Syntax](#variable-syntax)
+  - [Variable Definition](#variable-definition)
+- [Manifest File (`manifest.yaml`)](#manifest-file-manifestyaml)
+- [Project Config (`.spec-config.yaml`)](#project-config-spec-configyaml)
+- [Spec Composition](#spec-composition)
+- [Versioning Rules](#versioning-rules)
+
+</details>
+
 ## Overview
 
 Each spec is a Markdown file with YAML frontmatter that describes a reusable pattern. Specs use `{{VARIABLE_NAME}}` mustache-style placeholders for project-specific values.

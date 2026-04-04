@@ -4,6 +4,22 @@
 
 An identity blueprint is used in two distinct phases: **provisioning** and **runtime authentication/governance**.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Phase 1: Provisioning](#phase-1-provisioning)
+  - [Step 1: Create the blueprint](#step-1-create-the-blueprint)
+  - [Step 2: Add credentials](#step-2-add-credentials)
+  - [Step 3: Optionally expose an identifier URI and scope](#step-3-optionally-expose-an-identifier-uri-and-scope)
+  - [Step 4: Create the blueprint principal](#step-4-create-the-blueprint-principal)
+  - [Step 5: Create one or more agent identities](#step-5-create-one-or-more-agent-identities)
+- [Phase 2: Runtime Authentication](#phase-2-runtime-authentication)
+- [Phase 3: Governance and Operations](#phase-3-governance-and-operations)
+- [Typical Pro-Code Flow](#typical-pro-code-flow)
+- [Product-Managed Flow](#product-managed-flow)
+
+</details>
+
 ## Phase 1: Provisioning
 
 ### Step 1: Create the blueprint

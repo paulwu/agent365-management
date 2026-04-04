@@ -2,6 +2,20 @@
 
 MCP (Model Context Protocol) servers and skills extend GitHub Copilot's capabilities beyond code editing. They let Copilot connect to external tools, APIs, and data sources — turning it from a code assistant into a programmable agent that can take real actions.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [What Is MCP?](#what-is-mcp)
+- [What Are Skills?](#what-are-skills)
+- [Configuring MCP Servers](#configuring-mcp-servers)
+  - [In a Repository (for Copilot Coding Agent)](#in-a-repository-for-copilot-coding-agent)
+  - [In a Custom Agent Profile](#in-a-custom-agent-profile)
+  - [For Copilot CLI (User-Level)](#for-copilot-cli-user-level)
+- [Built-In MCP Servers](#built-in-mcp-servers)
+- [Security Considerations](#security-considerations)
+
+</details>
+
 ## What Is MCP?
 
 MCP is an open standard that defines how AI assistants communicate with external tool servers. It uses a client-server architecture:

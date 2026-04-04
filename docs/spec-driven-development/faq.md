@@ -1,5 +1,29 @@
 # Spec-Driven Development FAQ
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [General](#general)
+  - [What is a spec?](#what-is-a-spec)
+  - [Where do the specs live?](#where-do-the-specs-live)
+  - [Will the spec repo be documented in this project?](#will-the-spec-repo-be-documented-in-this-project)
+- [Export and Sync](#export-and-sync)
+  - [Does `@spec-exporter` push to the spec repo?](#does-spec-exporter-push-to-the-spec-repo)
+  - [How do I update a spec after improving a pattern?](#how-do-i-update-a-spec-after-improving-a-pattern)
+  - [What if the spec repo and my project get out of sync?](#what-if-the-spec-repo-and-my-project-get-out-of-sync)
+- [Implementing in Other Projects](#implementing-in-other-projects)
+  - [How do I apply specs to a new project?](#how-do-i-apply-specs-to-a-new-project)
+  - [What if I only want some specs?](#what-if-i-only-want-some-specs)
+  - [Can I override parts of a spec for my project?](#can-i-override-parts-of-a-spec-for-my-project)
+  - [What about brand-new projects?](#what-about-brand-new-projects)
+  - [Do I need all three meta-agents in every project?](#do-i-need-all-three-meta-agents-in-every-project)
+- [Technical Details](#technical-details)
+  - [What files does the importer generate?](#what-files-does-the-importer-generate)
+  - [What's the variable syntax?](#whats-the-variable-syntax)
+  - [How is versioning handled?](#how-is-versioning-handled)
+
+</details>
+
 ## General
 
 ### What is a spec?

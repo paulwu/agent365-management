@@ -4,6 +4,22 @@
 
 This page explains the relationship between the four core identity objects in Microsoft Entra Agent ID and how they work together.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Terminology Guide](#terminology-guide)
+- [The Identity Hierarchy](#the-identity-hierarchy)
+- [How Objects Relate](#how-objects-relate)
+  - [Blueprint → Agent Identity](#blueprint--agent-identity)
+  - [Agent Identity → Agent's User Account](#agent-identity--agents-user-account)
+  - [Blueprint Principal → Tenant](#blueprint-principal--tenant)
+- [Token Flow Summary](#token-flow-summary)
+- [Comparison with Traditional App Identities](#comparison-with-traditional-app-identities)
+- [When Each Object Is Needed](#when-each-object-is-needed)
+- [Related Pages](#related-pages)
+
+</details>
+
 ## Terminology Guide
 
 Before diving in, here is the official terminology mapping. Some informal shorthand is common, but the official Microsoft Learn terms should be used in formal documentation:

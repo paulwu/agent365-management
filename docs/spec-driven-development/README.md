@@ -2,6 +2,21 @@
 
 > A framework for extracting, sharing, and synchronizing reusable Copilot agent patterns across repositories.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Spec Repository](#spec-repository)
+- [How It Works](#how-it-works)
+- [Agents in This Project for Spec Management](#agents-in-this-project-for-spec-management)
+- [Specs Imported by This Project](#specs-imported-by-this-project)
+- [Spec-to-Agent Coverage Map](#spec-to-agent-coverage-map)
+  - [Agent coverage matrix](#agent-coverage-matrix)
+  - [Relationship diagram](#relationship-diagram)
+- [Quick Reference](#quick-reference)
+- [Further Reading](#further-reading)
+
+</details>
+
 ## Spec Repository
 
 The canonical spec files, format reference, and full documentation live in the **arbitrated-grounding-specs** repo:

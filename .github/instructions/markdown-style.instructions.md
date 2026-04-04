@@ -17,6 +17,10 @@ All Markdown files must comply with [markdownlint](https://github.com/DavidAnson
 - **MD025**: Only one top-level heading (`#`) per file.
 - **MD031**: Fenced code blocks must be surrounded by blank lines.
 - **MD032**: Lists must be surrounded by blank lines.
+- **MD033**: Inline HTML must not be used (e.g., use Markdown syntax instead of `<br>`).
+- **MD034**: Bare URLs must be enclosed in angle brackets (e.g., `<http://example.com>`).
+- **MD035**: Horizontal rules must be a consistent style (e.g., `---`).
+- **MD036**: Emphasis used instead of a header (e.g., use `# Heading` instead of `*Heading*`).
 - **MD047**: Files must end with a single newline character.
 - **MD048**: Code fence style must be consistent (use backticks ``` for code blocks).
 - **MD049**: Code block style must be consistent (use fenced code blocks, not indented).

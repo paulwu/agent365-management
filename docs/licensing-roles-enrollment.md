@@ -1,5 +1,20 @@
 # Licensing, Entra Roles, Preview Enrollment & General Availability
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Licensing Requirements](#licensing-requirements)
+- [Entra Roles](#entra-roles)
+- [Frontier Preview Enrollment Steps](#frontier-preview-enrollment-steps)
+- [General Availability Status](#general-availability-status)
+- [Agent 365 Overview Dashboard](#agent-365-overview-dashboard)
+  - [Hero Metrics (Last 30 Days)](#hero-metrics-last-30-days)
+  - [Agent Analytics](#agent-analytics)
+  - [Top Actions for Admins](#top-actions-for-admins)
+  - [Agent Map](#agent-map)
+
+</details>
+
 ## Licensing Requirements
 
 | Requirement | Details |

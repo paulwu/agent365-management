@@ -2,6 +2,33 @@
 
 The Agent Registry is the foundation of agent governance in Microsoft Agent 365. As part of the Microsoft Entra Agent ID system, the Agent Registry is an extensible metadata repository that delivers a unified view of all deployed agents — Microsoft-built, partner-built, custom, and shadow agents — across Microsoft and non-Microsoft ecosystems. It is the starting point for discovering what's running, onboarding it properly, and preventing ungoverned agents from proliferating.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Agent Registry Architecture](#agent-registry-architecture)
+- [Phase 1: Identify Rogue and Shadow Agents](#phase-1-identify-rogue-and-shadow-agents)
+  - [Step 1: Review the Agent Registry Inventory](#step-1-review-the-agent-registry-inventory)
+  - [Step 2: Find Ownerless Agents](#step-2-find-ownerless-agents)
+  - [Step 3: Check Entra for Shadow Agents](#step-3-check-entra-for-shadow-agents)
+  - [Step 4: Check for Copilot Studio Agents Missing from Inventory](#step-4-check-for-copilot-studio-agents-missing-from-inventory)
+  - [Step 5: Trace Agent Identities via Service Principal Tags](#step-5-trace-agent-identities-via-service-principal-tags)
+  - [Step 6: Analyze Agent Sign-In Logs](#step-6-analyze-agent-sign-in-logs)
+  - [Step 7: Discover Shadow AI Agents via Microsoft Defender](#step-7-discover-shadow-ai-agents-via-microsoft-defender)
+  - [Step 8: Audit App Registrations for Over-Privileged or Orphaned Agents](#step-8-audit-app-registrations-for-over-privileged-or-orphaned-agents)
+  - [Step 9: Use Third-Party Tools for Comprehensive Enumeration](#step-9-use-third-party-tools-for-comprehensive-enumeration)
+- [Phase 2: Onboard Discovered Agents](#phase-2-onboard-discovered-agents)
+  - [For Copilot Studio / Foundry Agents](#for-copilot-studio--foundry-agents)
+  - [For Code-Built / Third-Party Agents](#for-code-built--third-party-agents)
+  - [For All Agents — Assign to Collections](#for-all-agents--assign-to-collections)
+  - [Product Integrations with Agent Registry](#product-integrations-with-agent-registry)
+- [Phase 3: Prevent Rogue Agents Going Forward](#phase-3-prevent-rogue-agents-going-forward)
+  - [Control Who Can Create and Publish Agents](#control-who-can-create-and-publish-agents)
+  - [Require Admin Approval for All New Agents](#require-admin-approval-for-all-new-agents)
+  - [Quarantine-First Policy for Unknown Agents](#quarantine-first-policy-for-unknown-agents)
+  - [Monitor Continuously](#monitor-continuously)
+
+</details>
+
 ## Agent Registry Architecture
 
 The Agent Registry is built on several core components that work together:

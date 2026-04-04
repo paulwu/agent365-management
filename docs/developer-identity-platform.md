@@ -4,6 +4,29 @@ This guide covers the core identity constructs, OAuth flows, and Graph API opera
 
 If you want the conceptual version before diving into the Graph steps, start with the [Identity Blueprint Guide](./identity-blueprint/README.md). The most useful companion pages for this document are [What is an identity blueprint?](./identity-blueprint/what-is-an-identity-blueprint.md), [Blueprint contents explainer](./identity-blueprint/blueprint-contents-explainer.md), and [How blueprints are used](./identity-blueprint/how-blueprints-are-used.md).
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Identity hierarchy](#identity-hierarchy)
+- [Required roles and permissions](#required-roles-and-permissions)
+- [Creating an agent identity blueprint](#creating-an-agent-identity-blueprint)
+  - [1. Connect with required scopes (PowerShell)](#1-connect-with-required-scopes-powershell)
+  - [2. Create the blueprint (Graph API)](#2-create-the-blueprint-graph-api)
+  - [3. Configure credentials](#3-configure-credentials)
+  - [Production (recommended): Managed identity as federated identity credential](#production-recommended-managed-identity-as-federated-identity-credential)
+  - [Development/testing: Client secret](#developmenttesting-client-secret)
+  - [4. Configure identifier URI and scope (required for interactive/OBO agents)](#4-configure-identifier-uri-and-scope-required-for-interactiveobo-agents)
+  - [5. Create the blueprint principal](#5-create-the-blueprint-principal)
+  - [6. Create agent identities from the blueprint](#6-create-agent-identities-from-the-blueprint)
+- [OAuth flows](#oauth-flows)
+  - [Interactive / OBO pattern](#interactive--obo-pattern)
+  - [Autonomous pattern](#autonomous-pattern)
+- [Administrative relationships](#administrative-relationships)
+  - [Key constraints](#key-constraints)
+- [Deleting an agent identity blueprint](#deleting-an-agent-identity-blueprint)
+
+</details>
+
 ---
 
 ## Identity hierarchy

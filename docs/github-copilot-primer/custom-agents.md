@@ -2,6 +2,20 @@
 
 Custom agents are specialized versions of GitHub Copilot that you can tailor to specific workflows, coding conventions, and use cases. Instead of giving Copilot the same instructions every time, you define a custom agent once and invoke it by name whenever you need it.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [What Is a Custom Agent?](#what-is-a-custom-agent)
+- [Agent Profile Format](#agent-profile-format)
+  - [Minimal Example](#minimal-example)
+  - [Full Example with Tools and MCP Servers](#full-example-with-tools-and-mcp-servers)
+- [YAML Frontmatter Properties](#yaml-frontmatter-properties)
+- [Where to Store Agent Profiles](#where-to-store-agent-profiles)
+- [Where Custom Agents Work](#where-custom-agents-work)
+- [Tool Aliases](#tool-aliases)
+
+</details>
+
 ## What Is a Custom Agent?
 
 A custom agent is defined by a Markdown file (called an **agent profile**) that tells Copilot:

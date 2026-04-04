@@ -6,6 +6,29 @@ An **agent's user account** is an optional Microsoft Entra user object that pair
 
 > **Important:** The agent's user account does NOT replace the agent identity. Both must exist. The agent identity is the primary identity; the agent's user account is a secondary identity for scenarios requiring user-object access.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [When You Need an Agent's User Account](#when-you-need-an-agents-user-account)
+- [Prerequisites](#prerequisites)
+- [Step 1: Grant the Blueprint Permission to Create User Accounts](#step-1-grant-the-blueprint-permission-to-create-user-accounts)
+- [Step 2: Create the Agent's User Account](#step-2-create-the-agents-user-account)
+- [Step 3: Assign a License](#step-3-assign-a-license)
+- [Step 4: Enable Teams Communication](#step-4-enable-teams-communication)
+  - [How the Agent Communicates on Teams](#how-the-agent-communicates-on-teams)
+  - [Setting Up the Agent for Teams](#setting-up-the-agent-for-teams)
+  - [How Human Users Interact with the Agent on Teams](#how-human-users-interact-with-the-agent-on-teams)
+- [Authentication Flow](#authentication-flow)
+- [Security Constraints](#security-constraints)
+- [Lifecycle Management](#lifecycle-management)
+  - [Enable/Disable](#enabledisable)
+  - [Deletion](#deletion)
+  - [Sponsorship](#sponsorship)
+- [Validation Checklist](#validation-checklist)
+- [Related Pages](#related-pages)
+
+</details>
+
 ---
 
 ## When You Need an Agent's User Account

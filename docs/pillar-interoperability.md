@@ -2,6 +2,39 @@
 
 Interoperability ensures agents can safely interact with enterprise systems — sending emails, scheduling meetings, querying databases, searching documents — regardless of which platform built the agent. Agent 365 achieves this through **MCP (Model Context Protocol) tooling servers**, a **centralized tooling gateway** that enforces governance on every tool call, and the **Agent Communication protocol** that enables secure agent-to-agent interactions via the Agent Registry.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Phase 1: Understand the MCP Architecture](#phase-1-understand-the-mcp-architecture)
+  - [What Are MCP Tooling Servers?](#what-are-mcp-tooling-servers)
+  - [How Agents Connect to Tools](#how-agents-connect-to-tools)
+  - [Authentication and Token Flows](#authentication-and-token-flows)
+- [Phase 2: Discover and Enable Default MCP Servers](#phase-2-discover-and-enable-default-mcp-servers)
+  - [Available Default MCP Servers](#available-default-mcp-servers)
+  - [Enable a Default MCP Server](#enable-a-default-mcp-server)
+- [Phase 3: Build Custom MCP Servers](#phase-3-build-custom-mcp-servers)
+  - [What Is the MCP Management Server?](#what-is-the-mcp-management-server)
+  - [Core Tools](#core-tools)
+  - [Supported Connector Ecosystem](#supported-connector-ecosystem)
+  - [Step-by-Step: Connect via Visual Studio Code](#step-by-step-connect-via-visual-studio-code)
+- [Phase 3.5: Enable Agent-to-Agent Communication](#phase-35-enable-agent-to-agent-communication)
+  - [What Is Agent Communication?](#what-is-agent-communication)
+  - [Core Components](#core-components)
+  - [How It Works](#how-it-works)
+  - [Discovery Policy Error Codes](#discovery-policy-error-codes)
+  - [Token Claims for A2A Validation](#token-claims-for-a2a-validation)
+- [Phase 4: Govern Tool Access](#phase-4-govern-tool-access)
+  - [Configure MCP Server Policies](#configure-mcp-server-policies)
+  - [Scoped Permissions per Agent](#scoped-permissions-per-agent)
+  - [Monitor Tool Usage](#monitor-tool-usage)
+  - [Network-Level Governance (Global Secure Access)](#network-level-governance-global-secure-access)
+- [Phase 5: Prevent Interoperability Gaps](#phase-5-prevent-interoperability-gaps)
+  - [ISV and Custom Server Certification](#isv-and-custom-server-certification)
+  - [Platform Integrations](#platform-integrations)
+  - [Key Principles](#key-principles)
+
+</details>
+
 ---
 
 ## Phase 1: Understand the MCP Architecture

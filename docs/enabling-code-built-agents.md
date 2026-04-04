@@ -1,5 +1,26 @@
 # Enabling Agents Created in Code (Non-Microsoft Tools)
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Overview](#overview)
+- [Pattern A: Registry-Only (Inventory + Metadata)](#pattern-a-registry-only-inventory--metadata)
+  - [Prerequisites](#prerequisites)
+  - [Steps](#steps)
+- [Pattern B: Full Entra Agent ID (Identity + Registry)](#pattern-b-full-entra-agent-id-identity--registry)
+  - [Prerequisites (Pattern B)](#prerequisites-pattern-b)
+  - [Steps (Pattern B)](#steps-pattern-b)
+- [Choosing Between Pattern A and Pattern B](#choosing-between-pattern-a-and-pattern-b)
+- [Rogue Agent Triage](#rogue-agent-triage)
+- [Extending Agents with MCP Tooling Servers](#extending-agents-with-mcp-tooling-servers)
+  - [Available Default MCP Servers](#available-default-mcp-servers)
+  - [Governance](#governance)
+  - [Custom MCP Servers](#custom-mcp-servers)
+  - [Authentication for Tooling](#authentication-for-tooling)
+- [Security Stack for Code-Built Agents](#security-stack-for-code-built-agents)
+
+</details>
+
 ## Overview
 
 Agents built with non-Microsoft tools — open-source frameworks, third-party platforms (ServiceNow, SAP), or custom code (Python, Node.js, .NET) — can be registered into the Agent 365 ecosystem. There are two patterns depending on the level of integration you need.

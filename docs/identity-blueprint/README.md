@@ -4,6 +4,16 @@
 
 An **agent identity blueprint** is the Entra Agent ID template and control plane for one or more agent identities. This guide breaks the topic into smaller pages so you can quickly find the part you need.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Start Here](#start-here)
+- [Terminology Note](#terminology-note)
+- [At a Glance](#at-a-glance)
+- [Related Documents](#related-documents)
+
+</details>
+
 ## Start Here
 
 | If you want to know... | Read |

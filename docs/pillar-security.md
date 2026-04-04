@@ -2,6 +2,38 @@
 
 Security in Agent 365 extends Microsoft's full security infrastructure to AI agents — covering identity, access, posture, detection, runtime defense, and data protection. The goal: treat agents with the same security rigor as human identities while addressing agent-specific threats like prompt injection and autonomous data exfiltration.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Why AI Agents Need Identity-Based Security](#why-ai-agents-need-identity-based-security)
+  - [Agent Security Scenarios](#agent-security-scenarios)
+  - [Agent Sprawl](#agent-sprawl)
+- [Phase 1: Assess Your Agent Security Posture](#phase-1-assess-your-agent-security-posture)
+  - [Step 1: Inventory All Agents (Including Shadow Agents)](#step-1-inventory-all-agents-including-shadow-agents)
+  - [Step 2: Review Security Posture in Microsoft Defender](#step-2-review-security-posture-in-microsoft-defender)
+  - [Step 3: Identify High-Risk Agents](#step-3-identify-high-risk-agents)
+- [Phase 2: Secure Agent Identities](#phase-2-secure-agent-identities)
+  - [Conditional Access for Agents](#conditional-access-for-agents)
+  - [Entra ID Protection for Agents](#entra-id-protection-for-agents)
+  - [Network-Level Controls (Global Secure Access)](#network-level-controls-global-secure-access)
+- [Phase 3: Detect and Respond to Threats](#phase-3-detect-and-respond-to-threats)
+  - [Microsoft Defender for Agent Threats](#microsoft-defender-for-agent-threats)
+  - [Advanced Hunting for Agent Activity](#advanced-hunting-for-agent-activity)
+  - [Security Posture Remediation](#security-posture-remediation)
+- [Phase 4: Protect Data from Agents](#phase-4-protect-data-from-agents)
+  - [Microsoft Purview Data Loss Prevention (DLP)](#microsoft-purview-data-loss-prevention-dlp)
+  - [Microsoft Purview Information Protection](#microsoft-purview-information-protection)
+  - [Data Security Posture Management](#data-security-posture-management)
+- [Phase 5: Runtime Defense](#phase-5-runtime-defense)
+  - [Real-Time Agent Protection](#real-time-agent-protection)
+  - [Configure Runtime Protection](#configure-runtime-protection)
+- [Phase 6: Prevent Security Gaps Going Forward](#phase-6-prevent-security-gaps-going-forward)
+  - [Security Review Checklist for New Agents](#security-review-checklist-for-new-agents)
+  - [Ongoing Security Operations](#ongoing-security-operations)
+- [Security Stack Summary](#security-stack-summary)
+
+</details>
+
 ## Why AI Agents Need Identity-Based Security
 
 Unlike applications that execute predetermined logic, AI agents make dynamic decisions and adapt behavior based on training data, input, and environment conditions. This creates specific security challenges:

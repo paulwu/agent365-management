@@ -125,6 +125,28 @@ Example Sources section:
 
 After saving, confirm inline: "✅ Response saved to `answers/answer-YY-MM-DD-HH-MM-SS.md`."
 
+## Collapsible Table of Contents Rule
+
+When creating or updating any document in `docs/`, add a collapsible table of contents if the document has **more than 4 headings** (any level). Place it immediately after the title and introductory paragraph, before the first `---` or section.
+
+Use this format:
+
+```markdown
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Section 1](#section-1)
+- [Section 2](#section-2)
+  - [Subsection 2a](#subsection-2a)
+
+</details>
+```
+
+- Include all `##` and `###` headings as links.
+- Nest `###` headings under their parent `##` with indentation.
+- Do NOT include the `#` title itself in the TOC.
+- Skip headings inside `References` or `Sources` sections.
+
 ## Site Index — Entra Agent ID Documentation
 
 Use these URLs to fetch the relevant page for any question.

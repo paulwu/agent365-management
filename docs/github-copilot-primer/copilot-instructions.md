@@ -2,6 +2,19 @@
 
 Copilot instructions are configuration files that give GitHub Copilot repository-specific context and guidance. They tell Copilot how your project is structured, what conventions to follow, and how to build, test, and validate changes — so it produces better results without you having to repeat yourself.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Types of Instruction Files](#types-of-instruction-files)
+  - [1. Repository-Wide Instructions](#1-repository-wide-instructions)
+  - [2. Path-Specific Instructions](#2-path-specific-instructions)
+  - [3. Agent Instructions (AGENTS.md)](#3-agent-instructions-agentsmd)
+- [What to Include in Instructions](#what-to-include-in-instructions)
+- [How Instructions Are Loaded](#how-instructions-are-loaded)
+- [Best Practices](#best-practices)
+
+</details>
+
 ## Types of Instruction Files
 
 GitHub Copilot supports three types of instruction files, each with a different scope:

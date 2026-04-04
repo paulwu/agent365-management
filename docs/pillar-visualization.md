@@ -2,6 +2,34 @@
 
 Visualization gives IT administrators an intuitive way to understand the agent landscape across the tenant — tracking adoption, spotting governance gaps, and monitoring agent health at a glance. Agent 365 provides two primary visualization surfaces: the **Overview dashboard** and the **Agent Map**.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Phase 1: Set Up Visibility](#phase-1-set-up-visibility)
+  - [Step 1: Access the Agent 365 Overview Dashboard](#step-1-access-the-agent-365-overview-dashboard)
+  - [Step 2: Access the Agent Map](#step-2-access-the-agent-map)
+- [Phase 2: Understand What the Dashboard Tells You](#phase-2-understand-what-the-dashboard-tells-you)
+  - [Hero Metrics](#hero-metrics)
+  - [Agent Analytics](#agent-analytics)
+  - [Top Admin Actions](#top-admin-actions)
+- [Phase 3: Use the Agent Map for Spatial Analysis](#phase-3-use-the-agent-map-for-spatial-analysis)
+  - [What the Agent Map Shows](#what-the-agent-map-shows)
+  - [Default Clusters](#default-clusters)
+  - [Filtering](#filtering)
+  - [Agent Details (Click-Through)](#agent-details-click-through)
+  - [Known Issues](#known-issues)
+- [Phase 4: Monitor Agent Activity via Sign-In and Audit Logs](#phase-4-monitor-agent-activity-via-sign-in-and-audit-logs)
+  - [Agent Sign-In Logs](#agent-sign-in-logs)
+  - [Agent Audit Logs](#agent-audit-logs)
+  - [Risky Agents Report](#risky-agents-report)
+  - [Programmatic Monitoring via Graph API](#programmatic-monitoring-via-graph-api)
+- [Phase 5: Build a Monitoring Routine](#phase-5-build-a-monitoring-routine)
+  - [Weekly Review Checklist](#weekly-review-checklist)
+  - [Monthly Review Checklist](#monthly-review-checklist)
+  - [Establish Alerting](#establish-alerting)
+
+</details>
+
 ---
 
 ## Phase 1: Set Up Visibility

@@ -4,6 +4,20 @@
 
 Use an identity blueprint when you want Microsoft Entra Agent ID to be the identity and governance layer for your agent family. Do not assume every agent must start there; Microsoft Learn also describes registry-only and product-managed paths.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Scenario Guide](#scenario-guide)
+- [When Registry-Only Is Enough](#when-registry-only-is-enough)
+- [When to Create a Separate Blueprint](#when-to-create-a-separate-blueprint)
+- [When Not to Reuse a Product Blueprint](#when-not-to-reuse-a-product-blueprint)
+- [Questions to Ask Before Choosing](#questions-to-ask-before-choosing)
+  - [Do I need Entra-issued tokens for this agent?](#do-i-need-entra-issued-tokens-for-this-agent)
+  - [Do I need this agent to inherit enterprise identity controls?](#do-i-need-this-agent-to-inherit-enterprise-identity-controls)
+  - [Am I only trying to make the agent visible in inventory?](#am-i-only-trying-to-make-the-agent-visible-in-inventory)
+
+</details>
+
 ## Scenario Guide
 
 | Scenario | Use a blueprint? | Why |

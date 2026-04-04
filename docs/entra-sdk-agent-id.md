@@ -4,6 +4,26 @@ The Microsoft Entra SDK for Agent ID is a **containerized web service** (compani
 
 > **Preview:** The SDK is currently in preview. See [GitHub releases](https://github.com/AzureAD/microsoft-identity-web/releases) for the latest container image tags.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Architecture](#architecture)
+- [When to use this SDK vs. Microsoft.Identity.Web](#when-to-use-this-sdk-vs-microsoftidentityweb)
+- [Key capabilities](#key-capabilities)
+  - [Token validation](#token-validation)
+  - [Token acquisition](#token-acquisition)
+  - [Downstream API calls](#downstream-api-calls)
+- [Quick start](#quick-start)
+  - [1. Choose your deployment](#1-choose-your-deployment)
+  - [2. Configure via environment variables](#2-configure-via-environment-variables)
+  - [3. Call the SDK from your application](#3-call-the-sdk-from-your-application)
+- [Supported scenarios](#supported-scenarios)
+  - [Language-specific integration guides](#language-specific-integration-guides)
+- [Security requirements](#security-requirements)
+- [Relationship to agent identity blueprints](#relationship-to-agent-identity-blueprints)
+
+</details>
+
 ---
 
 ## Architecture

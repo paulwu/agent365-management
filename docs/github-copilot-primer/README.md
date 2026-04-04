@@ -4,6 +4,20 @@
 
 If you're new to GitHub Copilot's agent and customization features, start here. This primer explains the three core building blocks — **instructions**, **custom agents**, and **MCP servers / skills** — then shows exactly how this repository wires them together.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [The Three Building Blocks](#the-three-building-blocks)
+  - [How They Relate](#how-they-relate)
+- [How This Repository Uses Each Concept](#how-this-repository-uses-each-concept)
+  - [1. Copilot Instructions → `.github/copilot-instructions.md`](#1-copilot-instructions--githubcopilot-instructionsmd)
+  - [2. Custom Agents → `.github/agents/`](#2-custom-agents--githubagents)
+  - [3. MCP Servers → `.github/copilot/`](#3-mcp-servers--githubcopilot)
+- [Quick Reference: File Locations in This Repo](#quick-reference-file-locations-in-this-repo)
+- [Further Reading](#further-reading)
+
+</details>
+
 ## The Three Building Blocks
 
 | Building Block | What It Does | Where It Lives |

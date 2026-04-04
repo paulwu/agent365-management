@@ -2,6 +2,28 @@
 
 Access Control ensures that agents operate under the same Zero Trust principles as human identities — verifying explicitly, enforcing least-privilege access, and assuming breach. Microsoft Agent 365 extends Entra Conditional Access, ID Protection, and ID Governance to agent identities.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Agent Identity Architecture](#agent-identity-architecture)
+- [Phase 1: Assess Current Agent Access](#phase-1-assess-current-agent-access)
+  - [Step 1: Audit Agent Identities and Their Permissions](#step-1-audit-agent-identities-and-their-permissions)
+  - [Step 2: Review Administrative Relationships](#step-2-review-administrative-relationships)
+  - [Step 3: Identify Over-Privileged Agents](#step-3-identify-over-privileged-agents)
+- [Phase 2: Enforce Least-Privilege Access](#phase-2-enforce-least-privilege-access)
+  - [Step 1: Apply Conditional Access Policies for Agents](#step-1-apply-conditional-access-policies-for-agents)
+  - [Step 2: Enable Entra ID Protection for Agents](#step-2-enable-entra-id-protection-for-agents)
+  - [Step 3: Apply Network-Level Controls (Global Secure Access)](#step-3-apply-network-level-controls-global-secure-access)
+- [Phase 3: Implement Lifecycle Governance](#phase-3-implement-lifecycle-governance)
+  - [Step 1: Set Up Agent Lifecycle Workflows](#step-1-set-up-agent-lifecycle-workflows)
+  - [Step 2: Use Access Packages for Time-Bound Agent Access](#step-2-use-access-packages-for-time-bound-agent-access)
+  - [Step 3: Define Guardrails for Agent Creation](#step-3-define-guardrails-for-agent-creation)
+- [Phase 4: Prevent Access Control Gaps Going Forward](#phase-4-prevent-access-control-gaps-going-forward)
+  - [Continuous Monitoring Checklist](#continuous-monitoring-checklist)
+  - [Key Principles](#key-principles)
+
+</details>
+
 ## Agent Identity Architecture
 
 Understanding the identity constructs is essential for configuring access control:

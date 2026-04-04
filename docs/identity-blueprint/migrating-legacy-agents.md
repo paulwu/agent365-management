@@ -4,6 +4,27 @@
 
 There is no single in-place "convert" button described in Microsoft Learn for every older agent type. In practice, migration means choosing the right modernization path for the kind of legacy agent you have and then moving it onto the blueprint + agent identity model where appropriate.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [First Classify the Legacy Agent](#first-classify-the-legacy-agent)
+  - [Legacy type 1: Registry-only or external-identity agent](#legacy-type-1-registry-only-or-external-identity-agent)
+  - [Legacy type 2: Older Copilot Studio agent](#legacy-type-2-older-copilot-studio-agent)
+  - [Legacy type 3: Existing code-built agent using app registration or another identity provider](#legacy-type-3-existing-code-built-agent-using-app-registration-or-another-identity-provider)
+- [Migration Path for Registry-Only or External-Identity Agents](#migration-path-for-registry-only-or-external-identity-agents)
+  - [1. Create a new blueprint](#1-create-a-new-blueprint)
+  - [2. Create an agent identity](#2-create-an-agent-identity)
+  - [3. Update the application authentication path](#3-update-the-application-authentication-path)
+  - [4. Update registry metadata](#4-update-registry-metadata)
+  - [5. Retire the old identity path](#5-retire-the-old-identity-path)
+- [Migration Path for Older Copilot Studio Agents](#migration-path-for-older-copilot-studio-agents)
+- [Migration Path for Existing Code-Built Agents](#migration-path-for-existing-code-built-agents)
+- [Validate the Migration](#validate-the-migration)
+- [When Not to Migrate](#when-not-to-migrate)
+- [Related Documents](#related-documents)
+
+</details>
+
 ## First Classify the Legacy Agent
 
 ### Legacy type 1: Registry-only or external-identity agent

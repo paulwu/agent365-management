@@ -4,6 +4,17 @@ This diagram clarifies the relationship between **creating an agent identity blu
 
 If you want the supporting narrative behind this diagram, start with the [Identity Blueprint Guide](./identity-blueprint/README.md). The best companion pages here are [How blueprints are used](./identity-blueprint/how-blueprints-are-used.md) and [When to use identity blueprints](./identity-blueprint/when-to-use-identity-blueprints.md).
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Relationship Diagram](#relationship-diagram)
+- [Pattern A vs. Pattern B](#pattern-a-vs-pattern-b)
+- [Key Distinctions](#key-distinctions)
+- [Workflow: Pattern B End-to-End](#workflow-pattern-b-end-to-end)
+- [Related Documents](#related-documents)
+
+</details>
+
 ---
 
 ## Relationship Diagram

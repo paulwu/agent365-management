@@ -1,5 +1,18 @@
 # Enabling Legacy Agents Created in Copilot Studio or Foundry
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Why Legacy Agents Don't Appear in Agent 365](#why-legacy-agents-dont-appear-in-agent-365)
+- [Step 1: Enable Entra Agent Identity for Copilot Studio](#step-1-enable-entra-agent-identity-for-copilot-studio)
+- [Step 2: Publish the Agent to Teams & Microsoft 365 Copilot](#step-2-publish-the-agent-to-teams--microsoft-365-copilot)
+- [Step 3: Validate the Agent Has an Entra Agent ID](#step-3-validate-the-agent-has-an-entra-agent-id)
+- [Step 4: Approve and Govern in Microsoft 365 Admin Center](#step-4-approve-and-govern-in-microsoft-365-admin-center)
+- [Step 5: Apply Governance Controls](#step-5-apply-governance-controls)
+- [General Approach for Older Microsoft-Built Agents](#general-approach-for-older-microsoft-built-agents)
+
+</details>
+
 ## Why Legacy Agents Don't Appear in Agent 365
 
 Agents built in Copilot Studio before the Agent 365 integration was enabled are **not automatically visible** in the Microsoft 365 admin center's Agents inventory or in Entra Agent ID. This happens because:

@@ -4,6 +4,24 @@
 
 This page focuses on what information and capabilities live on an agent identity blueprint, and why those settings are kept there instead of on each child agent identity.
 
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [Shared Configuration Stored on the Blueprint](#shared-configuration-stored-on-the-blueprint)
+- [Credentials Live on the Blueprint](#credentials-live-on-the-blueprint)
+- [The Credential Model in Practice](#the-credential-model-in-practice)
+- [How Conditional Access Applies](#how-conditional-access-applies)
+- [Mapping: Blueprint Principal vs Agent Identity vs App Registration](#mapping-blueprint-principal-vs-agent-identity-vs-app-registration)
+  - [Object hierarchy](#object-hierarchy)
+  - [Concept mapping](#concept-mapping)
+  - [Key differences from traditional app registrations](#key-differences-from-traditional-app-registrations)
+- [Owners and Sponsors](#owners-and-sponsors)
+- [Optional API Surface for Interactive Agents](#optional-api-surface-for-interactive-agents)
+- [What Stays Outside the Blueprint](#what-stays-outside-the-blueprint)
+- [Rule of Thumb](#rule-of-thumb)
+
+</details>
+
 ## Shared Configuration Stored on the Blueprint
 
 Microsoft Learn calls out several blueprint properties that are shared across the agent identities created from it:
