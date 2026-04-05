@@ -85,7 +85,9 @@ Legacy Copilot Studio agents won't appear if:
 
 See [enabling-legacy-agents.md](enabling-legacy-agents.md) for the full remediation process.
 
-> **Note:** Agent identity blueprints can enter your directory through multiple channels. Understanding these channels helps you identify where shadow agents may originate:
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
+> **Note:** Agent identity blueprints can enter your directory through multiple channels.Understanding these channels helps you identify where shadow agents may originate:
 >
 > | Channel | Typical Actors |
 > |---|---|

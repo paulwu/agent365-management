@@ -77,6 +77,8 @@ All agent entities are **confidential clients**. Interactive flows are not suppo
 - **Managed identities** are the preferredcredential type for agent identity blueprints, providing automatic credential rotation and secure storage.
 - **Client secrets should not be used** in production environments. Use federated identity credentials (FIC) with managed identities or client certificates instead.
 
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
 ---
 
 ## Phase 2: Discover and Enable Default MCP Servers

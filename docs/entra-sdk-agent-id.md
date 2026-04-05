@@ -161,7 +161,7 @@ See the [security best practices guide](https://learn.microsoft.com/en-us/entra/
 
 ## Relationship to agent identity blueprints
 
-The SDK authenticates **on behalf of an agent identity blueprint**. Before using the SDK you must:
+The SDK authenticates **on behalf of an agent identity blueprint** (referred to as "blueprint" for the rest of this document). Before using the SDK you must:
 
 1. Create a blueprint and configure credentials (managed identity recommended) — use [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1) or see [Developer Guide: Agent Identity Platform](./developer-identity-platform.md)
 2. Set the blueprint's `appId` as the SDK's `ClientId`

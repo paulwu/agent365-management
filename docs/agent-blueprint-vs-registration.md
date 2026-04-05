@@ -2,7 +2,9 @@
 
 This diagram clarifies the relationship between **creating an agent identity blueprint** and **registering an agent** in the Agent Registry — two distinct steps that work together to bring a code-built agent under full governance.
 
-If you want the supporting narrative behind this diagram, start with the [Identity Blueprint Guide](./identity-blueprint/README.md). The best companion pages here are [How blueprints are used](./identity-blueprint/how-blueprints-are-used.md) and [When to use identity blueprints](./identity-blueprint/when-to-use-identity-blueprints.md).
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
+If you want the supporting narrativebehind this diagram, start with the [Identity Blueprint Guide](./identity-blueprint/README.md). The best companion pages here are [How blueprints are used](./identity-blueprint/how-blueprints-are-used.md) and [When to use identity blueprints](./identity-blueprint/when-to-use-identity-blueprints.md).
 
 <details>
 <summary><strong>📑 Table of Contents</strong></summary>

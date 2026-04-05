@@ -47,6 +47,8 @@ Agent Identity Blueprint  (template + credential store)
 | **Agent User** | User object (AgentUser) | Agent must connect to systems with a hard dependency on user objects (e.g., Exchange mailbox) |
 | **Blueprint Principal** | Service principal (AgentIdentityBlueprintPrincipal) | Per-tenant record of a blueprint; enables token issuance in that tenant |
 
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
 ---
 
 ## Required roles and permissions

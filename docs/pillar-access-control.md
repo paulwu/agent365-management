@@ -36,7 +36,9 @@ Understanding the identity constructs is essential for configuring access contro
 | **Agent user** | Nonhuman user identity used for agent experiences that require a user account |
 | **Agent resource** | Agent blueprint or agent identity acting as the resource app (e.g., in A2A flows) |
 
-Credentials used to authenticate an agent identity are configured on the blueprint. OAuth permissions granted to a blueprint are granted to all agent identities created from that blueprint. Disabling a blueprint prevents all its agent identities from authenticating.
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
+Credentials used to authenticate an agent identity are configured on the blueprint.OAuth permissions granted to a blueprint are granted to all agent identities created from that blueprint. Disabling a blueprint prevents all its agent identities from authenticating.
 
 ---
 

@@ -86,7 +86,7 @@ Use this when you want **Entra-issued tokens, Conditional Access enforcement, an
 
 ### Steps (Pattern B)
 
-1. **Create an agent identity blueprint** using [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1):
+1. **Create an agent identity blueprint** (referred to as "blueprint" for the rest of this document) using [`Create-Blueprint.ps1`](../scripts/Create-Blueprint.ps1):
     - Copy `scripts/blueprint-input.json.example` → `blueprint-input.json`, fill in sponsor/owner IDs and credentials, then run:
 
       ```powershell

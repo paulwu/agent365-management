@@ -49,7 +49,7 @@ An **agent's user account** is an optional Microsoft Entra user object that pair
 
 Before creating an agent's user account, you need:
 
-1. **An agent identity blueprint** with credentials configured.
+1. **An agent identity blueprint** (referred to as "blueprint" for the rest of this document) with credentials configured.
 2. **An agent identity** created from that blueprint.
 3. The blueprint must be granted the **`AgentIdUser.ReadWrite.IdentityParentedBy`** application permission.
    - This permission is NOT automatically granted — an admin must explicitly grant it.

@@ -44,6 +44,8 @@
 | **Privileged Role Administrator** | Grant Graph application permissions for agent automation | Entra admin center |
 | **Power Platform tenant admin / Environment Admin** | Turn on Copilot Studio → Entra Agent Identity integration | Power Platform admin center |
 
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
 ## Frontier Preview Enrollment Steps
 
 1. Sign into the **Microsoft 365 admin center**.

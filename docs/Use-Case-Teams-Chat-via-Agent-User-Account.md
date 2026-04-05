@@ -6,6 +6,8 @@ This guide walks you through the complete workflow for creating an AI agent that
 
 The guide covers: creating an agent identity blueprint, provisioning an agent identity, creating an agent's user account, assigning a license, registering in the Agent Registry, and building a backend that communicates via Teams.
 
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
 <details>
 <summary><strong>📑 Table of Contents</strong></summary>
 

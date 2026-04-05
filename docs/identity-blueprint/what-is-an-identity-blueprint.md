@@ -4,6 +4,8 @@
 
 An **agent identity blueprint** is a Microsoft Entra ID object that serves as the template for creating agent identities. Microsoft Learn positions it as the foundation for how agents are created, authenticated, and managed in Entra Agent ID.
 
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
 <details>
 <summary><strong>📑 Table of Contents</strong></summary>
 

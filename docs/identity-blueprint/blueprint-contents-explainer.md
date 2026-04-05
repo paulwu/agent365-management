@@ -4,6 +4,8 @@
 
 This page focuses on what information and capabilities live on an agent identity blueprint, and why those settings are kept there instead of on each child agent identity.
 
+> Throughout this document, "blueprint" refers to **agent identity blueprint** — the official Microsoft Learn term.
+
 <details>
 <summary><strong>📑 Table of Contents</strong></summary>
 

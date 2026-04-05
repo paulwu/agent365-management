@@ -33,6 +33,8 @@ Before diving in, here is the official terminology mapping. Some informal shorth
 
 > **Note:** Terms like "agent blueprint", "agentic app instance", and "agentic user" are NOT official Microsoft Learn terminology.
 
+> Throughout this document, "blueprint" is used as shorthand for "agent identity blueprint."
+
 ---
 
 ## The Identity Hierarchy
