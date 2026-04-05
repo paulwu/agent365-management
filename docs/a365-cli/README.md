@@ -19,6 +19,10 @@ dotnet tool install --global Microsoft.Agents.A365.DevTools.Cli --prerelease
 - [Command Overview](#command-overview)
 - [Typical Workflow](#typical-workflow)
 - [Command Details](#command-details)
+- [Multi-Agent Deployment Scenarios](#multi-agent-deployment-scenarios)
+  - [How Commands Relate](#how-commands-relate)
+  - [Example: 3 Agents, 2 Blueprints](#example-3-agents-2-blueprints)
+  - [When to Create a Separate Blueprint](#when-to-create-a-separate-blueprint)
 - [Related Pages](#related-pages)
 
 </details>
@@ -92,6 +96,108 @@ Each command is documented on its own page:
 | [deploy.md](./deploy.md) | `a365 deploy` — deploy to Azure + update permissions |
 | [publish.md](./publish.md) | `a365 publish` — create manifest package |
 | [cleanup.md](./cleanup.md) | `a365 cleanup` — remove resources |
+
+---
+
+## Multi-Agent Deployment Scenarios
+
+### How Commands Relate
+
+Each `a365 config init` + `a365 setup all` cycle creates **one blueprint with one set of Azure infrastructure**. Agent identities are created from blueprints, and multiple agents can share the same blueprint if they need the same permissions, credentials, and governance boundary.
+
+**Key relationships:**
+
+| Object | Created By | How Many Per Blueprint |
+|---|---|---|
+| `a365.config.json` | `a365 config init` | 1 per project/agent |
+| Azure infrastructure | `a365 setup infrastructure` | 1 per project |
+| Agent identity blueprint | `a365 setup blueprint` | 1 per blueprint |
+| Agent identity | Graph API (`POST /beta/serviceprincipals/Microsoft.Graph.AgentIdentity`) | Many (up to 250) |
+| Agent's user account | Graph API (`POST /beta/users` with `agentIdUser` type) | 1 per agent identity (optional) |
+
+### Example: 3 Agents, 2 Blueprints
+
+Imagine you need to deploy:
+- **Agent A** — Sales Assistant (North America)
+- **Agent B** — Sales Assistant (Europe) — same type as Agent A, shares its blueprint
+- **Agent C** — HR Benefits Bot — different purpose, needs its own blueprint
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         YOUR TENANT                                     │
+│                                                                         │
+│  ┌─── Project 1: Sales Assistant ──────────────────────────────────┐    │
+│  │                                                                  │    │
+│  │  a365 config init  ←── run ONCE for this project                 │    │
+│  │  a365 setup all    ←── creates 1 Azure infra + 1 blueprint       │    │
+│  │  a365 deploy       ←── deploys code once                         │    │
+│  │  a365 publish      ←── creates manifest.zip once                 │    │
+│  │                                                                  │    │
+│  │  Blueprint: "Sales Assistant Blueprint"                          │    │
+│  │  Azure: rg-sales-assistant / webapp-sales-assistant              │    │
+│  │                                                                  │    │
+│  │  ┌──────────────────┐    ┌──────────────────┐                    │    │
+│  │  │  Agent Identity A │    │  Agent Identity B │                   │    │
+│  │  │  "Sales NA"       │    │  "Sales EU"       │                   │    │
+│  │  │                   │    │                   │                    │    │
+│  │  │  ┌─────────────┐  │    │  ┌─────────────┐  │                   │    │
+│  │  │  │ Agent User A │  │    │  │ Agent User B │  │  ← optional     │    │
+│  │  │  └─────────────┘  │    │  └─────────────┘  │                   │    │
+│  │  └──────────────────┘    └──────────────────┘                    │    │
+│  │       ▲                        ▲                                  │    │
+│  │       └── Graph API call ──────┘  (not CLI — manual or script)   │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
+│                                                                         │
+│  ┌─── Project 2: HR Benefits Bot ──────────────────────────────────┐    │
+│  │                                                                  │    │
+│  │  a365 config init  ←── run ONCE for this project                 │    │
+│  │  a365 setup all    ←── creates 1 Azure infra + 1 blueprint       │    │
+│  │  a365 deploy       ←── deploys code once                         │    │
+│  │  a365 publish      ←── creates manifest.zip once                 │    │
+│  │                                                                  │    │
+│  │  Blueprint: "HR Benefits Bot Blueprint"                          │    │
+│  │  Azure: rg-hr-benefits / webapp-hr-benefits                      │    │
+│  │                                                                  │    │
+│  │  ┌──────────────────┐                                            │    │
+│  │  │  Agent Identity C │                                           │    │
+│  │  │  "HR Benefits"    │                                           │    │
+│  │  │                   │                                            │    │
+│  │  │  ┌─────────────┐  │                                           │    │
+│  │  │  │ Agent User C │  │  ← optional                              │    │
+│  │  │  └─────────────┘  │                                           │    │
+│  │  └──────────────────┘                                            │    │
+│  │       ▲                                                           │    │
+│  │       └── Graph API call (not CLI)                                │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Command Count for This Scenario
+
+| Command | Project 1 (Sales) | Project 2 (HR) | Total |
+|---|---|---|---|
+| `a365 config init` | 1 | 1 | **2** |
+| `a365 setup all` | 1 | 1 | **2** |
+| `a365 deploy` | 1 | 1 | **2** |
+| `a365 publish` | 1 | 1 | **2** |
+| Graph API: create agent identity | 2 (Agent A + B) | 1 (Agent C) | **3** |
+| Graph API: create agent's user account | 0–2 (if needed) | 0–1 (if needed) | **0–3** |
+
+### Key Insight
+
+- **`config init` + `setup all`** = **once per blueprint** (i.e., once per distinct agent type/project)
+- **Agent identities** = created from the blueprint via **Graph API** (not CLI) — one per deployed instance
+- Agents that share the same permissions, credentials, and governance boundary → **share one blueprint**
+- Agents with different permission needs → **separate blueprints, separate `config init` + `setup all` runs**
+
+### When to Create a Separate Blueprint
+
+| Scenario | Same Blueprint? |
+|---|---|
+| Same agent type, different regions/teams | ✅ Yes — share one blueprint |
+| Same agent type, different permission needs | ❌ No — separate blueprints |
+| Different agent types entirely | ❌ No — separate blueprints |
+| Same agent, dev vs. prod environment | ❌ No — separate blueprints (different credentials) |
 
 ---
 
