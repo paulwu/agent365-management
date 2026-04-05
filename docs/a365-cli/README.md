@@ -118,6 +118,7 @@ Each `a365 config init` + `a365 setup all` cycle creates **one blueprint with on
 ### Example: 3 Agents, 2 Blueprints
 
 Imagine you need to deploy:
+
 - **Agent A** — Sales Assistant (North America)
 - **Agent B** — Sales Assistant (Europe) — same type as Agent A, shares its blueprint
 - **Agent C** — HR Benefits Bot — different purpose, needs its own blueprint
@@ -126,49 +127,49 @@ Imagine you need to deploy:
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                         YOUR TENANT                                     │
 │                                                                         │
-│  ┌─── Project 1: Sales Assistant ──────────────────────────────────┐    │
-│  │                                                                  │    │
-│  │  a365 config init  ←── run ONCE for this project                 │    │
-│  │  a365 setup all    ←── creates 1 Azure infra + 1 blueprint       │    │
-│  │  a365 deploy       ←── deploys code once                         │    │
-│  │  a365 publish      ←── creates manifest.zip once                 │    │
-│  │                                                                  │    │
-│  │  Blueprint: "Sales Assistant Blueprint"                          │    │
-│  │  Azure: rg-sales-assistant / webapp-sales-assistant              │    │
-│  │                                                                  │    │
-│  │  ┌──────────────────┐    ┌──────────────────┐                    │    │
-│  │  │  Agent Identity A │    │  Agent Identity B │                   │    │
-│  │  │  "Sales NA"       │    │  "Sales EU"       │                   │    │
-│  │  │                   │    │                   │                    │    │
-│  │  │  ┌─────────────┐  │    │  ┌─────────────┐  │                   │    │
-│  │  │  │ Agent User A │  │    │  │ Agent User B │  │  ← optional     │    │
-│  │  │  └─────────────┘  │    │  └─────────────┘  │                   │    │
-│  │  └──────────────────┘    └──────────────────┘                    │    │
-│  │       ▲                        ▲                                  │    │
-│  │       └── Graph API call ──────┘  (not CLI — manual or script)   │    │
-│  └──────────────────────────────────────────────────────────────────┘    │
+│  ┌─── Project 1: Sales Assistant ───────────────────────────────────┐   │
+│  │                                                                  │   │
+│  │  a365 config init  ←── run ONCE for this project                 │   │
+│  │  a365 setup all    ←── creates 1 Azure infra + 1 blueprint       │   │
+│  │  a365 deploy       ←── deploys code once                         │   │
+│  │  a365 publish      ←── creates manifest.zip once                 │   │
+│  │                                                                  │   │
+│  │  Blueprint: "Sales Assistant Blueprint"                          │   │
+│  │  Azure: rg-sales-assistant / webapp-sales-assistant              │   │
+│  │                                                                  │   │
+│  │  ┌────────────────────┐   ┌────────────────────┐                 │   │
+│  │  │  Agent Identity A  │   │  Agent Identity B  │                 │   │
+│  │  │  "Sales NA"        │   │  "Sales EU"        │                 │   │
+│  │  │                    │   │                    │                 │   │
+│  │  │  ┌──────────────┐  │   │  ┌──────────────┐  │                 │   │
+│  │  │  │ Agent User A │  │   │  │ Agent User B │  │  ← optional     │   │
+│  │  │  └──────────────┘  │   │  └──────────────┘  │                 │   │
+│  │  └────────────────────┘   └────────────────────┘                 │   │
+│  │       ▲                        ▲                                 │   │
+│  │       └── Graph API call ──────┘  (not CLI — manual or script)   │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
-│  ┌─── Project 2: HR Benefits Bot ──────────────────────────────────┐    │
-│  │                                                                  │    │
-│  │  a365 config init  ←── run ONCE for this project                 │    │
-│  │  a365 setup all    ←── creates 1 Azure infra + 1 blueprint       │    │
-│  │  a365 deploy       ←── deploys code once                         │    │
-│  │  a365 publish      ←── creates manifest.zip once                 │    │
-│  │                                                                  │    │
-│  │  Blueprint: "HR Benefits Bot Blueprint"                          │    │
-│  │  Azure: rg-hr-benefits / webapp-hr-benefits                      │    │
-│  │                                                                  │    │
-│  │  ┌──────────────────┐                                            │    │
-│  │  │  Agent Identity C │                                           │    │
-│  │  │  "HR Benefits"    │                                           │    │
-│  │  │                   │                                            │    │
-│  │  │  ┌─────────────┐  │                                           │    │
-│  │  │  │ Agent User C │  │  ← optional                              │    │
-│  │  │  └─────────────┘  │                                           │    │
-│  │  └──────────────────┘                                            │    │
-│  │       ▲                                                           │    │
-│  │       └── Graph API call (not CLI)                                │    │
-│  └──────────────────────────────────────────────────────────────────┘    │
+│  ┌─── Project 2: HR Benefits Bot ───────────────────────────────────┐   │
+│  │                                                                  │   │
+│  │  a365 config init  ←── run ONCE for this project                 │   │
+│  │  a365 setup all    ←── creates 1 Azure infra + 1 blueprint       │   │
+│  │  a365 deploy       ←── deploys code once                         │   │
+│  │  a365 publish      ←── creates manifest.zip once                 │   │
+│  │                                                                  │   │
+│  │  Blueprint: "HR Benefits Bot Blueprint"                          │   │
+│  │  Azure: rg-hr-benefits / webapp-hr-benefits                      │   │
+│  │                                                                  │   │
+│  │  ┌────────────────────┐                                          │   │
+│  │  │  Agent Identity C  │                                          │   │
+│  │  │  "HR Benefits"     │                                          │   │
+│  │  │                    │                                          │   │
+│  │  │  ┌──────────────┐  │                                          │   │
+│  │  │  │ Agent User C │  │  ← optional                              │   │
+│  │  │  └──────────────┘  │                                          │   │
+│  │  └────────────────────┘                                          │   │
+│  │       ▲                                                          │   │
+│  │       └── Graph API call (not CLI)                               │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
