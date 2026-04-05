@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is a curated knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) and supplemented by research from multiple AI assistants.
+This repository is a curated knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) and supplemented by research from multiple sources and AI assistants.
 
 The knowledge base can be used in three ways:
 
@@ -12,29 +12,15 @@ The knowledge base can be used in three ways:
 
 The repository also caches key Microsoft Learn pages in `grounding/` for faster lookups and offline access. Each knowledge note carries a **Priority** attribute so that when sources conflict, the system knows which to prefer.
 
-### Custom Copilot Agents
-
-Eight custom [Copilot agents](docs/github-copilot-primer/README.md) are available when this repository is open in VS Code:
-
-| Agent | Invoke with | Purpose |
-|---|---|---|
-| **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `answers/`. |
-| **Entra Curator** | `@entra-curator` | Creates and maintains research notes in `grounding/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
-| **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that creates an Entra Agent ID blueprint — auto-detects tenant via `az account show`, checks prerequisites, collects inputs, generates `blueprint-input.json`, and provides the command to run `Create-Blueprint.ps1`. **Requires interactive mode.** |
-| **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Prepares your environment for scanning — auto-detects tenant, checks/installs PowerShell and Graph module, verifies Entra roles via `az rest`, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1`. **Requires interactive mode.** |
-| **AgentId Registration Helper** | `@agentid-registration-helper` | Registers an agent in the Entra Agent Registry — auto-detects tenant via `az account show`, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and provides the command to run `Register-Agent.ps1`. **Requires interactive mode.** |
-| **Spec Exporter** | `@spec-exporter` | Extracts reusable Copilot agent patterns from a project into parameterized spec files in `specs/`. |
-| **Spec Importer** | `@spec-importer` | Applies spec files to a project — collects variable values, generates copilot-instructions, agent files, and README structure. **Requires interactive mode.** |
-| **Spec Drift** | `@spec-drift` | Compares a project's current state against its imported specs and reports divergences with actionable diffs. |
-
-## Table of Contents
+<details>
+<summary><strong>📑 Table of Contents</strong></summary>
 
 - [How to Use This Repository](#how-to-use-this-repository)
   - [Topic Guides](#looking-for-guidance-on-a-specific-topic)
   - [Source Material](#need-the-original-source-material)
   - [Updating Documentation](#updating-documentation)
 - [Using the Copilot Agents](#using-the-copilot-agents)
-  - [Prerequisites for Wizard Agents](#️-before-using-the-wizard-agents)
+  - [Prerequisites for Wizard Agents](#-before-using-the-wizard-agents)
   - [@entra-researcher](#entra-researcher--entra-agent-id-research-agent)
   - [@blueprint-creator](#blueprint-creator--interactive-blueprint-creation-wizard)
   - [@shadow-agent-discovery-prep](#shadow-agent-discovery-prep--shadow-agent-discovery-prep-wizard)
@@ -43,6 +29,8 @@ Eight custom [Copilot agents](docs/github-copilot-primer/README.md) are availabl
   - [Priority Scale Reference](#priority-scale-reference)
 - [Spec-Driven Development](#spec-driven-development)
 - [Folder Structure](#folder-structure)
+
+</details>
 
 ## How to Use This Repository
 
@@ -94,9 +82,20 @@ The **grounding/** folder contains the unedited research from different AI assis
 
 When new information becomes available, add or update files in **grounding/** first, then regenerate or update the corresponding **docs/** files to reflect the changes.
 
-### Using the Copilot Agents
+## Using the Copilot Agents
 
-Five custom Copilot agents are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
+Eight custom [Copilot agents](docs/github-copilot-primer/README.md) are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
+
+| Agent | Invoke with | Purpose |
+|---|---|---|
+| **Entra Researcher** | `@entra-researcher` | Provides authoritative, source-cited answers about agent identities, blueprints, registry, governance, and security. Cross-references live Microsoft Learn content with local notes, flags contradictions, and saves every response to `answers/`. |
+| **Entra Curator** | `@entra-curator` | Creates and maintains research notes in `grounding/`, enforcing the required YAML frontmatter format (`Author` and `Priority` fields) and the canonical priority scale. The Entra Researcher defers to this agent for note format rules. |
+| **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that creates an Entra Agent ID blueprint — auto-detects tenant via `az account show`, checks prerequisites, collects inputs, generates `blueprint-input.json`, and provides the command to run `Create-Blueprint.ps1`. **Requires interactive mode.** |
+| **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Prepares your environment for scanning — auto-detects tenant, checks/installs PowerShell and Graph module, verifies Entra roles via `az rest`, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1`. **Requires interactive mode.** |
+| **AgentId Registration Helper** | `@agentid-registration-helper` | Registers an agent in the Entra Agent Registry — auto-detects tenant via `az account show`, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and provides the command to run `Register-Agent.ps1`. **Requires interactive mode.** |
+| **Spec Exporter** | `@spec-exporter` | Extracts reusable Copilot agent patterns from a project into parameterized spec files in `specs/`. |
+| **Spec Importer** | `@spec-importer` | Applies spec files to a project — collects variable values, generates copilot-instructions, agent files, and README structure. **Requires interactive mode.** |
+| **Spec Drift** | `@spec-drift` | Compares a project's current state against its imported specs and reports divergences with actionable diffs. |
 
 #### ⚠️ Before Using the Wizard Agents
 
@@ -390,9 +389,8 @@ Agent365-Management/
 │   ├── agent-metadata.json.example    Sample agent metadata (copy to agent-metadata.json)
 │   ├── Discover-ShadowAgents.ps1      Scan tenant for ungoverned/shadow agents; outputs CSV report
 │   └── README.md                      Field-by-field guides, roles, and app registration setup
-│   NOTE: The Agent 365 CLI (a365) is an alternative for end-to-end setup.
-│         Install: dotnet tool install --global Microsoft.Agents.A365.DevTools.Cli --prerelease
-│         Docs: https://learn.microsoft.com/en-us/microsoft-agent-365/developer/agent-365-cli
+│                                      NOTE: Agent 365 CLI (a365) is an alternative for end-to-end setup
+│                                      Install: dotnet tool install --global Microsoft.Agents.A365.DevTools.Cli --prerelease
 ├── answers/   ← Saved @Entra-Researcher responses (auto-generated)
 │   └── answer-*.md                 Timestamped answer files (Pacific Time)
 ├── discovery/            ← Shadow agent scan reports (generated by Discover-ShadowAgents.ps1)
