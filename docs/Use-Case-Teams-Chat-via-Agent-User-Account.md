@@ -13,6 +13,7 @@ The guide covers: creating an agent identity blueprint, provisioning an agent id
 
 - [Prerequisites](#prerequisites)
   - [Tool Options](#tool-options)
+- [Step 0: Create the Client App Registration](#step-0-create-the-client-app-registration-one-time-setup)
 - [Step 1: Create the Agent Identity Blueprint](#step-1-create-the-agent-identity-blueprint)
 - [Step 2: Create the Agent Identity](#step-2-create-the-agent-identity)
 - [Step 3: Grant Permission to Create Agent's User Account](#step-3-grant-permission-to-create-agents-user-account)
@@ -67,19 +68,33 @@ a365 -h
 
 ---
 
+## Step 0: Create the Client App Registration (One-Time Setup)
+
+Before creating a blueprint with the CLI or repository scripts, you need a **client app registration** in Microsoft Entra ID. This provides the Client ID used for interactive authentication.
+
+👉 **Follow the step-by-step guide:** [Prerequisite: Client App Registration](./prerequisite-client-app-registration.md)
+
+Once you have your **Application (client) ID**, proceed to Step 1.
+
+> **Option C (Graph API) users:** You can skip this step if you already have a method for obtaining Graph API tokens (e.g., via `az account get-access-token` or an existing app registration).
+
+---
+
 ## Step 1: Create the Agent Identity Blueprint
 
 The blueprint is the template and credential holder for your agent.
 
 ### Option A — Agent 365 CLI (recommended for new agents)
 
-The CLI creates the blueprint, configures credentials, sets up Azure infrastructure, and configures permissions in one step:
+The CLI creates the blueprint, configures credentials, sets up Azure infrastructure, and configures permissions in one step.
+
+**Prerequisite:** You need a Client App ID from [Step 0](#step-0-create-the-client-app-registration-one-time-setup).
 
 ```shell
-# Initialize configuration
+# 1. Initialize configuration (enter your Client App ID when prompted)
 a365 config init
 
-# Run the complete setup (Azure infra + blueprint + permissions)
+# 2. Run the complete setup (Azure infra + blueprint + permissions)
 a365 setup all
 ```
 
@@ -88,7 +103,7 @@ Or for granular control:
 ```shell
 a365 setup requirements      # Validate prerequisites
 a365 setup infrastructure    # Create Azure resource group, App Service, Web App
-a365 setup blueprint         # Register the agent identity blueprint in Entra
+a365 setup blueprint         # Register the blueprint in Entra
 a365 setup permissions mcp   # Configure MCP tooling server permissions
 a365 setup permissions bot   # Configure bot messaging permissions
 ```
@@ -111,6 +126,8 @@ pwsh -File ./scripts/Create-Blueprint.ps1 -TenantId "contoso.onmicrosoft.com" -C
 ```
 
 See `scripts/README.md` for full documentation and required permissions.
+
+**Prerequisite:** You need a Client App ID from [Step 0](#step-0-create-the-client-app-registration-one-time-setup) — passed as the `-ClientId` parameter.
 
 ### Option C — Microsoft Graph API
 
@@ -188,6 +205,25 @@ Authorization: Bearer {admin-token}
   "appId": "{blueprint-app-id}"
 }
 ```
+
+### Option D — `@blueprint-creator` Copilot agent (interactive wizard)
+
+If you have this repository open in VS Code with GitHub Copilot, use the interactive wizard:
+
+```text
+@blueprint-creator I want to create a new agent identity blueprint
+```
+
+The wizard walks you through a 10-step process:
+1. Checks PowerShell and Microsoft Graph module
+2. Verifies tenant login and Entra roles
+3. Validates app registration and Graph permissions (needs Client App ID from [Step 0](#step-0-create-the-client-app-registration-one-time-setup))
+4. Collects all blueprint fields (display name, sponsor, owner, credentials)
+5. Generates `blueprint-input.json`
+6. Executes `scripts/Create-Blueprint.ps1`
+7. Provides post-creation guidance
+
+> **Requires interactive mode** — press **Shift+Tab** to exit autopilot mode before invoking.
 
 ---
 
@@ -586,16 +622,16 @@ The agent's user account appears in Teams like a real user — with a display na
 
 ## Tool Reference Summary
 
-| Step | Graph API | Agent 365 CLI | Repo Script |
-|---|---|---|---|
-| 1. Create blueprint | `POST /v1.0/applications/` | `a365 setup all` or `a365 setup blueprint` | `Create-Blueprint.ps1` |
-| 2. Create agent identity | `POST /beta/serviceprincipals/Microsoft.Graph.AgentIdentity` | *(use Graph API)* | *(use Graph API)* |
-| 3. Grant user account permission | `POST /v1.0/servicePrincipals/{id}/appRoleAssignments` | *(use Graph API)* | *(use Graph API)* |
-| 4. Create agent's user account | `POST /beta/users` | *(use Graph API)* | *(use Graph API)* |
-| 5. Assign license | `POST /v1.0/users/{id}/assignLicense` | *(use Graph API or M365 admin)* | *(use Graph API or M365 admin)* |
-| 6. Add to Team | `POST /v1.0/teams/{id}/members` | *(use Graph API)* | *(use Graph API)* |
-| 7. Build backend | Python/C#/.NET code | *(your code)* | *(your code)* |
-| 8. Register in registry | `POST /beta/agentRegistry/agentInstances` | `a365 publish` + `a365 deploy` | `Register-Agent.ps1` |
+| Step | Graph API | Agent 365 CLI | Repo Script | @blueprint-creator |
+|---|---|---|---|---|
+| 1. Create blueprint | `POST /v1.0/applications/` | `a365 setup all` or `a365 setup blueprint` | `Create-Blueprint.ps1` | Interactive wizard |
+| 2. Create agent identity | `POST /beta/serviceprincipals/Microsoft.Graph.AgentIdentity` | *(use Graph API)* | *(use Graph API)* | — |
+| 3. Grant user account permission | `POST /v1.0/servicePrincipals/{id}/appRoleAssignments` | *(use Graph API)* | *(use Graph API)* | — |
+| 4. Create agent's user account | `POST /beta/users` | *(use Graph API)* | *(use Graph API)* | — |
+| 5. Assign license | `POST /v1.0/users/{id}/assignLicense` | *(use Graph API or M365 admin)* | *(use Graph API or M365 admin)* | — |
+| 6. Add to Team | `POST /v1.0/teams/{id}/members` | *(use Graph API)* | *(use Graph API)* | — |
+| 7. Build backend | Python/C#/.NET code | *(your code)* | *(your code)* | — |
+| 8. Register in registry | `POST /beta/agentRegistry/agentInstances` | `a365 publish` + `a365 deploy` | `Register-Agent.ps1` | — |
 
 ---
 

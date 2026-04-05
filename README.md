@@ -58,6 +58,7 @@ Additional topic guides:
 | [developer-identity-platform.md](docs/developer-identity-platform.md) | Developer guide: blueprint creation (Graph API + PowerShell), OAuth flows, owners/sponsors/managers |
 | [entra-sdk-agent-id.md](docs/entra-sdk-agent-id.md) | Entra SDK for Agent ID: companion container architecture, token flows, scenarios, security requirements |
 | [agent-blueprint-vs-registration.md](docs/agent-blueprint-vs-registration.md) | Relationship diagram: blueprint creation vs. agent registration; Pattern A vs. Pattern B end-to-end flow |
+| [prerequisite-client-app-registration.md](docs/prerequisite-client-app-registration.md) | One-time setup: create the Entra app registration needed by the CLI, scripts, and @blueprint-creator |
 | [identity-blueprint/README.md](docs/identity-blueprint/README.md) | Landing page for the identity blueprint doc set: definition, contents, usage, scenarios, and migration |
 | [identity-blueprint/what-is-an-identity-blueprint.md](docs/identity-blueprint/what-is-an-identity-blueprint.md) | Defines the blueprint object, its four roles, and its relationship to blueprint principals and agent identities |
 | [identity-blueprint/blueprint-contents-explainer.md](docs/identity-blueprint/blueprint-contents-explainer.md) | Explains which settings live on the blueprint, how credentials work, and when to separate blueprints |
@@ -353,6 +354,7 @@ Agent365-Management/
 │   ├── entra-sdk-agent-id.md             Entra SDK for Agent ID: companion container, scenarios, security
 │   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
 │   ├── Use-Case-Teams-Chat-via-Agent-User-Account.md  End-to-end Teams chat agent guide
+│   ├── prerequisite-client-app-registration.md  Client app registration for CLI/scripts/wizard
 │   ├── github-copilot-primer/
 │   │   ├── README.md                        Overview: how instructions, agents, and MCP servers work together
 │   │   ├── copilot-instructions.md          What Copilot instructions are and how to write them
