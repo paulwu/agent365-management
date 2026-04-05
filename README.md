@@ -66,6 +66,7 @@ Additional topic guides:
 | [identity-blueprint/agent-identity-hierarchy.md](docs/identity-blueprint/agent-identity-hierarchy.md) | Visual diagram of the blueprint → identity → user account hierarchy with cardinality and token flows |
 | [identity-blueprint/agent-user-account-guide.md](docs/identity-blueprint/agent-user-account-guide.md) | How to create an agent's user account, assign licenses, enable Teams communication, and interact via chat |
 | [Use-Case-Teams-Chat-via-Agent-User-Account.md](docs/Use-Case-Teams-Chat-via-Agent-User-Account.md) | End-to-end guide: build an agent that chats on Teams (Graph API + CLI + sample Python code) |
+| [a365-cli/README.md](docs/a365-cli/README.md) | Agent 365 CLI command reference: config, setup, deploy, publish, cleanup — with inputs, outputs, and samples |
 | [github-copilot-primer/README.md](docs/github-copilot-primer/README.md) | Overview: how Copilot instructions, custom agents, and MCP servers work together in this project |
 | [github-copilot-primer/copilot-instructions.md](docs/github-copilot-primer/copilot-instructions.md) | What Copilot instructions are, types of instruction files, and best practices |
 | [github-copilot-primer/custom-agents.md](docs/github-copilot-primer/custom-agents.md) | How to create and configure custom Copilot agents with `.agent.md` profiles |
@@ -364,6 +365,19 @@ Agent365-Management/
 │   ├── agent-blueprint-vs-registration.md Relationship diagram: blueprint creation vs. agent registration
 │   ├── Use-Case-Teams-Chat-via-Agent-User-Account.md  End-to-end Teams chat agent guide
 │   ├── prerequisite-client-app-registration.md  Client app registration for CLI/scripts/wizard
+│   ├── a365-cli/
+│   │   ├── README.md                        Agent 365 CLI command reference and workflow
+│   │   ├── config-init.md                   a365 config init — interactive configuration wizard
+│   │   ├── config-display.md                a365 config display — view settings
+│   │   ├── setup-requirements.md            a365 setup requirements — validate prerequisites
+│   │   ├── setup-infrastructure.md          a365 setup infrastructure — create Azure resources
+│   │   ├── setup-blueprint.md               a365 setup blueprint — create blueprint in Entra
+│   │   ├── setup-permissions.md             a365 setup permissions (mcp, bot, custom, copilotstudio)
+│   │   ├── setup-all.md                     a365 setup all — complete setup in one command
+│   │   ├── setup-admin.md                   a365 setup admin — Global Admin OAuth2 handoff
+│   │   ├── deploy.md                        a365 deploy — deploy to Azure + update MCP permissions
+│   │   ├── publish.md                       a365 publish — create manifest package
+│   │   └── cleanup.md                       a365 cleanup — remove resources
 │   ├── github-copilot-primer/
 │   │   ├── README.md                        Overview: how instructions, agents, and MCP servers work together
 │   │   ├── copilot-instructions.md          What Copilot instructions are and how to write them
