@@ -1,10 +1,20 @@
-# Agent 365 Management — Repository Guide
+# Agent 365 Curated Knowledge Base
 
 ## Purpose
 
-This repository is a knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is designed to answer questions about Agent 365 governance, identity, and security — grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) as well as curated knowledge compiled from multiple research sources. Each knowledge note carries a **Priority** attribute (1 = highest, higher = less authoritative) so that when sources conflict, the system knows which to prefer. The repository also caches key Microsoft Learn pages locally in `grounding/` for faster lookups and offline access when the internet is not reachable.
+This repository is a curated knowledge base for managing and governing AI agents in Microsoft 365 using **Microsoft Agent 365**, **Microsoft Entra Agent ID**, and the **Agent Registry**. It is grounded on the [official Microsoft Learn Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/) and supplemented by research from multiple AI assistants.
 
-The repository includes eight custom [Copilot agents](docs/github-copilot-primer/README.md):
+The knowledge base can be used in three ways:
+
+1. **Browse the docs** — The `docs/` folder contains compiled topic guides covering registry, access control, security, interoperability, visualization, identity blueprints, and developer workflows.
+2. **Ask the researcher** — The `@entra-researcher` Copilot agent answers questions about Agent 365 governance, identity, and security by cross-referencing live Microsoft Learn content with local research notes.
+3. **Maintain the knowledge** — The `@entra-curator` Copilot agent creates and updates research notes in `grounding/`, enforcing a priority-based trust hierarchy (1 = highest authority) so conflicting sources are resolved automatically.
+
+The repository also caches key Microsoft Learn pages in `grounding/` for faster lookups and offline access. Each knowledge note carries a **Priority** attribute so that when sources conflict, the system knows which to prefer.
+
+### Custom Copilot Agents
+
+Eight custom [Copilot agents](docs/github-copilot-primer/README.md) are available when this repository is open in VS Code:
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
