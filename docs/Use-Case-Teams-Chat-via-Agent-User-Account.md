@@ -625,9 +625,9 @@ The agent's user account appears in Teams like a real user — with a display na
 | Step | Graph API | Agent 365 CLI | Repo Script | @blueprint-creator |
 |---|---|---|---|---|
 | 1. Create blueprint | `POST /v1.0/applications/` | `a365 setup all` or `a365 setup blueprint` | `Create-Blueprint.ps1` | Interactive wizard |
-| 2. Create agent identity | `POST /beta/serviceprincipals/Microsoft.Graph.AgentIdentity` | *(use Graph API)* | *(use Graph API)* | — |
+| 2. Create agent identity | `POST /beta/serviceprincipals/Microsoft.Graph.AgentIdentity` | *(use Graph API)* | `Create-AgentIdentity.ps1` | — |
 | 3. Grant user account permission | `POST /v1.0/servicePrincipals/{id}/appRoleAssignments` | *(use Graph API)* | *(use Graph API)* | — |
-| 4. Create agent's user account | `POST /beta/users` | *(use Graph API)* | *(use Graph API)* | — |
+| 4. Create agent's user account | `POST /beta/users` | *(use Graph API)* | `Create-AgentUser.ps1` | — |
 | 5. Assign license | `POST /v1.0/users/{id}/assignLicense` | *(use Graph API or M365 admin)* | *(use Graph API or M365 admin)* | — |
 | 6. Add to Team | `POST /v1.0/teams/{id}/members` | *(use Graph API)* | *(use Graph API)* | — |
 | 7. Build backend | Python/C#/.NET code | *(your code)* | *(your code)* | — |

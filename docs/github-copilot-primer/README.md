@@ -77,9 +77,9 @@ This file tells Copilot about the repository's architecture and conventions. Any
 
 ### 2. Custom Agents → `.github/agents/`
 
-This repository has five custom agents. Three are interactive wizards that require **interactive mode** (not autopilot) and **Azure CLI login** (`az login`) before use:
+This repository has six custom agents. Four are interactive wizards that require **interactive mode** (not autopilot) and **Azure CLI login** (`az login`) before use:
 
-> **⚠️ Before using `@blueprint-creator`, `@shadow-agent-discovery-prep`, or `@agentid-registration-helper`:**
+> **⚠️ Before using `@blueprint-creator`, `@shadow-agent-discovery-prep`, `@agentid-registration-helper`, or `@agent-user-creator`:**
 >
 > 1. Press **Shift+Tab** to switch to **interactive mode** (autopilot will skip wizard steps)
 > 2. Run `az login` in your terminal (the wizards use `az account show` to auto-detect your tenant)
@@ -165,7 +165,23 @@ This repository has five custom agents. Three are interactive wizards that requi
 @agentid-registration-helper Register my Python agent in the Agent Registry
 ```
 
-#### How the Five Agents Work Together
+#### `@agent-user-creator` — Agent User Creation Wizard
+
+**File:** `.github/agents/Agent-User-Creator.agent.md`
+
+| Aspect | Configuration |
+|---|---|
+| **Role** | Interactive wizard that creates an agent identity and its user account end-to-end |
+| **Key behavior** | Guides the user through creating an agent identity from a blueprint, then creating an agent's user account with optional license assignment |
+| **Tools used** | `execute` (run PowerShell), `read`/`edit` (collect parameters), `search` |
+
+**Example invocation:**
+
+```text
+@agent-user-creator Create an agent user account for my Teams bot
+```
+
+#### How the Six Agents Work Together
 
 ```text
           ┌──────────────────────────────────────────────────┐
@@ -185,6 +201,12 @@ This repository has five custom agents. Three are interactive wizards that requi
           │   Creates blueprint → outputs appId              │
           └──────────────┬───────────────────────────────────┘
                          │ appId (agentIdentityBlueprintId)
+                         ▼
+          ┌──────────────────────────────────────────────────┐
+          │         @agent-user-creator                      │
+          │   Creates agent identity + user account          │
+          └──────────────┬───────────────────────────────────┘
+                         │ agentIdentityId, agentUserId
                          ▼
           ┌──────────────────────────────────────────────────┐
           │         @agentid-registration-helper             │
@@ -216,7 +238,8 @@ If the repository needed additional capabilities (e.g., querying Microsoft Graph
 │   ├── Entra-Curator.agent.md              ← @entra-curator custom agent
 │   ├── BluePrint-Creator.agent.md         ← @blueprint-creator wizard agent
 │   ├── Shadow-Agent-Discovery-Prep.agent.md ← @shadow-agent-discovery-prep env prep wizard
-│   └── AgentId-Registration-Helper.agent.md ← @agentid-registration-helper wizard agent
+│   ├── AgentId-Registration-Helper.agent.md ← @agentid-registration-helper wizard agent
+│   └── Agent-User-Creator.agent.md         ← @agent-user-creator wizard agent
 └── copilot/                         ← (MCP servers would go here)
 ```
 

@@ -85,7 +85,7 @@ When new information becomes available, add or update files in **grounding/** fi
 
 ## Using the Copilot Agents
 
-Eight custom [Copilot agents](docs/github-copilot-primer/README.md) are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
+Nine custom [Copilot agents](docs/github-copilot-primer/README.md) are available in VS Code Copilot Chat (or GitHub.com Copilot Chat) when this repository is open. Invoke them with `@agent-name` followed by your question or instruction.
 
 | Agent | Invoke with | Purpose |
 |---|---|---|
@@ -94,13 +94,14 @@ Eight custom [Copilot agents](docs/github-copilot-primer/README.md) are availabl
 | **BluePrint Creator** | `@blueprint-creator` | Interactive wizard that creates an Entra Agent ID blueprint — auto-detects tenant via `az account show`, checks prerequisites, collects inputs, generates `blueprint-input.json`, and provides the command to run `Create-Blueprint.ps1`. **Requires interactive mode.** |
 | **Shadow Agent Discovery Prep** | `@shadow-agent-discovery-prep` | Prepares your environment for scanning — auto-detects tenant, checks/installs PowerShell and Graph module, verifies Entra roles via `az rest`, configures scan options, and provides the exact command to run `Discover-ShadowAgents.ps1`. **Requires interactive mode.** |
 | **AgentId Registration Helper** | `@agentid-registration-helper` | Registers an agent in the Entra Agent Registry — auto-detects tenant via `az account show`, determines Pattern A vs. B, collects all metadata fields, generates `agent-metadata.json`, and provides the command to run `Register-Agent.ps1`. **Requires interactive mode.** |
+| **Agent User Creator** | `@agent-user-creator` | Interactive wizard that creates an agent's user account — verifies prerequisites, collects inputs, runs `Create-AgentUser.ps1`, optionally assigns license and adds to Teams. **Requires interactive mode.** |
 | **Spec Exporter** | `@spec-exporter` | Extracts reusable Copilot agent patterns from a project into parameterized spec files in `specs/`. |
 | **Spec Importer** | `@spec-importer` | Applies spec files to a project — collects variable values, generates copilot-instructions, agent files, and README structure. **Requires interactive mode.** |
 | **Spec Drift** | `@spec-drift` | Compares a project's current state against its imported specs and reports divergences with actionable diffs. |
 
 #### ⚠️ Before Using the Wizard Agents
 
-The three wizard agents (`@blueprint-creator`, `@shadow-agent-discovery-prep`, `@agentid-registration-helper`) require interactive input and Azure access. Before invoking them:
+The four wizard agents (`@blueprint-creator`, `@shadow-agent-discovery-prep`, `@agentid-registration-helper`, `@agent-user-creator`) require interactive input and Azure access. Before invoking them:
 
 1. **Switch to interactive mode** — Press **Shift+Tab** to exit autopilot mode. The wizards require multi-step user input and will skip ahead or terminate prematurely in autopilot mode.
 
@@ -279,6 +280,28 @@ The agent will guide you through creating proper registry metadata for an agent 
 
 ---
 
+#### `@agent-user-creator` — Agent's User Account Creation Wizard
+
+A step-by-step wizard that creates an agent's user account linked to an agent identity, with optional license assignment and Teams membership.
+
+##### Example 1 — Create an Agent's User Account
+
+```text
+@agent-user-creator I need to create an agent's user account for my Sales Assistant agent
+```
+
+The agent will verify prerequisites (blueprint, agent identity, permissions), collect display name/UPN/mail nickname, optionally assign a license, run `scripts/Create-AgentUser.ps1`, and offer to add the agent to a Team.
+
+##### Example 2 — Create Agent User with Teams Access
+
+```text
+@agent-user-creator Create an agent user with a Microsoft 365 E3 license and add it to the Sales Team
+```
+
+The agent will guide you through the full setup including license SKU selection and Teams membership.
+
+---
+
 #### `@entra-curator` — Entra Curator
 
 Create or modify research notes in `grounding/`. The agent enforces the required YAML frontmatter (`Author`, `Priority`) and the canonical priority scale.
@@ -401,6 +424,8 @@ Agent365-Management/
 │   ├── blueprint-input.json.example   Sample blueprint input (copy to blueprint-input.json)
 │   ├── Register-Agent.ps1             Register an agent in the Agent Registry via Graph API
 │   ├── agent-metadata.json.example    Sample agent metadata (copy to agent-metadata.json)
+│   ├── Create-AgentIdentity.ps1         Create agent identities from a blueprint
+│   ├── Create-AgentUser.ps1             Create agent's user account with optional license
 │   ├── Discover-ShadowAgents.ps1      Scan tenant for ungoverned/shadow agents; outputs CSV report
 │   └── README.md                      Field-by-field guides, roles, and app registration setup
 │                                      NOTE: Agent 365 CLI (a365) is an alternative for end-to-end setup
@@ -428,6 +453,7 @@ Agent365-Management/
         ├── BluePrint-Creator.agent.md          @blueprint-creator wizard for blueprint creation
         ├── Shadow-Agent-Discovery-Prep.agent.md @shadow-agent-discovery-prep env prep wizard
         ├── AgentId-Registration-Helper.agent.md @agentid-registration-helper wizard for registry
+        ├── Agent-User-Creator.agent.md         @agent-user-creator wizard for agent user creation
         ├── Spec-Exporter.agent.md              @spec-exporter extracts patterns into specs
         ├── Spec-Importer.agent.md              @spec-importer applies specs to projects
         └── Spec-Drift.agent.md                 @spec-drift compares project vs specs

@@ -26,6 +26,8 @@ This repository contains PowerShell scripts in `scripts/` that automate key Entr
 |---|---|---|
 | Creating an agent identity blueprint, configuring blueprint credentials, setting up identifier URIs / scopes, creating a blueprint principal | `scripts/Create-Blueprint.ps1` | `scripts/blueprint-input.json.example` |
 | Registering an agent in the Agent Registry, creating an agent instance, publishing an agent card manifest | `scripts/Register-Agent.ps1` | `scripts/agent-metadata.json.example` |
+| Creating an agent identity from a blueprint | `scripts/Create-AgentIdentity.ps1` | *(uses command-line parameters)* |
+| Creating an agent's user account, assigning licenses, enabling Teams access | `scripts/Create-AgentUser.ps1` | *(uses command-line parameters)* |
 | Discovering shadow agents, auditing unregistered agents, finding ownerless or high-privilege apps, reviewing sign-in logs for agents | `scripts/Discover-ShadowAgents.ps1` | *(generates a CSV report)* |
 
 ### How to reference scripts

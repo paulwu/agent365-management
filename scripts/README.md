@@ -5,6 +5,8 @@
 | Script | Purpose |
 |---|---|
 | **Create-Blueprint.ps1** | Create an agent identity blueprint in Entra ID (template for agent identities) |
+| **Create-AgentIdentity.ps1** | Create one or more agent identities from an existing blueprint |
+| **Create-AgentUser.ps1** | Create an agent's user account linked to an agent identity (optional: assign license) |
 | **Register-Agent.ps1** | Register a code-built agent in the Entra Agent Registry via Graph API |
 | **Discover-ShadowAgents.ps1** | Discover shadow/rogue agents by scanning service principals, app registrations, permissions, and sign-in logs |
 
@@ -120,6 +122,104 @@ Next steps:
 - [Developer Guide: Agent Identity Platform](../docs/developer-identity-platform.md)
 - [Agent Blueprint vs. Registration](../docs/agent-blueprint-vs-registration.md)
 - <a href="https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/create-blueprint" target="_blank">Create an agent identity blueprint (Microsoft Learn)</a>
+
+---
+
+# Create-AgentIdentity.ps1
+
+## Overview
+
+The `Create-AgentIdentity.ps1` script creates one or more agent identities under an existing agent identity blueprint via the Microsoft Graph API (`/beta` endpoint). Each agent identity is a specialized service principal with no independent credentials — it authenticates via its parent blueprint.
+
+## Quick Start
+
+```powershell
+.\Create-AgentIdentity.ps1 -BlueprintAppId "your-blueprint-app-id" `
+    -DisplayName "Sales Agent" -SponsorUserId "your-user-id" `
+    -TenantId "contoso.onmicrosoft.com" -ClientSecret "your-secret"
+
+# Create multiple identities
+.\Create-AgentIdentity.ps1 -BlueprintAppId "your-blueprint-app-id" `
+    -DisplayName "Sales Agent" -SponsorUserId "your-user-id" `
+    -TenantId "contoso.onmicrosoft.com" -ClientSecret "your-secret" -Count 3
+```
+
+## Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| `-BlueprintAppId` | Yes | The appId of the agent identity blueprint |
+| `-DisplayName` | Yes | Display name for the agent identity |
+| `-SponsorUserId` | Yes | GUID of the user to assign as sponsor |
+| `-TenantId` | Yes | Entra tenant ID (GUID or domain) |
+| `-ClientSecret` | Yes | Client secret of the blueprint (dev/test) |
+| `-Count` | No | Number of identities to create (default: 1) |
+
+## Required Roles
+
+| Role | Purpose |
+|---|---|
+| **Agent ID Administrator** | Create agent identities from a blueprint |
+
+## Output
+
+For each created identity:
+- Agent Identity ID (object ID)
+- App ID
+
+---
+
+# Create-AgentUser.ps1
+
+## Overview
+
+The `Create-AgentUser.ps1` script creates an agent's user account (specialized Entra user object) paired 1:1 with an existing agent identity. Optionally assigns a Microsoft 365 license for Teams/Exchange access.
+
+**Prerequisite:** The blueprint must have `AgentIdUser.ReadWrite.IdentityParentedBy` permission granted by a Privileged Role Administrator.
+
+## Quick Start
+
+```powershell
+# Without license
+.\Create-AgentUser.ps1 -AgentIdentityId "agent-identity-id" `
+    -DisplayName "Task Assistant" -MailNickname "task-assistant" `
+    -UPN "task-assistant@contoso.onmicrosoft.com" `
+    -BlueprintAppId "blueprint-app-id" -TenantId "contoso.onmicrosoft.com" `
+    -ClientSecret "your-secret"
+
+# With license assignment
+.\Create-AgentUser.ps1 -AgentIdentityId "agent-identity-id" `
+    -DisplayName "Task Assistant" -MailNickname "task-assistant" `
+    -UPN "task-assistant@contoso.onmicrosoft.com" `
+    -BlueprintAppId "blueprint-app-id" -TenantId "contoso.onmicrosoft.com" `
+    -ClientSecret "your-secret" -LicenseSkuId "05e9a617-..."
+```
+
+## Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| `-AgentIdentityId` | Yes | Object ID of the parent agent identity |
+| `-DisplayName` | Yes | Display name for the agent's user account |
+| `-MailNickname` | Yes | Email alias (no spaces, lowercase) |
+| `-UPN` | Yes | User Principal Name (must include domain) |
+| `-BlueprintAppId` | Yes | The appId of the parent blueprint |
+| `-TenantId` | Yes | Entra tenant ID (GUID or domain) |
+| `-ClientSecret` | Yes | Client secret of the blueprint (dev/test) |
+| `-LicenseSkuId` | No | SKU ID of license to assign (e.g., M365 E3/E5) |
+
+## Required Roles/Permissions
+
+| Role/Permission | Purpose |
+|---|---|
+| **Agent ID Administrator** or **User Administrator** | Create agent's user accounts |
+| `AgentIdUser.ReadWrite.IdentityParentedBy` | Must be granted to the blueprint principal |
+
+## Output
+
+- Agent User ID
+- UPN
+- License assignment status (if requested)
 
 ---
 
