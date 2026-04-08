@@ -20,6 +20,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 | Priority | Source Type |
 |---|---|
+| 0 | Human-authored corrections and overrides (factual fixes, deprecated replacements, pinned values) |
 | 1 | Reserved — for notes verified against live Microsoft Learn content in the current session |
 | 2 | Cached Microsoft Learn documentation (compiled directly from Microsoft Learn but may be stale) |
 | 3 | Other official Microsoft documentation sources |
@@ -29,7 +30,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 ### How Priority Is Used
 
 - The `@Entra-Researcher` agent uses the Priority field to determine which note has more weight when conflicting information is presented between different notes.
-- Priority 1 is the highest importance. The higher the number, the lower the importance.
+- Priority 0 is the highest importance (human-authored corrections). The higher the number, the lower the importance.
 - Official Microsoft Learn documentation (fetched live) always takes precedence over ALL notes regardless of Priority.
 
 ### How Author Is Used
@@ -58,7 +59,7 @@ When modifying an existing note:
 
 - The first thing in the file **must** be the YAML frontmatter block (opening `---`, fields, closing `---`).
 - `Author` is required and must be a string.
-- `Priority` is required and must be an integer with a minimum value of 1.
+- `Priority` is required and must be an integer with a minimum value of 0.
 - Content follows after the closing `---` delimiter.
 - If you encounter a note that violates these rules, fix it and inform the user what was corrected.
 

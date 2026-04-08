@@ -154,11 +154,46 @@ graph LR
 @spec-drift Compare this project against its imported specs
 
 # Re-import specs after an update
-@spec-importer Import specs using .spec-config.yaml
+@spec-importer Re-import specs
 
 # Export a new pattern to specs
 @spec-exporter Extract the grounding rules pattern into specs/
 ```
+
+## Spec Update Lifecycle
+
+When specs are updated in the spec repo, this project follows a four-step cycle to realize the changes:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                     Spec Update Lifecycle                         │
+│                                                                  │
+│  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌─────────┐ │
+│  │ 1.DETECT │────▶│ 2.REVIEW │────▶│ 3.APPLY  │────▶│4.VERIFY │ │
+│  │          │     │          │     │          │     │         │ │
+│  │@spec-    │     │ Read     │     │@spec-    │     │@spec-   │ │
+│  │ drift    │     │ changelog│     │ importer │     │ drift   │ │
+│  └──────────┘     └──────────┘     └──────────┘     └─────────┘ │
+│       │                                                   │      │
+│       └──────────── Clean? Done! ◄────────────────────────┘      │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### What the importer handles during re-import
+
+The `@spec-importer` detects ALL types of spec changes when it finds an existing `.spec-config.yaml`:
+
+| Change Type | Detection | Resolution |
+|---|---|---|
+| New variable | Missing from config | Prompts for value |
+| Changed variable metadata | Description/default differs | Informational notice |
+| Removed variable | In config but not in spec | Offers to clean up |
+| New dependency | Spec added a `requires` | Auto-adds or prompts |
+| New/changed sections | Template content differs | Shows diff, asks to accept |
+| New artifact | Referenced file doesn't exist | Offers to scaffold placeholder |
+| Version bump | Config version < manifest | Updates config after re-import |
+
+For the full details on each change type, see the [FAQ — Applying Spec Updates](./faq.md#applying-spec-updates-to-your-project).
 
 ## Further Reading
 

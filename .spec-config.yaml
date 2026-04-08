@@ -31,6 +31,7 @@ variables:
   SECONDARY_NOTE_FILES: "ChatGPT.md, Gemini.md, Researcher.md, Microsoft-Learn.md"
   KNOWLEDGE_FOLDER: "grounding"
   DOCS_FOLDER: "docs"
+  CORRECTIONS_FILE: ".override-rules/corrections.md"
 
   # --- research-conventions ---
   CURATOR_AGENT_NAME: "Entra Curator"
