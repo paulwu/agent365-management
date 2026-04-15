@@ -371,7 +371,8 @@ Agent365-Management/
 │   ├── Gemini.md             Prescriptive FAQ-style operational guide
 │   ├── Researcher.md         Implementation guide with summary tables
 │   ├── Microsoft-Learn.md    Official Microsoft Learn pages (5 articles on Agent 365 admin)
-│   └── Microsoft-Learn-Entra-AgentID.md  Cached Entra Agent ID docs (73 pages indexed)
+│   ├── Microsoft-Learn-Entra-AgentID.md  Cached Entra Agent ID docs (73 pages indexed)
+│   └── agent365-and-AgentId-Overview.md  John Savill video transcript (March 2026)
 ├── README.md             ← This file
 ├── .markdownlint.json    ← Markdownlint config (disables MD013, MD033, MD060)
 ├── docs/             ← Synthesized topic guides (generated from research)
