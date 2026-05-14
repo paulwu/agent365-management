@@ -1,0 +1,63 @@
+{
+	"appId": "f3e88d68-5354-42ff-8107-de75b4a5d0f8",
+	"createdByAppId": "18ed3507-a475-4ccb-b669-d66bc9f2a36e",
+	"createdDateTime": "2026-05-14T01:04:46Z",
+	"defaultRedirectUri": null,
+	"description": null,
+	"disabledByMicrosoftStatus": null,
+	"displayName": "paultest1",
+	"groupMembershipClaims": null,
+	"identifierUris": [],
+	"managerApplications": [],
+	"publisherDomain": "onemtc.net",
+	"serviceManagementReference": null,
+	"signInAudience": "AzureADMyOrg",
+	"tags": [],
+	"tokenEncryptionKeyId": null,
+	"id": "f3e88d68-5354-42ff-8107-de75b4a5d0f8",
+	"certification": null,
+	"optionalClaims": null,
+	"api": {
+		"acceptMappedClaims": null,
+		"knownClientApplications": [],
+		"requestedAccessTokenVersion": 2,
+		"oauth2PermissionScopes": [],
+		"preAuthorizedApplications": []
+	},
+	"appRoles": [],
+	"info": {
+		"logoUrl": null,
+		"marketingUrl": null,
+		"privacyStatementUrl": null,
+		"supportUrl": null,
+		"termsOfServiceUrl": null
+	},
+	"keyCredentials": [],
+	"passwordCredentials": [
+		{
+			"customKeyIdentifier": null,
+			"displayName": "test",
+			"endDateTime": "2026-11-10T02:07:21.95Z",
+			"hint": "fuC",
+			"keyId": "2fe6326b-8c19-4b74-8142-2bde8e06a733",
+			"secretText": null,
+			"startDateTime": "2026-05-14T01:07:21.95Z"
+		}
+	],
+	"requiredResourceAccess": [],
+	"verifiedPublisher": {
+		"displayName": null,
+		"verifiedPublisherId": null,
+		"addedDateTime": null
+	},
+	"web": {
+		"homePageUrl": null,
+		"logoutUrl": null,
+		"redirectUris": [],
+		"implicitGrantSettings": {
+			"enableAccessTokenIssuance": false,
+			"enableIdTokenIssuance": false
+		},
+		"redirectUriSettings": []
+	}
+}
