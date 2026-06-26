@@ -1,6 +1,7 @@
 ---
 name: Spec-Importer
 description: Applies parameterized spec files to a project — reads specs, collects variable values, and generates/updates copilot-instructions, agent files, and README structure.
+version: "1.0.0"
 tools: ["read", "edit", "search", "execute"]
 ---
 
@@ -44,7 +45,7 @@ curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/research-agent.spec.md" -o specs/research-agent.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/doc-architecture.spec.md" -o specs/doc-architecture.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/readme-structure.spec.md" -o specs/readme-structure.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/answer-capture.spec.md" -o specs/answer-capture.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/response-capture.spec.md" -o specs/response-capture.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/author-agent.spec.md" -o specs/author-agent.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/advisor-agent.spec.md" -o specs/advisor-agent.spec.md
 ```
@@ -286,23 +287,23 @@ Display the full spec list from the manifest, grouped by category if the manifes
 ├────┬──────────────────────────┬──────────┬──────────────────────┤
 │  # │ Spec ID                  │ Version  │ Description          │
 ├────┼──────────────────────────┼──────────┼──────────────────────┤
-│  1 │ grounding-rules          │ v2.0.0   │ Source hierarchy and │
+│  1 │ grounding-rules          │ v2.1.0   │ Source hierarchy and │
 │    │                          │          │ contradiction detect. │
-│  2 │ research-conventions     │ v2.0.0   │ YAML frontmatter and │
+│  2 │ research-conventions     │ v2.1.0   │ YAML frontmatter and │
 │    │                          │          │ priority scale        │
-│  3 │ wizard-agent             │ v2.0.0   │ Interactive wizard   │
+│  3 │ wizard-agent             │ v1.1.0   │ Interactive wizard   │
 │    │                          │          │ pattern               │
 │  4 │ research-agent           │ v2.0.0   │ Research agent with  │
 │    │                          │          │ grounding             │
 │  5 │ doc-architecture         │ v2.0.0   │ Three-layer docs     │
 │    │                          │          │ architecture          │
-│  6 │ readme-structure         │ v2.0.0   │ README layout        │
+│  6 │ readme-structure         │ v1.0.0   │ README layout        │
 │    │                          │          │ conventions           │
-│  7 │ answer-capture           │ v2.0.0   │ Capture folder       │
+│  7 │ response-capture         │ v2.1.0   │ Capture folder       │
 │    │                          │          │ layout and metadata   │
 │  8 │ author-agent             │ v2.0.0   │ Research-curator     │
 │    │                          │          │ agent pattern         │
-│  9 │ advisor-agent            │ v2.0.0   │ Grounded Q&A advisor │
+│  9 │ advisor-agent            │ v2.1.0   │ Grounded Q&A advisor │
 │    │                          │          │ agent                 │
 └────┴──────────────────────────┴──────────┴──────────────────────┘
 
@@ -343,12 +344,14 @@ After resolving the final set of specs (from the prompt or from the guided flow)
 
 ```
 📋 You selected 3 specs to import:
-   ✔  1. grounding-rules      (v2.0.0)
-   ✔  5. doc-architecture     (v2.0.0)
-   ✔  6. readme-structure     (v2.0.0)
+   ✔  4. research-agent        (v2.0.0)
+   ✔  5. doc-architecture      (v2.0.0)
+   ✔  6. readme-structure      (v1.0.0)
 
    Dependencies auto-added:
-   ➕  2. research-conventions (v2.0.0)  ← required by grounding-rules
+   ➕  1. grounding-rules       (v2.1.0)  ← required by research-agent
+   ➕  2. research-conventions  (v2.1.0)  ← required by research-agent
+   ➕  7. response-capture      (v2.1.0)  ← required by research-agent
 ```
 
 Use `ask_user` to confirm: "Proceed with these specs? (yes / no / change)"
@@ -397,11 +400,14 @@ Based on the selected specs, generate or update:
 | Spec | Generated File(s) |
 |---|---|
 | `grounding-rules` | `.github/copilot-instructions.md` (canonical sources section) |
-| `research-conventions` | `.github/agents/Entra-Curator.agent.md` scaffold |
+| `research-conventions` | `.github/copilot-instructions.md` (notes frontmatter & priority-scale conventions) |
 | `research-agent` | `.github/agents/<name>.agent.md` scaffold |
+| `author-agent` | `.github/agents/<name>.agent.md` scaffold |
+| `advisor-agent` | `.github/agents/<name>.agent.md` scaffold |
 | `wizard-agent` | `.github/agents/<name>.agent.md` scaffold |
-| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), create `notes/`, `docs/` folders |
+| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), create `<KNOWLEDGE_FOLDER>/`, `<SYNTHESIZED_DOCS_FOLDER>/` folders |
 | `readme-structure` | `README.md` scaffold with TOC, agent table, collapsible structure |
+| `response-capture` | `.github/copilot-instructions.md` (response-capture section) |
 | *(always)* | `docs/spec-driven-development.md` — lightweight framework guide (see below) |
 | *(always)* | `.github/agents/Spec-Importer.agent.md`, `Spec-Drift.agent.md` — latest meta-agents from spec repo (see below) |
 
@@ -476,7 +482,7 @@ Copy these files (if they exist in the spec repo):
 2. `Spec-Drift.agent.md` — always copy (the project needs drift detection)
 3. `Spec-Exporter.agent.md` — **only copy if it already exists in the target project** (most projects don't need the exporter; don't add it automatically)
 
-**Before overwriting**, compare the existing agent file against the spec repo version. If they differ, show the diff and note that this is an upgrade. If they are identical, skip silently.
+**Before overwriting**, compare the existing agent file's frontmatter `version` against the manifest's `meta_agents:` version for that agent (fall back to a content diff if either side has no `version`). If the local version is older or missing, show the diff and note that this is an upgrade. If they are identical, skip silently.
 
 ### Step 6 — Save Config
 
